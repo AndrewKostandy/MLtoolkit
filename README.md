@@ -36,6 +36,25 @@ library(MLtoolkit)
 #> 
 #>     intersect, setdiff, setequal, union
 #> Loading required package: purrr
+#> Loading required package: caret
+#> Loading required package: lattice
+#> 
+#> Attaching package: 'caret'
+#> The following object is masked from 'package:purrr':
+#> 
+#>     lift
+#> Loading required package: InformationValue
+#> 
+#> Attaching package: 'InformationValue'
+#> The following objects are masked from 'package:caret':
+#> 
+#>     confusionMatrix, precision, sensitivity, specificity
+#> Loading required package: mltools
+#> 
+#> Attaching package: 'mltools'
+#> The following object is masked from 'package:tidyr':
+#> 
+#>     replace_na
 theme_set(theme_minimal())
 
 mydata <- tibble(a=(c(10,11,12,seq(70,90,2),50,60)),

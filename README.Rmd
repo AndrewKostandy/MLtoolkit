@@ -20,7 +20,7 @@ MLtoolkit is an R package with miscellaneous functions.
 
 You can install MLtoolkit from GitHub with:
 
-```{r, warning=FALSE, message=FALSE}
+```{r, eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("AndrewKostandy/MLtoolkit")
 ```

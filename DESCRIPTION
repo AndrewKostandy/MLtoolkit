@@ -7,11 +7,12 @@ Maintainer: Andrew Kostandy <andrew.kostandy@gmail.com>
 Description: Contains functions to help with machine learning tasks.
 Depends:
     R (>= 3.5.0),
+    mltools (>= 0.3.5),
+    InformationValue (>= 1.2.3)
     dplyr (>= 0.7.8),
     purrr (>= 0.2.5),
-    caret (>= 6.0-81),
-    InformationValue (>= 1.2.3),
-    mltools (>= 0.3.5)
+    caret (>= 6.0-81)
+    
 License: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 Encoding: UTF-8
 LazyData: true

@@ -140,7 +140,7 @@ The plot_mod_results() function can alternatively take a list of caret model obj
 # plot_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
 ```
 
-## Data Truncation Example
+## Example: Data Truncation
 
 This is a basic example which shows the truncate_data() function in the package.
 

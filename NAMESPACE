@@ -4,4 +4,3 @@ exportPattern("^[[:alpha:]]+")
 #' @import InformationValue
 #' @import tidyverse
 #' @import caret
-

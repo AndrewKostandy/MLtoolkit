@@ -27,6 +27,8 @@ devtools::install_github("AndrewKostandy/MLtoolkit")
 
 ## Example: Comparing Model Performance
 
+The two following sections demonstrate how to compute performance metrics for caret model objects across resamples for binary classification and regression plotting those results in each case.
+
 ### Binary Classification
 
 ```{r, message=FALSE}
@@ -76,14 +78,14 @@ compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 The all_mod_results() function works with multiple caret model objects and computes their model performance results:
 
 ```{r}
-mods_results <- all_mod_results(list(glm_fit_1, glm_fit_2, glm_fit_3), c("GLM 1", "GLM 2", "GLM 3"))
-mods_results %>% head()
+mod_results <- all_mod_results(list(glm_fit_1, glm_fit_2, glm_fit_3), c("GLM 1", "GLM 2", "GLM 3"))
+mod_results %>% head()
 ```
 
 The plot_mod_results() function produces a box plot of the models performance results:
 
 ```{r, fig.height=8}
-plot_mod_results(mods_results, plot_columns = 3)
+plot_mod_results(mod_results, plot_columns = 3)
 ```
 
 The plot_mod_results() function can alternatively take a list of caret model objects and a list or vector of model names:
@@ -122,14 +124,14 @@ compute_mod_results(lm_fit_1, "LM 1") %>% head()
 The all_mod_results() function works with multiple caret model objects and computes their model performance results:
 
 ```{r}
-mods_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
-mods_results %>% head()
+mod_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
+mod_results %>% head()
 ```
 
 The plot_mod_results() function produces a box plot of the models performance results:
 
 ```{r}
-plot_mod_results(mods_results)
+plot_mod_results(mod_results)
 ```
 
 The plot_mod_results() function can alternatively take a list of caret model objects and a list or vector of model names:

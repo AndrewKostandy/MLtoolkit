@@ -56,8 +56,6 @@ Andrew Kostandy (andrew.kostandy@gmail.com)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-library(caret)
-
 train_ctrl <- trainControl(method = "repeatedcv",
                            number = 10,
                            repeats = 4,

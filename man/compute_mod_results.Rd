@@ -69,6 +69,6 @@ lm_fit_1 <- train(Sepal.Length ~ Sepal.Width, data = iris,
                   metric = "RMSE",
                   trControl = train_ctrl)
 
-compute_mod_results(lm_fit_1, "My first model")
+compute_mod_results(lm_fit_1, "LM 1")
 }
 _______________________________________________________________________

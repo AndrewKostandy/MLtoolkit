@@ -11,7 +11,6 @@ Depends:
     InformationValue (>= 1.2.3),
     tidyverse (>= 1.2.1),
     caret (>= 6.0-81)
-    
 License: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 Encoding: UTF-8
 LazyData: true

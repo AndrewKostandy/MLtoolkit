@@ -32,8 +32,6 @@ This is a basic example which shows the truncate_data() function in the package.
 Below is a dataframe with numeric columns including univariate outliers:
 
 ```{r example}
-library(ggplot2)
-library(tidyr)
 library(MLtoolkit)
 theme_set(theme_minimal())
 

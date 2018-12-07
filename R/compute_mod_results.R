@@ -4,18 +4,18 @@ library(InformationValue)
 library(mltools)
 library(caret)
 
-create_mod_results <- function(mod_object, mod_name = NULL){
-  
+compute_mod_results <- function(mod_object, mod_name = NULL){
+
   if (is.null(mod_name))
     stop("Please provide a name for the model.")
-  
+
   results <- mod_object$pred
-  
+
   if (is.factor(results$obs)){
-    
+
     colnames(results)[5] <- "Y"
     results <- mutate(results, actual = as.numeric(obs), actual = ifelse(actual == 2, 0, actual))
-    
+
     results <- results %>% group_by(Resample) %>%
       summarize(ROC = InformationValue::AUROC(actual, Y),
                 Sensitivity = InformationValue::sensitivity(actuals = actual, predictedScores = Y),
@@ -30,17 +30,17 @@ create_mod_results <- function(mod_object, mod_name = NULL){
                 `Somer's D`= InformationValue::somersD(actuals = actual, predictedScores = Y),
                 `KS Statistic` = InformationValue::ks_stat(actuals = actual, predictedScores = Y))
   }
-  
+
   else{
-    
+
     results <- results %>% group_by(Resample) %>%
       summarize(RMSE = caret::RMSE(pred = pred, obs = obs),
                 R2 = caret::R2(pred = pred, obs = obs),
                 MAE = caret::MAE(pred = pred, obs = obs),
                 MAPE = mean(abs((obs - pred)/obs))*100)
   }
-  
+
   results <-  results %>% mutate(Model = mod_name) %>% select(Model, Resample, everything())
-  
+
   return(results)
 }

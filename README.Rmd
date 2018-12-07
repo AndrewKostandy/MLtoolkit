@@ -164,15 +164,33 @@ The truncate_data() function will truncate univariate outliers as follows:
 After truncation, this is what the data will look like:
 
 ```{r example_continued}
-mydata2 <- truncate_data(mydata)
-ggplot(gather(mydata2, key, value), aes(key, value)) + geom_boxplot()
+mydata_truncated <- truncate_data(mydata)
+ggplot(gather(mydata_truncated, key, value), aes(key, value)) + geom_boxplot()
 ```
 
-Note new data (eg. test data), can be truncated using the training data quartile values:
+Note that new data (eg. test data), can be truncated using the training data quartile values:
+
+Let's make some test data and draw a box plot:
 
 ```{r}
+mydata_test <- tibble(a=(c(0,11,12, seq(70,90,2), 50, 110)),
+                      b=(c(-10,20,25, seq(20,30,1), 50, 60)),
+                      c=(c(25,11,12, seq(25,35,1), 104, 90)),
+                      d=(c(-5,-12,12, seq(15,20,0.5), 50, 100)))
 
+ggplot(gather(mydata_test, key, value), aes(key, value)) + geom_boxplot()
 ```
 
+Let's get the quartiles of our original data:
 
+```{r}
+mydata_quartiles <- get_quartiles(mydata)
+mydata_quartiles
+```
 
+Let's use the quartiles of our original data to truncate the test data and plot the test data after truncation:
+
+```{r}
+mydata_test_truncated <- truncate_data(mydata_test, mydata_quartiles)
+ggplot(gather(mydata_test_truncated, key, value), aes(key, value)) + geom_boxplot()
+```

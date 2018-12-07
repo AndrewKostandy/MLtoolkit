@@ -65,12 +65,12 @@ compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> # A tibble: 6 x 14
 #>   Model Resample   ROC Sensitivity Specificity Precision Accuracy
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-#> 1 GLM 1 Fold01.… 0.981       0.958       0.957     0.92     0.957
-#> 2 GLM 1 Fold01.… 0.999       0.958       1         1        0.986
-#> 3 GLM 1 Fold01.… 0.984       0.917       0.978     0.957    0.957
-#> 4 GLM 1 Fold01.… 0.964       0.958       0.935     0.885    0.943
-#> 5 GLM 1 Fold02.… 0.967       0.8         0.978     0.952    0.914
-#> 6 GLM 1 Fold02.… 0.989       0.833       0.978     0.952    0.929
+#> 1 GLM 1 Fold01.… 0.989       0.875       0.957     0.913    0.929
+#> 2 GLM 1 Fold01.… 0.964       0.917       0.913     0.846    0.914
+#> 3 GLM 1 Fold01.… 0.970       0.917       0.978     0.957    0.957
+#> 4 GLM 1 Fold01.… 0.976       0.875       0.957     0.913    0.929
+#> 5 GLM 1 Fold02.… 0.993       0.875       0.978     0.955    0.943
+#> 6 GLM 1 Fold02.… 0.984       1           0.978     0.96     0.986
 #> # ... with 7 more variables: `Cohen's Kappa` <dbl>, `F1 Score` <dbl>,
 #> #   `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>, Discordance <dbl>,
 #> #   `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -84,12 +84,12 @@ mods_results %>% head()
 #> # A tibble: 6 x 14
 #>   Model Resample   ROC Sensitivity Specificity Precision Accuracy
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-#> 1 GLM 1 Fold01.… 0.981       0.958       0.957     0.92     0.957
-#> 2 GLM 1 Fold01.… 0.999       0.958       1         1        0.986
-#> 3 GLM 1 Fold01.… 0.984       0.917       0.978     0.957    0.957
-#> 4 GLM 1 Fold01.… 0.964       0.958       0.935     0.885    0.943
-#> 5 GLM 1 Fold02.… 0.967       0.8         0.978     0.952    0.914
-#> 6 GLM 1 Fold02.… 0.989       0.833       0.978     0.952    0.929
+#> 1 GLM 1 Fold01.… 0.989       0.875       0.957     0.913    0.929
+#> 2 GLM 1 Fold01.… 0.964       0.917       0.913     0.846    0.914
+#> 3 GLM 1 Fold01.… 0.970       0.917       0.978     0.957    0.957
+#> 4 GLM 1 Fold01.… 0.976       0.875       0.957     0.913    0.929
+#> 5 GLM 1 Fold02.… 0.993       0.875       0.978     0.955    0.943
+#> 6 GLM 1 Fold02.… 0.984       1           0.978     0.96     0.986
 #> # ... with 7 more variables: `Cohen's Kappa` <dbl>, `F1 Score` <dbl>,
 #> #   `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>, Discordance <dbl>,
 #> #   `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -135,14 +135,14 @@ The compute\_mod\_results() function works with a single caret model object and 
 ``` r
 compute_mod_results(lm_fit_1, "LM 1") %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE       R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>    <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.783 0.0564   0.637 10.9 
-#> 2 LM 1  Fold01.Rep2 0.968 0.262    0.845 14.3 
-#> 3 LM 1  Fold01.Rep3 0.688 0.000850 0.582  9.98
-#> 4 LM 1  Fold01.Rep4 0.677 0.0242   0.593 10.2 
-#> 5 LM 1  Fold02.Rep1 0.907 0.00114  0.774 13.0 
-#> 6 LM 1  Fold02.Rep2 0.796 0.0401   0.662 11.3
+#>   Model Resample     RMSE      R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>   <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.859 0.0139  0.671 11.5 
+#> 2 LM 1  Fold01.Rep2 0.909 0.00499 0.740 12.5 
+#> 3 LM 1  Fold01.Rep3 0.775 0.00182 0.641 11.4 
+#> 4 LM 1  Fold01.Rep4 0.833 0.0842  0.691 12.0 
+#> 5 LM 1  Fold02.Rep1 0.833 0.0519  0.694 11.8 
+#> 6 LM 1  Fold02.Rep2 0.643 0.132   0.530  9.71
 ```
 
 The all\_mod\_results() function works with multiple caret model objects and computes their model performance results:
@@ -151,14 +151,14 @@ The all\_mod\_results() function works with multiple caret model objects and com
 mods_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
 mods_results %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE       R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>    <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.783 0.0564   0.637 10.9 
-#> 2 LM 1  Fold01.Rep2 0.968 0.262    0.845 14.3 
-#> 3 LM 1  Fold01.Rep3 0.688 0.000850 0.582  9.98
-#> 4 LM 1  Fold01.Rep4 0.677 0.0242   0.593 10.2 
-#> 5 LM 1  Fold02.Rep1 0.907 0.00114  0.774 13.0 
-#> 6 LM 1  Fold02.Rep2 0.796 0.0401   0.662 11.3
+#>   Model Resample     RMSE      R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>   <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.859 0.0139  0.671 11.5 
+#> 2 LM 1  Fold01.Rep2 0.909 0.00499 0.740 12.5 
+#> 3 LM 1  Fold01.Rep3 0.775 0.00182 0.641 11.4 
+#> 4 LM 1  Fold01.Rep4 0.833 0.0842  0.691 12.0 
+#> 5 LM 1  Fold02.Rep1 0.833 0.0519  0.694 11.8 
+#> 6 LM 1  Fold02.Rep2 0.643 0.132   0.530  9.71
 ```
 
 The plot\_mod\_results() function produces a box plot of the models performance results:
@@ -204,10 +204,46 @@ The truncate\_data() function will truncate univariate outliers as follows:
 After truncation, this is what the data will look like:
 
 ``` r
-mydata2 <- truncate_data(mydata)
-ggplot(gather(mydata2, key, value), aes(key, value)) + geom_boxplot()
+mydata_truncated <- truncate_data(mydata)
+ggplot(gather(mydata_truncated, key, value), aes(key, value)) + geom_boxplot()
 ```
 
 <img src="man/figures/README-example_continued-1.png" width="100%" />
 
-Note new data (eg. test data), can be truncated using the training data quartile values:
+Note that new data (eg. test data), can be truncated using the training data quartile values:
+
+Let's make some test data and draw a box plot:
+
+``` r
+mydata_test <- tibble(a=(c(0,11,12, seq(70,90,2), 50, 110)),
+                      b=(c(-10,20,25, seq(20,30,1), 50, 60)),
+                      c=(c(25,11,12, seq(25,35,1), 104, 90)),
+                      d=(c(-5,-12,12, seq(15,20,0.5), 50, 100)))
+
+ggplot(gather(mydata_test, key, value), aes(key, value)) + geom_boxplot()
+```
+
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
+
+Let's get the quartiles of our original data:
+
+``` r
+mydata_quartiles <- get_quartiles(mydata)
+mydata_quartiles
+#> # A tibble: 4 x 5
+#>   Key            a     b     c     d
+#>   <chr>      <dbl> <dbl> <dbl> <dbl>
+#> 1 Quartile 1  57.5  11.8  30.8 20.4 
+#> 2 Quartile 2  75    14.5  34.5 22.2 
+#> 3 Quartile 3  82.5  18.2  38.2 24.1 
+#> 4 IQR         25     6.5   7.5  3.75
+```
+
+Let's use the quartiles of our original data to truncate the test data and plot the test data after truncation:
+
+``` r
+mydata_test_truncated <- truncate_data(mydata_test, mydata_quartiles)
+ggplot(gather(mydata_test_truncated, key, value), aes(key, value)) + geom_boxplot()
+```
+
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />

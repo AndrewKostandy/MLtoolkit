@@ -8,13 +8,11 @@ MLtoolkit is an R package with miscellaneous functions.
 Installation
 ------------
 
-You can install AKmisc from GitHub with:
+You can install MLtoolkit from GitHub with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("AndrewKostandy/MLtoolkit")
-#> Skipping install of 'MLtoolkit' from a github remote, the SHA1 (a3bb9c34) has not changed since last install.
-#>   Use `force = TRUE` to force installation
+# devtools::install_github("AndrewKostandy/MLtoolkit")
 ```
 
 Example

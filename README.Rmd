@@ -18,11 +18,11 @@ MLtoolkit is an R package with miscellaneous functions.
 
 ## Installation
 
-You can install AKmisc from GitHub with:
+You can install MLtoolkit from GitHub with:
 
 ```{r}
 # install.packages("devtools")
-devtools::install_github("AndrewKostandy/MLtoolkit")
+# devtools::install_github("AndrewKostandy/MLtoolkit")
 ```
 
 ## Example

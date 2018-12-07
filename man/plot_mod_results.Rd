@@ -32,7 +32,11 @@ Defaults to NULL. A vector or list of names for the models. This argument is req
 }
 \item{plot_columns}{
 %%     ~~Describe \code{x} here~~
-Defaults to 3. An integer providing the number of facet column to have in the plot.
+Defaults to NULL. An integer providing the number of facet columns to have in the plot. NULL value would use the default settings of ggplot2's facet_wrap() function.
+}
+\item{plot_rows}{
+%%     ~~Describe \code{x} here~~
+Defaults to NULL. An integer providing the number of facet rows to have in the plot. NULL value would use the default settings of ggplot2's facet_wrap() function.
 }
 }
 \details{

@@ -72,7 +72,7 @@ lm_fit_2 <- train(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris,
                   metric = "RMSE",
                   trControl = train_ctrl)
 
-lm_fit_1 <- train(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = iris,
+lm_fit_3 <- train(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = iris,
                   method = "lm",
                   metric = "RMSE",
                   trControl = train_ctrl)

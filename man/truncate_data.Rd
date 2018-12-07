@@ -47,7 +47,7 @@ Quartiles provided need to be in a dataframe where for each numeric variable in 
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
-Returns a tibble containing the numeric columns of the passed data with truncated values.
+Returns a dataframe containing the numeric columns of the passed data with truncated values.
 }
 \references{
 %% ~put references to the literature/web site here ~

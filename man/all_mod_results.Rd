@@ -36,7 +36,7 @@ A vector or list of names for the models.
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
-Returns a tibble with the performance metrics of the model objects across resamples.
+Returns a dataframe with the performance metrics of the model objects across resamples.
 }
 \references{
 %% ~put references to the literature/web site here ~

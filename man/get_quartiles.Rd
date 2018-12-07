@@ -32,7 +32,7 @@ The dataframe you want to get the quartiles of.
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
-Returns a tibble with the three quartile values of each numeric column in the data and the interquartile range values.
+Returns a dataframe with the three quartile values of each numeric column in the data and the interquartile range values.
 }
 \references{
 %% ~put references to the literature/web site here ~

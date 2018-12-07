@@ -2,7 +2,6 @@ exportPattern("^[[:alpha:]]+")
 
 #' @import mltools
 #' @import InformationValue
-#' @import dplyr
-#' @import purrr
+#' @import tidyverse
 #' @import caret
 

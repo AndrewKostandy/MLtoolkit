@@ -1,5 +1,4 @@
-library(dplyr)
-library(purrr)
+library(tidyverse)
 
 get_quartiles <- function(data){
 

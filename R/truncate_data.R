@@ -1,5 +1,4 @@
-library(dplyr)
-library(purrr)
+library(tidyverse)
 
 truncate_data <- function(data, quartiles=NULL){
 

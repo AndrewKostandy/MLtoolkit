@@ -26,6 +26,13 @@ Below is a dataframe with numeric columns including univariate outliers:
 library(ggplot2)
 library(tidyr)
 library(MLtoolkit)
+#> Loading required package: mltools
+#> 
+#> Attaching package: 'mltools'
+#> The following object is masked from 'package:tidyr':
+#> 
+#>     replace_na
+#> Loading required package: InformationValue
 #> Loading required package: dplyr
 #> 
 #> Attaching package: 'dplyr'
@@ -43,18 +50,9 @@ library(MLtoolkit)
 #> The following object is masked from 'package:purrr':
 #> 
 #>     lift
-#> Loading required package: InformationValue
-#> 
-#> Attaching package: 'InformationValue'
-#> The following objects are masked from 'package:caret':
+#> The following objects are masked from 'package:InformationValue':
 #> 
 #>     confusionMatrix, precision, sensitivity, specificity
-#> Loading required package: mltools
-#> 
-#> Attaching package: 'mltools'
-#> The following object is masked from 'package:tidyr':
-#> 
-#>     replace_na
 theme_set(theme_minimal())
 
 mydata <- tibble(a=(c(10,11,12,seq(70,90,2),50,60)),

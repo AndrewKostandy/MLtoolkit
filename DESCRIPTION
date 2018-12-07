@@ -9,8 +9,7 @@ Depends:
     R (>= 3.5.0),
     mltools (>= 0.3.5),
     InformationValue (>= 1.2.3),
-    dplyr (>= 0.7.8),
-    purrr (>= 0.2.5),
+    tidyverse (>= 1.2.1),
     caret (>= 6.0-81)
     
 License: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007

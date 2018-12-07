@@ -1,7 +1,6 @@
-library(dplyr)
-library(purrr)
-library(InformationValue)
 library(mltools)
+library(InformationValue)
+library(tidyverse)
 library(caret)
 
 compute_mod_results <- function(mod_object, mod_name = NULL){

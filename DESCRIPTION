@@ -1,0 +1,14 @@
+Package: MLtoolkit
+Type: Package
+Title: Miscellaneous Functions
+Version: 0.1.0
+Author: Andrew Kostandy (andrew.kostandy@gmail.com)
+Maintainer: Andrew Kostandy <andrew.kostandy@gmail.com>
+Description: Contains miscellaneous functions.
+Depends:
+    R (>= 3.5.0),
+    dplyr (>= 0.7.8),
+    purrr (>= 0.2.5)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true

@@ -12,7 +12,7 @@ You can install MLtoolkit from GitHub with:
 
 ``` r
 # install.packages("devtools")
-# devtools::install_github("AndrewKostandy/MLtoolkit")
+devtools::install_github("AndrewKostandy/MLtoolkit")
 ```
 
 Example

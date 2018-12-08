@@ -1,7 +1,7 @@
 \name{all_mod_results}
 \alias{all_mod_results}
 \title{
-Compute Performance Metrics of Multiple Caret Model Object Across Resamples
+Compute Performance Metrics of Multiple Caret Model Objects Across Resamples
 }
 \description{
 This function allows you to compute various types of performance metrics across resamples for multiple binary classification or regression models from the caret package.

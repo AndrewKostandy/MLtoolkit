@@ -34,7 +34,7 @@ ggplot2::theme_set(ggplot2::theme_light())
 ## Currently Implemented Functions:
 
 - compute_mod_results(): Computes performance metrics of a single caret model object across resamples.
-- all_mod_results(): Computes performance metrics of multiple Ccaret model object across resamples.
+- all_mod_results(): Computes performance metrics of multiple caret model objects across resamples.
 - plot_mod_results(): Produces a box plot with the performance metrics of multiple caret model object across resamples.
 - get_quartiles(): Gets quartiles of a dataframe's numeric columns.
 - truncate_data(): Truncates a dataframe's numeric columns.
@@ -167,6 +167,10 @@ invisible(dev.off())
 ```
 
 <p align="center"><img src="man/figures/README-regression_1.svg" width="1000px"></p>\newline
+
+### References
+
+The "InformationValue", "caret", and "mltools" packages were used to compute many of the performance metrics.
 
 ## Example: Data Truncation
 

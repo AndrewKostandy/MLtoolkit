@@ -19,7 +19,7 @@ Currently Implemented Functions:
 --------------------------------
 
 -   compute\_mod\_results(): Computes performance metrics of a single caret model object across resamples.
--   all\_mod\_results(): Computes performance metrics of multiple Ccaret model object across resamples.
+-   all\_mod\_results(): Computes performance metrics of multiple caret model objects across resamples.
 -   plot\_mod\_results(): Produces a box plot with the performance metrics of multiple caret model object across resamples.
 -   get\_quartiles(): Gets quartiles of a dataframe's numeric columns.
 -   truncate\_data(): Truncates a dataframe's numeric columns.
@@ -78,12 +78,12 @@ compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> # A tibble: 6 x 14
 #>   Model Resample   ROC Sensitivity Specificity Precision Accuracy
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-#> 1 GLM 1 Fold01.… 0.978       0.917       0.957     0.917    0.943
-#> 2 GLM 1 Fold01.… 0.971       0.917       1         1        0.971
-#> 3 GLM 1 Fold01.… 0.999       1           0.935     0.889    0.957
-#> 4 GLM 1 Fold01.… 0.993       0.833       1         1        0.943
-#> 5 GLM 1 Fold02.… 0.996       0.917       1         1        0.971
-#> 6 GLM 1 Fold02.… 0.993       0.917       0.957     0.917    0.943
+#> 1 GLM 1 Fold01.… 0.992       0.96        0.978     0.96     0.972
+#> 2 GLM 1 Fold01.… 0.996       0.958       0.957     0.92     0.957
+#> 3 GLM 1 Fold01.… 0.994       0.917       0.978     0.957    0.957
+#> 4 GLM 1 Fold01.… 0.975       0.875       0.935     0.875    0.914
+#> 5 GLM 1 Fold02.… 0.981       0.917       0.978     0.957    0.957
+#> 6 GLM 1 Fold02.… 1           1           1         1        1    
 #> # ... with 7 more variables: `Cohen's Kappa` <dbl>, `F1 Score` <dbl>,
 #> #   `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>, Discordance <dbl>,
 #> #   `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -97,12 +97,12 @@ mod_results %>% head()
 #> # A tibble: 6 x 14
 #>   Model Resample   ROC Sensitivity Specificity Precision Accuracy
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-#> 1 GLM 1 Fold01.… 0.978       0.917       0.957     0.917    0.943
-#> 2 GLM 1 Fold01.… 0.971       0.917       1         1        0.971
-#> 3 GLM 1 Fold01.… 0.999       1           0.935     0.889    0.957
-#> 4 GLM 1 Fold01.… 0.993       0.833       1         1        0.943
-#> 5 GLM 1 Fold02.… 0.996       0.917       1         1        0.971
-#> 6 GLM 1 Fold02.… 0.993       0.917       0.957     0.917    0.943
+#> 1 GLM 1 Fold01.… 0.992       0.96        0.978     0.96     0.972
+#> 2 GLM 1 Fold01.… 0.996       0.958       0.957     0.92     0.957
+#> 3 GLM 1 Fold01.… 0.994       0.917       0.978     0.957    0.957
+#> 4 GLM 1 Fold01.… 0.975       0.875       0.935     0.875    0.914
+#> 5 GLM 1 Fold02.… 0.981       0.917       0.978     0.957    0.957
+#> 6 GLM 1 Fold02.… 1           1           1         1        1    
 #> # ... with 7 more variables: `Cohen's Kappa` <dbl>, `F1 Score` <dbl>,
 #> #   `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>, Discordance <dbl>,
 #> #   `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -152,14 +152,14 @@ The compute\_mod\_results() function works with a single caret model object and 
 ``` r
 compute_mod_results(lm_fit_1, "LM 1") %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE      R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>   <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.782 0.0216  0.631 10.9 
-#> 2 LM 1  Fold01.Rep2 0.778 0.189   0.674 12.1 
-#> 3 LM 1  Fold01.Rep3 0.867 0.0271  0.703 12.1 
-#> 4 LM 1  Fold01.Rep4 0.635 0.161   0.558  9.84
-#> 5 LM 1  Fold02.Rep1 0.787 0.00317 0.681 12.0 
-#> 6 LM 1  Fold02.Rep2 0.713 0.00959 0.623 10.7
+#>   Model Resample     RMSE       R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>    <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.779 0.000859 0.600  10.7
+#> 2 LM 1  Fold01.Rep2 0.874 0.0811   0.723  12.4
+#> 3 LM 1  Fold01.Rep3 0.914 0.0650   0.715  11.7
+#> 4 LM 1  Fold01.Rep4 0.813 0.0242   0.700  13.0
+#> 5 LM 1  Fold02.Rep1 1.04  0.0190   0.847  14.0
+#> 6 LM 1  Fold02.Rep2 0.739 0.0236   0.624  10.9
 ```
 
 The all\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
@@ -168,14 +168,14 @@ The all\_mod\_results() function works with multiple caret model objects and com
 mod_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
 mod_results %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE      R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>   <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.782 0.0216  0.631 10.9 
-#> 2 LM 1  Fold01.Rep2 0.778 0.189   0.674 12.1 
-#> 3 LM 1  Fold01.Rep3 0.867 0.0271  0.703 12.1 
-#> 4 LM 1  Fold01.Rep4 0.635 0.161   0.558  9.84
-#> 5 LM 1  Fold02.Rep1 0.787 0.00317 0.681 12.0 
-#> 6 LM 1  Fold02.Rep2 0.713 0.00959 0.623 10.7
+#>   Model Resample     RMSE       R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>    <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.779 0.000859 0.600  10.7
+#> 2 LM 1  Fold01.Rep2 0.874 0.0811   0.723  12.4
+#> 3 LM 1  Fold01.Rep3 0.914 0.0650   0.715  11.7
+#> 4 LM 1  Fold01.Rep4 0.813 0.0242   0.700  13.0
+#> 5 LM 1  Fold02.Rep1 1.04  0.0190   0.847  14.0
+#> 6 LM 1  Fold02.Rep2 0.739 0.0236   0.624  10.9
 ```
 
 The plot\_mod\_results() function produces a box plot of the models performance metrics:
@@ -187,6 +187,10 @@ plot_mod_results(mod_results)
 <p align="center">
 <img src="man/figures/README-regression_1.svg" width="1000px">
 </p>
+
+### References
+
+The "InformationValue", "caret", and "mltools" packages were used to compute many of the performance metrics.
 
 Example: Data Truncation
 ------------------------

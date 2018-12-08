@@ -185,7 +185,7 @@ ggplot(gather(mydata, key, value), aes(key, value)) + geom_boxplot()
 dev.off()
 ```
 
-<p align="center"><img src="man/figures/README-truncation_1.svg" width="1000px"></p>
+<p align="center"><img src="man/figures/README-truncation_1.svg" width="1000px"></p>\newline
 
 The truncate_data() function will truncate univariate outliers as follows:
 

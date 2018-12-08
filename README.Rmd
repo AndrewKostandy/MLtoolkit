@@ -25,6 +25,10 @@ You can install MLtoolkit from GitHub using:
 devtools::install_github("AndrewKostandy/MLtoolkit")
 ```
 
+```{r, echo=FALSE}
+library(svglite)
+```
+
 ## Example: Comparing Model Performance
 
 The two following sections demonstrate how to compute performance metrics for caret model objects across resamples for binary classification and regression plotting those results in each case.
@@ -90,6 +94,12 @@ The plot_mod_results() function produces a box plot of the models performance me
 plot_mod_results(mod_results, plot_columns = 3)
 ```
 
+```{r, echo=FALSE, eval=FALSE}
+svglite("man/figures/README-binary_classification_1.svg", height = 8)
+plot_mod_results(mod_results, plot_columns = 3)
+dev.off()
+```
+
 <p align="center"><img src="man/figures/README-binary_classification_1.svg" width="1000px"></p>
 
 The plot_mod_results() function can alternatively take a list of caret model objects and a list or vector of model names:
@@ -136,9 +146,17 @@ mod_results %>% head()
 
 The plot_mod_results() function produces a box plot of the models performance metrics:
 
-```{r}
+```{r, eval=FALSE}
 plot_mod_results(mod_results)
 ```
+
+```{r, echo=FALSE, eval=FALSE}
+svglite("man/figures/README-regression_1.svg")
+plot_mod_results(mod_results)
+dev.off()
+```
+
+<p align="center"><img src="man/figures/README-regression_1.svg" width="1000px"></p>
 
 The plot_mod_results() function can alternatively take a list of caret model objects and a list or vector of model names:
 
@@ -159,9 +177,19 @@ mydata <- data_frame(a=(c(10,11,12,seq(70,90,2),50,60)),
                      b=(c(5,11,12,seq(10,20,1),50,60)),
                      c=(c(3,11,12,seq(30,40,1),44,80)),
                      d=(c(0,0,12,seq(20,25,0.5),50,100)))
+```
 
+```{r, eval=FALSE}
 ggplot(gather(mydata, key, value), aes(key, value)) + geom_boxplot()
 ```
+
+```{r, echo=FALSE, eval=FALSE}
+svglite("man/figures/README-truncation_1.svg")
+ggplot(gather(mydata, key, value), aes(key, value)) + geom_boxplot()
+dev.off()
+```
+
+<p align="center"><img src="man/figures/README-truncation_1.svg" width="1000px"></p>
 
 The truncate_data() function will truncate univariate outliers as follows:
 
@@ -171,10 +199,21 @@ The truncate_data() function will truncate univariate outliers as follows:
 
 After truncation, this is what the data will look like:
 
-```{r example_continued}
+```{r}
 mydata_truncated <- truncate_data(mydata)
+```
+
+```{r, eval=FALSE}
 ggplot(gather(mydata_truncated, key, value), aes(key, value)) + geom_boxplot()
 ```
+
+```{r, echo=FALSE, eval=FALSE}
+svglite("man/figures/README-truncation_2.svg")
+ggplot(gather(mydata_truncated, key, value), aes(key, value)) + geom_boxplot()
+dev.off()
+```
+
+<p align="center"><img src="man/figures/README-truncation_2.svg" width="1000px"></p>
 
 Note that new data (eg. test data), can be truncated using the training data quartile values:
 
@@ -185,9 +224,19 @@ mydata_test <- data_frame(a=(c(0,11,12, seq(70,90,2), 50, 110)),
                           b=(c(-10,20,25, seq(20,30,1), 50, 60)),
                           c=(c(25,11,12, seq(25,35,1), 104, 90)),
                           d=(c(-5,-12,12, seq(15,20,0.5), 50, 100)))
+```
 
+```{r, eval=FALSE}
 ggplot(gather(mydata_test, key, value), aes(key, value)) + geom_boxplot()
 ```
+
+```{r, echo=FALSE, eval=FALSE}
+svglite("man/figures/README-truncation_3.svg")
+ggplot(gather(mydata_test, key, value), aes(key, value)) + geom_boxplot()
+dev.off()
+```
+
+<p align="center"><img src="man/figures/README-truncation_3.svg" width="1000px"></p>
 
 Let's get the quartiles of our original data:
 
@@ -200,5 +249,16 @@ Let's use the quartiles of our original data to truncate the test data and plot 
 
 ```{r}
 mydata_test_truncated <- truncate_data(mydata_test, mydata_quartiles)
+```
+
+```{r, eval=FALSE}
 ggplot(gather(mydata_test_truncated, key, value), aes(key, value)) + geom_boxplot()
 ```
+
+```{r, echo=FALSE, eval=FALSE}
+svglite("man/figures/README-truncation_4.svg")
+ggplot(gather(mydata_test_truncated, key, value), aes(key, value)) + geom_boxplot()
+dev.off()
+```
+
+<p align="center"><img src="man/figures/README-truncation_4.svg" width="1000px"></p>

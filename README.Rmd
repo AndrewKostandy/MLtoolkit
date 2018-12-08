@@ -156,8 +156,7 @@ plot_mod_results(mod_results)
 dev.off()
 ```
 
-<p align="center"><img src="man/figures/README-regression_1.svg" width="1000px"></p>
-
+<html><p align="center"><img src="man/figures/README-regression_1.svg" width="1000px"></p></html>
 
 ## Example: Data Truncation
 

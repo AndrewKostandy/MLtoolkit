@@ -170,7 +170,7 @@ This is a basic example which shows the truncate_data() function in the package.
 
 Below is a dataframe with numeric columns including univariate outliers:
 
-```{r example}
+```{r}
 theme_set(theme_light())
 
 mydata <- data_frame(a=(c(10,11,12,seq(70,90,2),50,60)),

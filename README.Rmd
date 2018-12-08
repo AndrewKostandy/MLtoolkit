@@ -27,6 +27,8 @@ devtools::install_github("AndrewKostandy/MLtoolkit")
 
 ```{r, echo=FALSE}
 library(svglite)
+library(patchwork)
+ggplot2::theme_set(ggplot2::theme_light())
 ```
 
 ## Example: Comparing Model Performance
@@ -94,10 +96,10 @@ The plot_mod_results() function produces a box plot of the models performance me
 plot_mod_results(mod_results, plot_columns = 3)
 ```
 
-```{r, echo=FALSE, eval=FALSE}
-svglite("man/figures/README-binary_classification_1.svg", height = 8)
+```{r, echo=FALSE, fig.height=8}
+svglite("man/figures/README-binary_classification_1.svg", height = 10)
 plot_mod_results(mod_results, plot_columns = 3)
-dev.off()
+invisible(dev.off())
 ```
 
 <p align="center"><img src="man/figures/README-binary_classification_1.svg" width="1000px"></p>\newline
@@ -150,10 +152,10 @@ The plot_mod_results() function produces a box plot of the models performance me
 plot_mod_results(mod_results)
 ```
 
-```{r, echo=FALSE, eval=FALSE}
-svglite("man/figures/README-regression_1.svg")
+```{r, echo=FALSE}
+svglite("man/figures/README-regression_1.svg", height = 6)
 plot_mod_results(mod_results)
-dev.off()
+invisible(dev.off())
 ```
 
 <p align="center"><img src="man/figures/README-regression_1.svg" width="1000px"></p>\newline
@@ -165,25 +167,9 @@ This is a basic example which shows the truncate_data() function in the package.
 Below is a dataframe with numeric columns including univariate outliers:
 
 ```{r}
-theme_set(theme_light())
-
-mydata <- data_frame(a=(c(10,11,12,seq(70,90,2),50,60)),
-                     b=(c(5,11,12,seq(10,20,1),50,60)),
-                     c=(c(3,11,12,seq(30,40,1),44,80)),
-                     d=(c(0,0,12,seq(20,25,0.5),50,100)))
+mydata <- data_frame(a=c(10,11,12,seq(70,90,2),50,60),
+                     b=c(3,11,12,seq(30,40,1),44,80))
 ```
-
-```{r, eval=FALSE}
-ggplot(gather(mydata, key, value), aes(key, value)) + geom_boxplot()
-```
-
-```{r, echo=FALSE, eval=FALSE}
-svglite("man/figures/README-truncation_1.svg")
-ggplot(gather(mydata, key, value), aes(key, value)) + geom_boxplot()
-dev.off()
-```
-
-<p align="center"><img src="man/figures/README-truncation_1.svg" width="1000px"></p>\newline
 
 The truncate_data() function will truncate univariate outliers as follows:
 
@@ -191,46 +177,37 @@ The truncate_data() function will truncate univariate outliers as follows:
 
 - Values above the 3rd quartile by more than 1.5 x IQR are truncated to be exactly 1.5 x IQR above the 3rd quartile.
 
-After truncation, this is what the data will look like:
-
 ```{r}
 mydata_truncated <- truncate_data(mydata)
 ```
 
-```{r, eval=FALSE}
-ggplot(gather(mydata_truncated, key, value), aes(key, value)) + geom_boxplot()
+This is our data (training data) before and after truncation:
+
+```{r, echo=FALSE}
+g1 <- ggplot(gather(mydata, key, value), aes(key, value)) +
+  geom_boxplot() +
+  scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
+  labs(title = "Before Truncation", x = "Variable", y="Value")
+g2 <- ggplot(gather(mydata_truncated, key, value), aes(key, value)) +
+  geom_boxplot() +
+  scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
+  labs(title = "After Truncation", x = "Variable", y="Value")
+
+svglite("man/figures/README-truncation_1.svg", height = 5)
+g1 + g2 + plot_annotation(title = "Training Data", theme = theme(plot.title = element_text(size = 20)))
+invisible(dev.off())
 ```
 
-```{r, echo=FALSE, eval=FALSE}
-svglite("man/figures/README-truncation_2.svg")
-ggplot(gather(mydata_truncated, key, value), aes(key, value)) + geom_boxplot()
-dev.off()
-```
-
-<p align="center"><img src="man/figures/README-truncation_2.svg" width="1000px"></p>\newline
+<p align="center"><img src="man/figures/README-truncation_1.svg" width="1000px"></p>\newline
 
 Note that new data (eg. test data), can be truncated using the training data quartile values:
 
-Let's make some test data and draw a box plot:
+Let's make some test data:
 
 ```{r}
-mydata_test <- data_frame(a=(c(0,11,12, seq(70,90,2), 50, 110)),
-                          b=(c(-10,20,25, seq(20,30,1), 50, 60)),
-                          c=(c(25,11,12, seq(25,35,1), 104, 90)),
-                          d=(c(-5,-12,12, seq(15,20,0.5), 50, 100)))
+mydata_test <- data_frame(a=c(0,11,12, seq(70,90,2), 50, 100),
+                          b=c(25,11,12, seq(25,35,1), 100, 90))
 ```
-
-```{r, eval=FALSE}
-ggplot(gather(mydata_test, key, value), aes(key, value)) + geom_boxplot()
-```
-
-```{r, echo=FALSE, eval=FALSE}
-svglite("man/figures/README-truncation_3.svg")
-ggplot(gather(mydata_test, key, value), aes(key, value)) + geom_boxplot()
-dev.off()
-```
-
-<p align="center"><img src="man/figures/README-truncation_3.svg" width="1000px"></p>\newline
 
 Let's get the quartiles of our original data:
 
@@ -239,20 +216,27 @@ mydata_quartiles <- get_quartiles(mydata)
 mydata_quartiles
 ```
 
-Let's use the quartiles of our original data to truncate the test data and plot the test data after truncation:
+Let's use the quartiles of our original data to truncate the test data:
 
 ```{r}
 mydata_test_truncated <- truncate_data(mydata_test, mydata_quartiles)
 ```
 
-```{r, eval=FALSE}
-ggplot(gather(mydata_test_truncated, key, value), aes(key, value)) + geom_boxplot()
+Let's plot the test data before and after truncation using the quartiles of the original data:
+
+```{r, echo=FALSE}
+g1 <- ggplot(gather(mydata_test, key, value), aes(key, value)) +
+  geom_boxplot() +
+  scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
+  labs(title = "Before Truncation", x = "Variable", y="Value")
+g2 <- ggplot(gather(mydata_test_truncated, key, value), aes(key, value)) +
+  geom_boxplot() +
+  scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
+  labs(title = "After Truncation", x = "Variable", y="Value")
+
+svglite("man/figures/README-truncation_2.svg", height = 5)
+g1 + g2 + plot_annotation(title = "Test Data", theme = theme(plot.title = element_text(size = 20)))
+invisible(dev.off())
 ```
 
-```{r, echo=FALSE, eval=FALSE}
-svglite("man/figures/README-truncation_4.svg")
-ggplot(gather(mydata_test_truncated, key, value), aes(key, value)) + geom_boxplot()
-dev.off()
-```
-
-<p align="center"><img src="man/figures/README-truncation_4.svg" width="1000px"></p>\newline
+<p align="center"><img src="man/figures/README-truncation_2.svg" width="1000px"></p>\newline

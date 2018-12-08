@@ -69,12 +69,12 @@ compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> # A tibble: 6 x 14
 #>   Model Resample   ROC Sensitivity Specificity Precision Accuracy
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-#> 1 GLM 1 Fold01.… 0.988       0.792       0.978     0.95     0.914
-#> 2 GLM 1 Fold01.… 0.999       0.958       1         1        0.986
-#> 3 GLM 1 Fold01.… 0.978       0.92        0.935     0.885    0.930
-#> 4 GLM 1 Fold01.… 0.986       0.917       0.978     0.957    0.957
-#> 5 GLM 1 Fold02.… 0.987       0.84        0.978     0.955    0.929
-#> 6 GLM 1 Fold02.… 1           0.917       1         1        0.971
+#> 1 GLM 1 Fold01.… 0.973       1           0.935     0.889    0.957
+#> 2 GLM 1 Fold01.… 0.985       0.917       0.978     0.957    0.957
+#> 3 GLM 1 Fold01.… 0.993       0.917       1         1        0.971
+#> 4 GLM 1 Fold01.… 0.967       0.917       0.957     0.917    0.943
+#> 5 GLM 1 Fold02.… 0.978       0.958       0.911     0.852    0.928
+#> 6 GLM 1 Fold02.… 0.998       1           0.957     0.923    0.971
 #> # ... with 7 more variables: `Cohen's Kappa` <dbl>, `F1 Score` <dbl>,
 #> #   `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>, Discordance <dbl>,
 #> #   `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -88,12 +88,12 @@ mod_results %>% head()
 #> # A tibble: 6 x 14
 #>   Model Resample   ROC Sensitivity Specificity Precision Accuracy
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-#> 1 GLM 1 Fold01.… 0.988       0.792       0.978     0.95     0.914
-#> 2 GLM 1 Fold01.… 0.999       0.958       1         1        0.986
-#> 3 GLM 1 Fold01.… 0.978       0.92        0.935     0.885    0.930
-#> 4 GLM 1 Fold01.… 0.986       0.917       0.978     0.957    0.957
-#> 5 GLM 1 Fold02.… 0.987       0.84        0.978     0.955    0.929
-#> 6 GLM 1 Fold02.… 1           0.917       1         1        0.971
+#> 1 GLM 1 Fold01.… 0.973       1           0.935     0.889    0.957
+#> 2 GLM 1 Fold01.… 0.985       0.917       0.978     0.957    0.957
+#> 3 GLM 1 Fold01.… 0.993       0.917       1         1        0.971
+#> 4 GLM 1 Fold01.… 0.967       0.917       0.957     0.917    0.943
+#> 5 GLM 1 Fold02.… 0.978       0.958       0.911     0.852    0.928
+#> 6 GLM 1 Fold02.… 0.998       1           0.957     0.923    0.971
 #> # ... with 7 more variables: `Cohen's Kappa` <dbl>, `F1 Score` <dbl>,
 #> #   `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>, Discordance <dbl>,
 #> #   `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -143,14 +143,14 @@ The compute\_mod\_results() function works with a single caret model object and 
 ``` r
 compute_mod_results(lm_fit_1, "LM 1") %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE          R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>       <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.821 0.127       0.659  11.5
-#> 2 LM 1  Fold01.Rep2 0.745 0.000000234 0.636  11.4
-#> 3 LM 1  Fold01.Rep3 0.879 0.000619    0.747  12.8
-#> 4 LM 1  Fold01.Rep4 0.921 0.00111     0.752  12.6
-#> 5 LM 1  Fold02.Rep1 0.754 0.0650      0.652  11.1
-#> 6 LM 1  Fold02.Rep2 0.885 0.00489     0.693  11.9
+#>   Model Resample     RMSE         R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>      <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.812 0.0467     0.650  11.6
+#> 2 LM 1  Fold01.Rep2 0.806 0.113      0.658  11.3
+#> 3 LM 1  Fold01.Rep3 0.833 0.0105     0.678  11.4
+#> 4 LM 1  Fold01.Rep4 0.822 0.00143    0.704  12.5
+#> 5 LM 1  Fold02.Rep1 0.832 0.00000589 0.675  11.1
+#> 6 LM 1  Fold02.Rep2 0.741 0.0219     0.667  11.8
 ```
 
 The all\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
@@ -159,14 +159,14 @@ The all\_mod\_results() function works with multiple caret model objects and com
 mod_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
 mod_results %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE          R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>       <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.821 0.127       0.659  11.5
-#> 2 LM 1  Fold01.Rep2 0.745 0.000000234 0.636  11.4
-#> 3 LM 1  Fold01.Rep3 0.879 0.000619    0.747  12.8
-#> 4 LM 1  Fold01.Rep4 0.921 0.00111     0.752  12.6
-#> 5 LM 1  Fold02.Rep1 0.754 0.0650      0.652  11.1
-#> 6 LM 1  Fold02.Rep2 0.885 0.00489     0.693  11.9
+#>   Model Resample     RMSE         R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>      <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.812 0.0467     0.650  11.6
+#> 2 LM 1  Fold01.Rep2 0.806 0.113      0.658  11.3
+#> 3 LM 1  Fold01.Rep3 0.833 0.0105     0.678  11.4
+#> 4 LM 1  Fold01.Rep4 0.822 0.00143    0.704  12.5
+#> 5 LM 1  Fold02.Rep1 0.832 0.00000589 0.675  11.1
+#> 6 LM 1  Fold02.Rep2 0.741 0.0219     0.667  11.8
 ```
 
 The plot\_mod\_results() function produces a box plot of the models performance metrics:
@@ -187,21 +187,9 @@ This is a basic example which shows the truncate\_data() function in the package
 Below is a dataframe with numeric columns including univariate outliers:
 
 ``` r
-theme_set(theme_light())
-
-mydata <- data_frame(a=(c(10,11,12,seq(70,90,2),50,60)),
-                     b=(c(5,11,12,seq(10,20,1),50,60)),
-                     c=(c(3,11,12,seq(30,40,1),44,80)),
-                     d=(c(0,0,12,seq(20,25,0.5),50,100)))
+mydata <- data_frame(a=c(10,11,12,seq(70,90,2),50,60),
+                     b=c(3,11,12,seq(30,40,1),44,80))
 ```
-
-``` r
-ggplot(gather(mydata, key, value), aes(key, value)) + geom_boxplot()
-```
-
-<p align="center">
-<img src="man/figures/README-truncation_1.svg" width="1000px">
-</p>
 
 The truncate\_data() function will truncate univariate outliers as follows:
 
@@ -209,63 +197,47 @@ The truncate\_data() function will truncate univariate outliers as follows:
 
 -   Values above the 3rd quartile by more than 1.5 x IQR are truncated to be exactly 1.5 x IQR above the 3rd quartile.
 
-After truncation, this is what the data will look like:
-
 ``` r
 mydata_truncated <- truncate_data(mydata)
 ```
 
-``` r
-ggplot(gather(mydata_truncated, key, value), aes(key, value)) + geom_boxplot()
-```
+This is our data (training data) before and after truncation:
 
 <p align="center">
-<img src="man/figures/README-truncation_2.svg" width="1000px">
+<img src="man/figures/README-truncation_1.svg" width="1000px">
 </p>
 
 Note that new data (eg. test data), can be truncated using the training data quartile values:
 
-Let's make some test data and draw a box plot:
+Let's make some test data:
 
 ``` r
-mydata_test <- data_frame(a=(c(0,11,12, seq(70,90,2), 50, 110)),
-                          b=(c(-10,20,25, seq(20,30,1), 50, 60)),
-                          c=(c(25,11,12, seq(25,35,1), 104, 90)),
-                          d=(c(-5,-12,12, seq(15,20,0.5), 50, 100)))
+mydata_test <- data_frame(a=c(0,11,12, seq(70,90,2), 50, 100),
+                          b=c(25,11,12, seq(25,35,1), 100, 90))
 ```
-
-``` r
-ggplot(gather(mydata_test, key, value), aes(key, value)) + geom_boxplot()
-```
-
-<p align="center">
-<img src="man/figures/README-truncation_3.svg" width="1000px">
-</p>
 
 Let's get the quartiles of our original data:
 
 ``` r
 mydata_quartiles <- get_quartiles(mydata)
 mydata_quartiles
-#> # A tibble: 4 x 5
-#>   Key            a     b     c     d
-#>   <chr>      <dbl> <dbl> <dbl> <dbl>
-#> 1 Quartile 1  57.5  11.8  30.8 20.4 
-#> 2 Quartile 2  75    14.5  34.5 22.2 
-#> 3 Quartile 3  82.5  18.2  38.2 24.1 
-#> 4 IQR         25     6.5   7.5  3.75
+#> # A tibble: 4 x 3
+#>   Key            a     b
+#>   <chr>      <dbl> <dbl>
+#> 1 Quartile 1  57.5  30.8
+#> 2 Quartile 2  75    34.5
+#> 3 Quartile 3  82.5  38.2
+#> 4 IQR         25     7.5
 ```
 
-Let's use the quartiles of our original data to truncate the test data and plot the test data after truncation:
+Let's use the quartiles of our original data to truncate the test data:
 
 ``` r
 mydata_test_truncated <- truncate_data(mydata_test, mydata_quartiles)
 ```
 
-``` r
-ggplot(gather(mydata_test_truncated, key, value), aes(key, value)) + geom_boxplot()
-```
+Let's plot the test data before and after truncation using the quartiles of the original data:
 
 <p align="center">
-<img src="man/figures/README-truncation_4.svg" width="1000px">
+<img src="man/figures/README-truncation_2.svg" width="1000px">
 </p>

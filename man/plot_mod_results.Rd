@@ -34,6 +34,9 @@ Defaults to NULL. An integer providing the number of facet rows to have in the p
 \value{
 Returns a ggplot object with the box plot of performance metrics of the model objects across resamples.
 }
+\section{Figures}{
+\if{html}{\figure{plot_mod_results_1.svg}{options: width=100\%}}
+}
 \references{
 The "InformationValue", "caret", and "mltools" packages were used to compute many of the metrics.
 }
@@ -47,21 +50,18 @@ train_ctrl <- trainControl(method = "repeatedcv",
                            summaryFunction = defaultSummary,
                            savePredictions = "final")
 
-lm_fit_1 <- train(Sepal.Length ~ Sepal.Width, data = iris,
+lm_fit_1 <- train(Sepal.Length ~ Sepal.Width,
+                  data = iris,
                   method = "lm",
                   metric = "RMSE",
                   trControl = train_ctrl)
 
-lm_fit_2 <- train(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris,
+lm_fit_2 <- train(Sepal.Length ~ Sepal.Width + Petal.Length,
+                  data = iris,
                   method = "lm",
                   metric = "RMSE",
                   trControl = train_ctrl)
 
-lm_fit_3 <- train(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = iris,
-                  method = "lm",
-                  metric = "RMSE",
-                  trControl = train_ctrl)
-
-plot_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"), plot_columns = 4)
+plot_mod_results(list(lm_fit_1, lm_fit_2), c("LM 1", "LM 2"))
 }
 _______________________________________________________________________

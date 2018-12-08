@@ -37,6 +37,9 @@ Quartiles provided need to be in a dataframe where for each numeric variable in 
 \value{
 Returns a dataframe containing the numeric columns of the passed data with truncated values.
 }
+\section{Figures}{
+\if{html}{\figure{truncate_data_1.svg}{options: width=100\%}}
+}
 \author{
 Andrew Kostandy (andrew.kostandy@gmail.com)
 }

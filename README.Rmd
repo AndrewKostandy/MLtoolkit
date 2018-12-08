@@ -86,9 +86,11 @@ mod_results %>% head()
 
 The plot_mod_results() function produces a box plot of the models performance metrics:
 
-```{r, fig.height=8}
+```{r, eval=FALSE}
 plot_mod_results(mod_results, plot_columns = 3)
 ```
+
+<p align="center"><img src="man/figures/README-binary_classification_1.svg" width="1000px"></p>
 
 The plot_mod_results() function can alternatively take a list of caret model objects and a list or vector of model names:
 

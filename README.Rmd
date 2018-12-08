@@ -158,12 +158,6 @@ dev.off()
 
 <p align="center"><img src="man/figures/README-regression_1.svg" width="1000px"></p>
 
-The plot\_mod\_results() function can alternatively take a list of caret model objects and a list or vector of model names:
-
-```{r}
-# plot_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
-```
-
 ## Example: Data Truncation
 
 This is a basic example which shows the truncate_data() function in the package.

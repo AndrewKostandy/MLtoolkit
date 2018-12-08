@@ -100,9 +100,9 @@ plot_mod_results(mod_results, plot_columns = 3)
 dev.off()
 ```
 
-<p align="center"><img src="man/figures/README-binary_classification_1.svg" width="1000px"></p>
+<p align="center"><img src="man/figures/README-binary_classification_1.svg" width="1000px"><p>
 
-The plot_mod_results() function can alternatively take a list of caret model objects and a list or vector of model names:
+This function can alternatively take a list of caret model objects and a list or vector of model names:
 
 ```{r}
 # plot_mod_results(list(glm_fit_1, glm_fit_2, glm_fit_3), c("GLM 1", "GLM 2", "GLM 3"))

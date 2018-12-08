@@ -100,7 +100,7 @@ plot_mod_results(mod_results, plot_columns = 3)
 dev.off()
 ```
 
-<p align="center"><img src="man/figures/README-binary_classification_1.svg" width="1000px"></p>
+<p align="center"><img src="man/figures/README-binary_classification_1.svg" width="1000px"></p>\newline
 
 This function can alternatively take a list of caret model objects and a list or vector of model names:
 
@@ -156,9 +156,7 @@ plot_mod_results(mod_results)
 dev.off()
 ```
 
-<p align="center"><img src="man/figures/README-regression_1.svg" width="1000px"></p>
-
-\newline
+<p align="center"><img src="man/figures/README-regression_1.svg" width="1000px"></p>\newline
 
 ## Example: Data Truncation
 
@@ -209,7 +207,7 @@ ggplot(gather(mydata_truncated, key, value), aes(key, value)) + geom_boxplot()
 dev.off()
 ```
 
-<p align="center"><img src="man/figures/README-truncation_2.svg" width="1000px"></p>
+<p align="center"><img src="man/figures/README-truncation_2.svg" width="1000px"></p>\newline
 
 Note that new data (eg. test data), can be truncated using the training data quartile values:
 
@@ -232,7 +230,7 @@ ggplot(gather(mydata_test, key, value), aes(key, value)) + geom_boxplot()
 dev.off()
 ```
 
-<p align="center"><img src="man/figures/README-truncation_3.svg" width="1000px"></p>
+<p align="center"><img src="man/figures/README-truncation_3.svg" width="1000px"></p>\newline
 
 Let's get the quartiles of our original data:
 
@@ -257,4 +255,4 @@ ggplot(gather(mydata_test_truncated, key, value), aes(key, value)) + geom_boxplo
 dev.off()
 ```
 
-<p align="center"><img src="man/figures/README-truncation_4.svg" width="1000px"></p>
+<p align="center"><img src="man/figures/README-truncation_4.svg" width="1000px"></p>\newline

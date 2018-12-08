@@ -100,7 +100,7 @@ plot_mod_results(mod_results, plot_columns = 3)
 dev.off()
 ```
 
-<p align="center"><img src="man/figures/README-binary_classification_1.svg" width="1000px"><p>
+<p align="center"><img src="man/figures/README-binary_classification_1.svg" width="1000px"></p>
 
 This function can alternatively take a list of caret model objects and a list or vector of model names:
 

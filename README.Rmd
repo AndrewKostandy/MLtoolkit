@@ -120,7 +120,7 @@ This function can alternatively take a list of caret model objects and a list or
 
 ### Regression
 
-The performance metrics computed for regression are: Root Mean Squared Error (RMSE), RSquared, Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE).
+The performance metrics computed for regression are: Root Mean Squared Error (RMSE), RSquared, Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE). Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
 
 ```{r}
 train_ctrl <- trainControl(method = "repeatedcv",
@@ -157,12 +157,12 @@ mod_results %>% head()
 The plot_mod_results() function produces a box plot of the models performance metrics:
 
 ```{r, eval=FALSE}
-plot_mod_results(mod_results)
+plot_mod_results(mod_results, conf_int95 = TRUE)
 ```
 
 ```{r, echo=FALSE}
 svglite("man/figures/README-regression_1.svg", height = 6)
-plot_mod_results(mod_results)
+plot_mod_results(mod_results, conf_int95 = TRUE)
 invisible(dev.off())
 ```
 

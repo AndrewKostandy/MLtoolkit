@@ -32,11 +32,22 @@ compute_mod_results <- function(mod_object, mod_name = NULL){
 
   else{
 
-    results <- results %>% group_by(Resample) %>%
-      summarize(RMSE = caret::RMSE(pred = pred, obs = obs),
-                R2 = caret::R2(pred = pred, obs = obs),
-                MAE = caret::MAE(pred = pred, obs = obs),
-                MAPE = mean(abs((obs - pred)/obs))*100)
+    if(any(results$obs==0)){
+
+      results <- results %>% group_by(Resample) %>%
+        summarize(RMSE = caret::RMSE(pred = pred, obs = obs),
+                  R2 = caret::R2(pred = pred, obs = obs),
+                  MAE = caret::MAE(pred = pred, obs = obs))
+
+
+    }
+    else{
+      results <- results %>% group_by(Resample) %>%
+        summarize(RMSE = caret::RMSE(pred = pred, obs = obs),
+                  R2 = caret::R2(pred = pred, obs = obs),
+                  MAE = caret::MAE(pred = pred, obs = obs),
+                  MAPE = mean(abs((obs - pred)/obs))*100)
+    }
   }
 
   results <-  results %>% mutate(Model = mod_name) %>% select(Model, Resample, everything())

@@ -1,6 +1,6 @@
 library(tidyverse)
 
-plot_mod_results <- function(data, mod_names = NULL, plot_columns = NULL, plot_rows = NULL){
+plot_mod_results <- function(data, mod_names = NULL, plot_columns = NULL, plot_rows = NULL, conf_int95=FALSE){
 
   if (class(data)[1] == "list"){
 
@@ -16,12 +16,25 @@ plot_mod_results <- function(data, mod_names = NULL, plot_columns = NULL, plot_r
 
   data <- gather(data, Metric, Value, -Model)
   data$Metric <- fct_inorder(data$Metric)
+  data$Model <- fct_inorder(data$Model)
 
-  ggplot(data, aes(Model, Value)) + geom_boxplot() +
-    facet_wrap(~Metric, scales = "free_y", ncol = plot_columns, nrow = plot_rows) +
-    stat_summary(fun.y = "mean", geom = "point", shape = 23, fill = "red") +
-    labs(title="Model Performance Comparison") +
-    theme_light() +
-    theme(axis.title.x = element_blank())
-
+  if (conf_int95 == FALSE){
+    ggplot(data, aes(Model, Value)) + geom_boxplot() +
+      facet_wrap(~Metric, scales = "free_y", ncol = plot_columns, nrow = plot_rows) +
+      stat_summary(fun.y = "mean", geom = "point", shape = 23, fill = "red") +
+      labs(title="Model Performance Comparison") +
+      theme_light() +
+      theme(axis.title.x = element_blank())
+  }
+  else if(conf_int95 == TRUE){
+    ggplot(data, aes(Model, Value)) + geom_boxplot() +
+      facet_wrap(~Metric, scales = "free_y", ncol = plot_columns, nrow = plot_rows) +
+      stat_summary(fun.data = mean_se, geom = "errorbar",
+                   color = "red", width = 0.33, fun.args = list(mult = 1.96)) +
+      stat_summary(fun.y = "mean", geom = "point", shape = 23, fill = "red") +
+      labs(title="Model Performance Comparison") +
+      theme_light() +
+      theme(axis.title.x = element_blank())
+  }
+  else{stop("The argument conf_int95 can take the values TRUE or FALSE only.")}
 }

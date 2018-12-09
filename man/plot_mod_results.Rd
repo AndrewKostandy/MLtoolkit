@@ -30,6 +30,9 @@ Defaults to NULL. An integer providing the number of facet columns to have in th
 \item{plot_rows}{
 Defaults to NULL. An integer providing the number of facet rows to have in the plot. NULL value would use the default settings of ggplot2's facet_wrap() function.
 }
+\item{conf_int95}{
+Defaults to FALSE. A logical indicating whether the plot should add errorbars representing the 95\% confidence interval of the mean.
+}
 }
 \value{
 Returns a ggplot object with the box plot of performance metrics of the model objects across resamples.

@@ -45,7 +45,7 @@ The two following sections demonstrate how to compute performance metrics for ca
 
 ### Binary Classification
 
-The performance metrics computed for binary classification are: ROC, Sensitivity, Specificity, Precision, Accuracy, Cohen's Kappa, F1 Score, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, and KS Statistic.
+The performance metrics computed for binary classification are: ROC, Sensitivity, Specificity, Precision, Accuracy, Cohen's Kappa, F1 Score, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, and KS Statistic. 
 
 ```{r, message=FALSE}
 library(MLtoolkit)

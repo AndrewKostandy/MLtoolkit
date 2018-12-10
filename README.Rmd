@@ -154,7 +154,7 @@ mod_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM
 mod_results %>% head()
 ```
 
-The plot_mod_results() function produces a box plot of the models performance metrics:
+The plot_mod_results() function produces a box plot of the models performance metrics. A 95% confidence interval for the mean can also be added:
 
 ```{r, eval=FALSE}
 plot_mod_results(mod_results, conf_int95 = TRUE)

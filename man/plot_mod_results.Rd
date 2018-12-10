@@ -11,20 +11,22 @@ The metrics shown for binary classification are: ROC, Sensitivity, Specificity, 
 The metrics shown for regression are: Root Mean Squared Error (RMSE), RSquared, Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE).
 }
 \usage{
-plot_mod_results(data, mod_names = NULL, plot_columns = 3)
+plot_mod_results(data, mod_names = NULL,
+                 plot_cols = NULL, plot_rows = NULL,
+                 conf_int95 = FALSE)
 }
 \arguments{
   \item{data}{
 This argument can be either of the below options:
 
-1. A dataframe with the performance metrics of 1 or more models across resamples. The dataframe must contain the column "Model" containing the model name(s). The remaining columns in the dataframe would be the performance metrics where each metric is one column. In this option, the argument mod_names is not used.
+1. A dataframe with the performance metrics of one or more models across resamples. The dataframe must contain the column "Model" containing the model name(s). The remaining columns in the dataframe would be the performance metrics where each metric is one column. In this option, the argument mod_names is not used.
 
 2. A list of caret model objects. In this case, the argument mod_names is required.
 }
 \item{mod_names}{
 Defaults to NULL. A vector or list of names for the models. This argument is required only if option 2 is used for the data argument. Otherwise, it is not used.
 }
-\item{plot_columns}{
+\item{plot_cols}{
 Defaults to NULL. An integer providing the number of facet columns to have in the plot. NULL value would use the default settings of ggplot2's facet_wrap() function.
 }
 \item{plot_rows}{

@@ -36,8 +36,8 @@ ggplot2::theme_set(ggplot2::theme_light())
 - compute_mod_results(): Computes performance metrics of a single caret model object across resamples.
 - all_mod_results(): Computes performance metrics of multiple caret model objects across resamples.
 - plot_mod_results(): Produces a box plot with the performance metrics of multiple caret model object across resamples.
-- get_quartiles(): Gets quartiles of a dataframe's numeric columns.
-- truncate_data(): Truncates a dataframe's numeric columns.
+- get_perc(): Gets percentiles & interquartile range of a dataframe's numeric columns.
+- trunc_df(): Truncates a dataframe's numeric columns using different methods.
 
 ## Example: Comparing Model Performance
 
@@ -183,14 +183,24 @@ mydata <- data_frame(a=c(10,11,12,seq(70,90,2),50,60),
                      b=c(3,11,12,seq(30,40,1),44,80))
 ```
 
-The truncate_data() function will truncate univariate outliers as follows:
+The trunc_df() function will truncate univariate outliers as follows:
 
-- Values below the 1st quartile by more than 1.5 x IQR are truncated to be exactly 1.5 x IQR below the 1st quartile.
+If type="iqr", then for each numeric variable:
 
-- Values above the 3rd quartile by more than 1.5 x IQR are truncated to be exactly 1.5 x IQR above the 3rd quartile.
+- Values below the 25th percentile by more than 1.5 x IQR are truncated to be exactly 1.5 x IQR below the 25th percentile.
+
+- Values above the 75th percentile by more than 1.5 x IQR are truncated to be exactly 1.5 x IQR above the 75th percentile.
+
+&nbsp;
+
+If type="1_99", then for each numeric variable:
+
+- Values below the 1st percentile are truncated to be exactly the value of the 1st percentile.
+
+- Values above the 99th percentile are truncated to be exactly the value of the 99th percentile.
 
 ```{r}
-mydata_truncated <- truncate_data(mydata)
+mydata_truncated <- trunc_df(mydata, type = "iqr")
 ```
 
 This is our data (training data) before and after truncation:
@@ -212,7 +222,7 @@ invisible(dev.off())
 
 <p align="center"><img src="man/figures/README-truncation_1.svg" width="1000px"></p>\newline
 
-Note that new data (eg. test data), can be truncated using the training data quartile values:
+Note that new data (eg. test data), can be truncated using the training data percentile values:
 
 Let's make some test data:
 
@@ -221,20 +231,20 @@ mydata_test <- data_frame(a=c(0,11,12, seq(70,90,2), 50, 100),
                           b=c(25,11,12, seq(25,35,1), 100, 90))
 ```
 
-Let's get the quartiles of our original data:
+Let's get the percentiles of our original data:
 
 ```{r}
-mydata_quartiles <- get_quartiles(mydata)
-mydata_quartiles
+mydata_percentiles <- get_perc(mydata)
+mydata_percentiles
 ```
 
-Let's use the quartiles of our original data to truncate the test data:
+Let's use the percentiles of our original data to truncate the test data:
 
 ```{r}
-mydata_test_truncated <- truncate_data(mydata_test, mydata_quartiles)
+mydata_test_truncated <- trunc_df(mydata_test, type="iqr", mydata_percentiles)
 ```
 
-Let's plot the test data before and after truncation using the quartiles of the original data:
+Let's plot the test data before and after truncation using the percentiles of the original data:
 
 ```{r, echo=FALSE}
 g1 <- ggplot(gather(mydata_test, key, value), aes(key, value)) +

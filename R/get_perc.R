@@ -11,7 +11,8 @@ get_perc <- function(data){
   perc99 <- data %>% map_dfc(~quantile(.x, probs = 0.99, na.rm = TRUE))
   iqr <- data %>% map_dfc(~IQR(.x, na.rm = TRUE))
 
-  percentiles <- data_frame(Key = c("Percentile 1", "Percentile 25", "Percentile 50", "Percentile 75", "Percentile 99", "IQR"))
+  percentiles <- data_frame(Key = c("Percentile 1", "Percentile 25", "Percentile 50",
+                                    "Percentile 75", "Percentile 99", "IQR"))
   percentiles <- bind_cols(percentiles, bind_rows(perc1, perc25, perc50, perc75, perc99, iqr))
 
   return(percentiles)

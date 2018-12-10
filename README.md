@@ -78,12 +78,12 @@ compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> # A tibble: 6 x 14
 #>   Model Resample   ROC Sensitivity Specificity Precision Accuracy
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-#> 1 GLM 1 Fold01.… 0.952       0.792       0.957     0.905    0.9  
-#> 2 GLM 1 Fold01.… 0.965       0.833       0.957     0.909    0.914
-#> 3 GLM 1 Fold01.… 0.968       0.875       0.935     0.875    0.914
-#> 4 GLM 1 Fold01.… 0.994       0.875       1         1        0.957
-#> 5 GLM 1 Fold02.… 0.981       1           0.935     0.889    0.957
-#> 6 GLM 1 Fold02.… 0.996       1           0.978     0.96     0.986
+#> 1 GLM 1 Fold01.… 1           1           1         1        1    
+#> 2 GLM 1 Fold01.… 0.978       0.875       0.978     0.955    0.943
+#> 3 GLM 1 Fold01.… 1           0.958       1         1        0.986
+#> 4 GLM 1 Fold01.… 0.977       0.833       0.978     0.952    0.929
+#> 5 GLM 1 Fold02.… 1           1           0.978     0.96     0.986
+#> 6 GLM 1 Fold02.… 0.961       0.833       0.978     0.952    0.929
 #> # ... with 7 more variables: `Cohen's Kappa` <dbl>, `F1 Score` <dbl>,
 #> #   `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>, Discordance <dbl>,
 #> #   `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -97,12 +97,12 @@ mod_results %>% head()
 #> # A tibble: 6 x 14
 #>   Model Resample   ROC Sensitivity Specificity Precision Accuracy
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
-#> 1 GLM 1 Fold01.… 0.952       0.792       0.957     0.905    0.9  
-#> 2 GLM 1 Fold01.… 0.965       0.833       0.957     0.909    0.914
-#> 3 GLM 1 Fold01.… 0.968       0.875       0.935     0.875    0.914
-#> 4 GLM 1 Fold01.… 0.994       0.875       1         1        0.957
-#> 5 GLM 1 Fold02.… 0.981       1           0.935     0.889    0.957
-#> 6 GLM 1 Fold02.… 0.996       1           0.978     0.96     0.986
+#> 1 GLM 1 Fold01.… 1           1           1         1        1    
+#> 2 GLM 1 Fold01.… 0.978       0.875       0.978     0.955    0.943
+#> 3 GLM 1 Fold01.… 1           0.958       1         1        0.986
+#> 4 GLM 1 Fold01.… 0.977       0.833       0.978     0.952    0.929
+#> 5 GLM 1 Fold02.… 1           1           0.978     0.96     0.986
+#> 6 GLM 1 Fold02.… 0.961       0.833       0.978     0.952    0.929
 #> # ... with 7 more variables: `Cohen's Kappa` <dbl>, `F1 Score` <dbl>,
 #> #   `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>, Discordance <dbl>,
 #> #   `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -152,14 +152,14 @@ The compute\_mod\_results() function works with a single caret model object and 
 ``` r
 compute_mod_results(lm_fit_1, "LM 1") %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE      R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>   <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.673 0.106   0.608  10.5
-#> 2 LM 1  Fold01.Rep2 0.933 0.00392 0.744  12.1
-#> 3 LM 1  Fold01.Rep3 0.872 0.00929 0.689  11.9
-#> 4 LM 1  Fold01.Rep4 0.988 0.0235  0.763  12.7
-#> 5 LM 1  Fold02.Rep1 0.882 0.0649  0.753  12.9
-#> 6 LM 1  Fold02.Rep2 0.797 0.160   0.649  10.8
+#>   Model Resample     RMSE        R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>     <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.908 0.0000900 0.684  11.6
+#> 2 LM 1  Fold01.Rep2 1.05  0.0818    0.843  15.0
+#> 3 LM 1  Fold01.Rep3 0.791 0.144     0.694  12.1
+#> 4 LM 1  Fold01.Rep4 0.797 0.0124    0.602  10.2
+#> 5 LM 1  Fold02.Rep1 0.769 0.00247   0.687  12.4
+#> 6 LM 1  Fold02.Rep2 0.805 0.101     0.662  11.6
 ```
 
 The all\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
@@ -168,14 +168,14 @@ The all\_mod\_results() function works with multiple caret model objects and com
 mod_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
 mod_results %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE      R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>   <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.673 0.106   0.608  10.5
-#> 2 LM 1  Fold01.Rep2 0.933 0.00392 0.744  12.1
-#> 3 LM 1  Fold01.Rep3 0.872 0.00929 0.689  11.9
-#> 4 LM 1  Fold01.Rep4 0.988 0.0235  0.763  12.7
-#> 5 LM 1  Fold02.Rep1 0.882 0.0649  0.753  12.9
-#> 6 LM 1  Fold02.Rep2 0.797 0.160   0.649  10.8
+#>   Model Resample     RMSE        R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>     <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.908 0.0000900 0.684  11.6
+#> 2 LM 1  Fold01.Rep2 1.05  0.0818    0.843  15.0
+#> 3 LM 1  Fold01.Rep3 0.791 0.144     0.694  12.1
+#> 4 LM 1  Fold01.Rep4 0.797 0.0124    0.602  10.2
+#> 5 LM 1  Fold02.Rep1 0.769 0.00247   0.687  12.4
+#> 6 LM 1  Fold02.Rep2 0.805 0.101     0.662  11.6
 ```
 
 The plot\_mod\_results() function produces a box plot of the models performance metrics. A 95% confidence interval for the mean can also be added:
@@ -200,8 +200,8 @@ This is a basic example which shows the truncate\_data() function in the package
 Below is a dataframe with numeric columns including univariate outliers:
 
 ``` r
-mydata <- data_frame(a=c(10,11,12,seq(70,90,2),50,60),
-                     b=c(3,11,12,seq(30,40,1),44,80))
+training <- data_frame(a=c(10,11,12,seq(70,90,2),50,60),
+                       b=c(3,11,12,seq(30,40,1),44,80))
 ```
 
 The trunc\_df() function will truncate univariate outliers as follows:
@@ -221,29 +221,29 @@ If type="1\_99", then for each numeric variable:
 -   Values above the 99th percentile are truncated to be exactly the value of the 99th percentile.
 
 ``` r
-mydata_truncated <- trunc_df(mydata, type = "iqr")
+training_truncated <- trunc_df(training, type = "iqr")
 ```
 
-This is our data (training data) before and after truncation:
+This is our training data before and after truncation:
 
 <p align="center">
 <img src="man/figures/README-truncation_1.svg" width="1000px">
 </p>
 
-Note that new data (eg. test data), can be truncated using the training data percentile values:
+Note that test data can be truncated using the training data percentile values.
 
 Let's make some test data:
 
 ``` r
-mydata_test <- data_frame(a=c(0,11,12, seq(70,90,2), 50, 100),
-                          b=c(25,11,12, seq(25,35,1), 100, 90))
+test <- data_frame(a=c(0,11,12, seq(70,90,2), 50, 100),
+                   b=c(25,11,12, seq(25,35,1), 100, 90))
 ```
 
 Let's get the percentiles of our original data:
 
 ``` r
-mydata_percentiles <- get_perc(mydata)
-mydata_percentiles
+training_percentiles <- get_perc(training)
+training_percentiles
 #> # A tibble: 6 x 3
 #>   Key         a     b
 #>   <chr>   <dbl> <dbl>
@@ -255,10 +255,10 @@ mydata_percentiles
 #> 6 IQR      25    7.5
 ```
 
-Let's use the percentiles of our original data to truncate the test data:
+Let's use the percentiles of our training data to truncate the test data:
 
 ``` r
-mydata_test_truncated <- trunc_df(mydata_test, type="iqr", mydata_percentiles)
+test_truncated <- trunc_df(test, type="iqr", training_percentiles)
 ```
 
 Let's plot the test data before and after truncation using the percentiles of the original data:

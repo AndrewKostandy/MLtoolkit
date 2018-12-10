@@ -179,8 +179,8 @@ This is a basic example which shows the truncate_data() function in the package.
 Below is a dataframe with numeric columns including univariate outliers:
 
 ```{r}
-mydata <- data_frame(a=c(10,11,12,seq(70,90,2),50,60),
-                     b=c(3,11,12,seq(30,40,1),44,80))
+training <- data_frame(a=c(10,11,12,seq(70,90,2),50,60),
+                       b=c(3,11,12,seq(30,40,1),44,80))
 ```
 
 The trunc_df() function will truncate univariate outliers as follows:
@@ -200,17 +200,17 @@ If type="1_99", then for each numeric variable:
 - Values above the 99th percentile are truncated to be exactly the value of the 99th percentile.
 
 ```{r}
-mydata_truncated <- trunc_df(mydata, type = "iqr")
+training_truncated <- trunc_df(training, type = "iqr")
 ```
 
-This is our data (training data) before and after truncation:
+This is our training data before and after truncation:
 
 ```{r, echo=FALSE}
-g1 <- ggplot(gather(mydata, key, value), aes(key, value)) +
+g1 <- ggplot(gather(training, key, value), aes(key, value)) +
   geom_boxplot() +
   scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
   labs(title = "Before Truncation", x = "Variable", y="Value")
-g2 <- ggplot(gather(mydata_truncated, key, value), aes(key, value)) +
+g2 <- ggplot(gather(training_truncated, key, value), aes(key, value)) +
   geom_boxplot() +
   scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
   labs(title = "After Truncation", x = "Variable", y="Value")
@@ -222,36 +222,36 @@ invisible(dev.off())
 
 <p align="center"><img src="man/figures/README-truncation_1.svg" width="1000px"></p>\newline
 
-Note that new data (eg. test data), can be truncated using the training data percentile values:
+Note that test data can be truncated using the training data percentile values.
 
 Let's make some test data:
 
 ```{r}
-mydata_test <- data_frame(a=c(0,11,12, seq(70,90,2), 50, 100),
-                          b=c(25,11,12, seq(25,35,1), 100, 90))
+test <- data_frame(a=c(0,11,12, seq(70,90,2), 50, 100),
+                   b=c(25,11,12, seq(25,35,1), 100, 90))
 ```
 
 Let's get the percentiles of our original data:
 
 ```{r}
-mydata_percentiles <- get_perc(mydata)
-mydata_percentiles
+training_percentiles <- get_perc(training)
+training_percentiles
 ```
 
-Let's use the percentiles of our original data to truncate the test data:
+Let's use the percentiles of our training data to truncate the test data:
 
 ```{r}
-mydata_test_truncated <- trunc_df(mydata_test, type="iqr", mydata_percentiles)
+test_truncated <- trunc_df(test, type="iqr", training_percentiles)
 ```
 
 Let's plot the test data before and after truncation using the percentiles of the original data:
 
 ```{r, echo=FALSE}
-g1 <- ggplot(gather(mydata_test, key, value), aes(key, value)) +
+g1 <- ggplot(gather(test, key, value), aes(key, value)) +
   geom_boxplot() +
   scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
   labs(title = "Before Truncation", x = "Variable", y="Value")
-g2 <- ggplot(gather(mydata_test_truncated, key, value), aes(key, value)) +
+g2 <- ggplot(gather(test_truncated, key, value), aes(key, value)) +
   geom_boxplot() +
   scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
   labs(title = "After Truncation", x = "Variable", y="Value")

@@ -1,6 +1,6 @@
 library(tidyverse)
 
-trunc_df <- function(data, type, perc=NULL){
+trunc_df <- function(data, type, perc = NULL){
 
   data <- select_if(data, is.numeric)
 

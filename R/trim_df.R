@@ -1,6 +1,6 @@
 library(tidyverse)
 
-trunc_df <- function(data, type, perc = NULL){
+trim_df <- function(data, type, perc = NULL){
 
   data <- select_if(data, is.numeric)
 
@@ -10,7 +10,7 @@ trunc_df <- function(data, type, perc = NULL){
 
   if(type=="iqr"){
 
-    trunc_action_iqr <- function(x, y, perc){
+    trim_action_iqr <- function(x, y, perc){
 
       perc25 <- perc %>% select(y) %>% slice(2) %>% pull()
       perc75 <- perc %>% select(y) %>% slice(4) %>% pull()
@@ -22,12 +22,12 @@ trunc_df <- function(data, type, perc = NULL){
       return(x)
     }
 
-    data <- data %>% imap_dfr(trunc_action_iqr, perc)
+    data <- data %>% imap_dfr(trim_action_iqr, perc)
   }
 
   else if (type=="1_99"){
 
-    trunc_action_199 <- function(x, y, perc){
+    trim_action_199 <- function(x, y, perc){
 
       perc1 <- perc %>% select(y) %>% slice(1) %>% pull()
       perc99 <- perc %>% select(y) %>% slice(5) %>% pull()
@@ -38,7 +38,7 @@ trunc_df <- function(data, type, perc = NULL){
       return(x)
     }
 
-    data <- data %>% imap_dfr(trunc_action199, perc)
+    data <- data %>% imap_dfr(trim_action199, perc)
 
   }
 

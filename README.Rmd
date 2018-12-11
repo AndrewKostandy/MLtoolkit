@@ -37,7 +37,7 @@ ggplot2::theme_set(ggplot2::theme_light())
 - all_mod_results(): Computes performance metrics of multiple caret model objects across resamples.
 - plot_mod_results(): Creates a box plot with the performance metrics of multiple caret model objects across resamples.
 - get_perc(): Gets the percentiles & the interquartile range of a dataframe's numeric columns.
-- trunc_df(): Truncates a dataframe's numeric columns using different methods.
+- trim_df(): Trims a dataframe's numeric columns using different methods.
 
 ## Example: Comparing Model Performance
 
@@ -172,9 +172,9 @@ invisible(dev.off())
 
 The "InformationValue", "caret", and "mltools" packages were used to compute many of the performance metrics.
 
-## Example: Data Truncation
+## Example: Data Trimming
 
-This is a basic example which shows the truncate_data() function in the package.
+This is a basic example which shows the trim_df() function in the package.
 
 Below is a dataframe with numeric columns including univariate outliers:
 
@@ -183,46 +183,46 @@ training <- data_frame(a=c(10,11,12,seq(70,90,2),50,60),
                        b=c(3,11,12,seq(30,40,1),44,80))
 ```
 
-The trunc_df() function will truncate univariate outliers as follows:
+The trim_df() function will trim univariate outliers as follows:
 
 If type="iqr", then for each numeric variable:
 
-- Values below the 25th percentile by more than 1.5 x IQR are truncated to be exactly 1.5 x IQR below the 25th percentile.
+- Values below the 25th percentile by more than 1.5 x IQR are trimmed to be exactly 1.5 x IQR below the 25th percentile.
 
-- Values above the 75th percentile by more than 1.5 x IQR are truncated to be exactly 1.5 x IQR above the 75th percentile.
+- Values above the 75th percentile by more than 1.5 x IQR are trimmed to be exactly 1.5 x IQR above the 75th percentile.
 
 &nbsp;
 
 If type="1_99", then for each numeric variable:
 
-- Values below the 1st percentile are truncated to be exactly the value of the 1st percentile.
+- Values below the 1st percentile are trimmed to be exactly the value of the 1st percentile.
 
-- Values above the 99th percentile are truncated to be exactly the value of the 99th percentile.
+- Values above the 99th percentile are trimmed to be exactly the value of the 99th percentile.
 
 ```{r}
-training_truncated <- trunc_df(training, type = "iqr")
+training_trimmed <- trim_df(training, type = "iqr")
 ```
 
-This is our training data before and after truncation:
+This is our training data before and after trimming:
 
 ```{r, echo=FALSE}
 g1 <- ggplot(gather(training, key, value), aes(key, value)) +
   geom_boxplot() +
   scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
-  labs(title = "Before Truncation", x = "Variable", y="Value")
-g2 <- ggplot(gather(training_truncated, key, value), aes(key, value)) +
+  labs(title = "Before Trimming", x = "Variable", y="Value")
+g2 <- ggplot(gather(training_trimmed, key, value), aes(key, value)) +
   geom_boxplot() +
   scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
-  labs(title = "After Truncation", x = "Variable", y="Value")
+  labs(title = "After Trimming", x = "Variable", y="Value")
 
-svglite("man/figures/README-truncation_1.svg", height = 5)
+svglite("man/figures/README-trimming_1.svg", height = 5)
 g1 + g2 + plot_annotation(title = "Training Data", theme = theme(plot.title = element_text(size = 20)))
 invisible(dev.off())
 ```
 
-<p align="center"><img src="man/figures/README-truncation_1.svg" width="1000px"></p>\newline
+<p align="center"><img src="man/figures/README-trimming_1.svg" width="1000px"></p>\newline
 
-Note that test data can be truncated using the training data percentile values.
+Note that test data can be trimmed using the training data percentile values.
 
 Let's make some test data:
 
@@ -238,27 +238,27 @@ training_percentiles <- get_perc(training)
 training_percentiles
 ```
 
-Let's use the percentiles of our training data to truncate the test data:
+Let's use the percentiles of our training data to trim the test data:
 
 ```{r}
-test_truncated <- trunc_df(test, type="iqr", training_percentiles)
+test_trimmed <- trim_df(test, type="iqr", training_percentiles)
 ```
 
-Let's plot the test data before and after truncation using the percentiles of the original data:
+Let's plot the test data before and after trimming using the percentiles of the original data:
 
 ```{r, echo=FALSE}
 g1 <- ggplot(gather(test, key, value), aes(key, value)) +
   geom_boxplot() +
   scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
-  labs(title = "Before Truncation", x = "Variable", y="Value")
-g2 <- ggplot(gather(test_truncated, key, value), aes(key, value)) +
+  labs(title = "Before Trimming", x = "Variable", y="Value")
+g2 <- ggplot(gather(test_trimmed, key, value), aes(key, value)) +
   geom_boxplot() +
   scale_y_continuous(breaks = seq(0,100,25), limits = c(0,100)) +
-  labs(title = "After Truncation", x = "Variable", y="Value")
+  labs(title = "After Trimming", x = "Variable", y="Value")
 
-svglite("man/figures/README-truncation_2.svg", height = 5)
+svglite("man/figures/README-trimming_2.svg", height = 5)
 g1 + g2 + plot_annotation(title = "Test Data", theme = theme(plot.title = element_text(size = 20)))
 invisible(dev.off())
 ```
 
-<p align="center"><img src="man/figures/README-truncation_2.svg" width="1000px"></p>\newline
+<p align="center"><img src="man/figures/README-trimming_2.svg" width="1000px"></p>\newline

@@ -22,7 +22,7 @@ Currently Implemented Functions:
 -   all\_mod\_results(): Computes performance metrics of multiple caret model objects across resamples.
 -   plot\_mod\_results(): Creates a box plot with the performance metrics of multiple caret model objects across resamples.
 -   get\_perc(): Gets the percentiles & the interquartile range of a dataframe's numeric columns.
--   trunc\_df(): Truncates a dataframe's numeric columns using different methods.
+-   trim\_df(): Trims a dataframe's numeric columns using different methods.
 
 Example: Comparing Model Performance
 ------------------------------------
@@ -79,11 +79,11 @@ compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 #>   Model Resample   ROC Sensitivity Specificity Precision Accuracy
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
 #> 1 GLM 1 Fold01.… 1           1           1         1        1    
-#> 2 GLM 1 Fold01.… 0.978       0.875       0.978     0.955    0.943
-#> 3 GLM 1 Fold01.… 1           0.958       1         1        0.986
-#> 4 GLM 1 Fold01.… 0.977       0.833       0.978     0.952    0.929
-#> 5 GLM 1 Fold02.… 1           1           0.978     0.96     0.986
-#> 6 GLM 1 Fold02.… 0.961       0.833       0.978     0.952    0.929
+#> 2 GLM 1 Fold01.… 0.983       1           0.957     0.923    0.971
+#> 3 GLM 1 Fold01.… 0.983       0.958       0.933     0.885    0.942
+#> 4 GLM 1 Fold01.… 0.985       0.92        0.978     0.958    0.958
+#> 5 GLM 1 Fold02.… 0.994       0.917       0.978     0.957    0.957
+#> 6 GLM 1 Fold02.… 0.979       0.917       0.933     0.88     0.928
 #> # ... with 7 more variables: `Cohen's Kappa` <dbl>, `F1 Score` <dbl>,
 #> #   `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>, Discordance <dbl>,
 #> #   `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -98,11 +98,11 @@ mod_results %>% head()
 #>   Model Resample   ROC Sensitivity Specificity Precision Accuracy
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl>     <dbl>    <dbl>
 #> 1 GLM 1 Fold01.… 1           1           1         1        1    
-#> 2 GLM 1 Fold01.… 0.978       0.875       0.978     0.955    0.943
-#> 3 GLM 1 Fold01.… 1           0.958       1         1        0.986
-#> 4 GLM 1 Fold01.… 0.977       0.833       0.978     0.952    0.929
-#> 5 GLM 1 Fold02.… 1           1           0.978     0.96     0.986
-#> 6 GLM 1 Fold02.… 0.961       0.833       0.978     0.952    0.929
+#> 2 GLM 1 Fold01.… 0.983       1           0.957     0.923    0.971
+#> 3 GLM 1 Fold01.… 0.983       0.958       0.933     0.885    0.942
+#> 4 GLM 1 Fold01.… 0.985       0.92        0.978     0.958    0.958
+#> 5 GLM 1 Fold02.… 0.994       0.917       0.978     0.957    0.957
+#> 6 GLM 1 Fold02.… 0.979       0.917       0.933     0.88     0.928
 #> # ... with 7 more variables: `Cohen's Kappa` <dbl>, `F1 Score` <dbl>,
 #> #   `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>, Discordance <dbl>,
 #> #   `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -152,14 +152,14 @@ The compute\_mod\_results() function works with a single caret model object and 
 ``` r
 compute_mod_results(lm_fit_1, "LM 1") %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE        R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>     <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.908 0.0000900 0.684  11.6
-#> 2 LM 1  Fold01.Rep2 1.05  0.0818    0.843  15.0
-#> 3 LM 1  Fold01.Rep3 0.791 0.144     0.694  12.1
-#> 4 LM 1  Fold01.Rep4 0.797 0.0124    0.602  10.2
-#> 5 LM 1  Fold02.Rep1 0.769 0.00247   0.687  12.4
-#> 6 LM 1  Fold02.Rep2 0.805 0.101     0.662  11.6
+#>   Model Resample     RMSE     R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>  <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.665 0.0288 0.628  11.1
+#> 2 LM 1  Fold01.Rep2 0.893 0.0255 0.676  12.2
+#> 3 LM 1  Fold01.Rep3 0.935 0.0237 0.736  12.9
+#> 4 LM 1  Fold01.Rep4 0.935 0.0611 0.738  12.3
+#> 5 LM 1  Fold02.Rep1 0.761 0.0679 0.598  10.2
+#> 6 LM 1  Fold02.Rep2 0.928 0.0569 0.736  12.1
 ```
 
 The all\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
@@ -168,14 +168,14 @@ The all\_mod\_results() function works with multiple caret model objects and com
 mod_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
 mod_results %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE        R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>     <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.908 0.0000900 0.684  11.6
-#> 2 LM 1  Fold01.Rep2 1.05  0.0818    0.843  15.0
-#> 3 LM 1  Fold01.Rep3 0.791 0.144     0.694  12.1
-#> 4 LM 1  Fold01.Rep4 0.797 0.0124    0.602  10.2
-#> 5 LM 1  Fold02.Rep1 0.769 0.00247   0.687  12.4
-#> 6 LM 1  Fold02.Rep2 0.805 0.101     0.662  11.6
+#>   Model Resample     RMSE     R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>  <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.665 0.0288 0.628  11.1
+#> 2 LM 1  Fold01.Rep2 0.893 0.0255 0.676  12.2
+#> 3 LM 1  Fold01.Rep3 0.935 0.0237 0.736  12.9
+#> 4 LM 1  Fold01.Rep4 0.935 0.0611 0.738  12.3
+#> 5 LM 1  Fold02.Rep1 0.761 0.0679 0.598  10.2
+#> 6 LM 1  Fold02.Rep2 0.928 0.0569 0.736  12.1
 ```
 
 The plot\_mod\_results() function produces a box plot of the models performance metrics. A 95% confidence interval for the mean can also be added:
@@ -192,10 +192,10 @@ plot_mod_results(mod_results, conf_int95 = TRUE)
 
 The "InformationValue", "caret", and "mltools" packages were used to compute many of the performance metrics.
 
-Example: Data Truncation
-------------------------
+Example: Data Trimming
+----------------------
 
-This is a basic example which shows the truncate\_data() function in the package.
+This is a basic example which shows the trim\_df() function in the package.
 
 Below is a dataframe with numeric columns including univariate outliers:
 
@@ -204,33 +204,33 @@ training <- data_frame(a=c(10,11,12,seq(70,90,2),50,60),
                        b=c(3,11,12,seq(30,40,1),44,80))
 ```
 
-The trunc\_df() function will truncate univariate outliers as follows:
+The trim\_df() function will trim univariate outliers as follows:
 
 If type="iqr", then for each numeric variable:
 
--   Values below the 25th percentile by more than 1.5 x IQR are truncated to be exactly 1.5 x IQR below the 25th percentile.
+-   Values below the 25th percentile by more than 1.5 x IQR are trimmed to be exactly 1.5 x IQR below the 25th percentile.
 
--   Values above the 75th percentile by more than 1.5 x IQR are truncated to be exactly 1.5 x IQR above the 75th percentile.
+-   Values above the 75th percentile by more than 1.5 x IQR are trimmed to be exactly 1.5 x IQR above the 75th percentile.
 
  
 
 If type="1\_99", then for each numeric variable:
 
--   Values below the 1st percentile are truncated to be exactly the value of the 1st percentile.
+-   Values below the 1st percentile are trimmed to be exactly the value of the 1st percentile.
 
--   Values above the 99th percentile are truncated to be exactly the value of the 99th percentile.
+-   Values above the 99th percentile are trimmed to be exactly the value of the 99th percentile.
 
 ``` r
-training_truncated <- trunc_df(training, type = "iqr")
+training_trimmed <- trim_df(training, type = "iqr")
 ```
 
-This is our training data before and after truncation:
+This is our training data before and after trimming:
 
 <p align="center">
-<img src="man/figures/README-truncation_1.svg" width="1000px">
+<img src="man/figures/README-trimming_1.svg" width="1000px">
 </p>
 
-Note that test data can be truncated using the training data percentile values.
+Note that test data can be trimmed using the training data percentile values.
 
 Let's make some test data:
 
@@ -255,14 +255,14 @@ training_percentiles
 #> 6 IQR      25    7.5
 ```
 
-Let's use the percentiles of our training data to truncate the test data:
+Let's use the percentiles of our training data to trim the test data:
 
 ``` r
-test_truncated <- trunc_df(test, type="iqr", training_percentiles)
+test_trimmed <- trim_df(test, type="iqr", training_percentiles)
 ```
 
-Let's plot the test data before and after truncation using the percentiles of the original data:
+Let's plot the test data before and after trimming using the percentiles of the original data:
 
 <p align="center">
-<img src="man/figures/README-truncation_2.svg" width="1000px">
+<img src="man/figures/README-trimming_2.svg" width="1000px">
 </p>

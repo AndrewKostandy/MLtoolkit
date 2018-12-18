@@ -29,4 +29,5 @@ trim_df <- function(data, type, perc = NULL) {
   } else {
     stop("The type argument must be either \"iqr\" or \"1_99\".")
   }
+  return(data)
 }

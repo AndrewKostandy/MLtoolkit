@@ -10,4 +10,5 @@ get_perc <- function(data) {
 
   percentiles <- bind_rows(percentiles, iqr)
   percentiles <- bind_cols(key, percentiles)
+  return(percentiles)
 }

@@ -52,4 +52,5 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
   }
 
   results <- results %>% mutate(Model = mod_name) %>% select(Model, Resample, everything())
+  return(results)
 }

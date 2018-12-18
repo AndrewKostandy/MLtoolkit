@@ -53,10 +53,10 @@ rec2 <- recipe(Class ~ Cl.thickness + Cell.size + Cell.shape + Marg.adhesion, da
 rec3 <- recipe(Class ~ Bl.cromatin + Normal.nucleoli + Mitoses, data = dat)
 
 set.seed(42)
-id <- createMultiFolds(dat$Class, k = 5, times = 4)
+id <- createMultiFolds(dat$Class, k = 10, times = 4)
 
 train_ctrl <- trainControl(method = "repeatedcv",
-                           number = 5,
+                           number = 10,
                            repeats = 4,
                            index = id,
                            classProbs = TRUE,
@@ -82,12 +82,12 @@ compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> # A tibble: 6 x 16
 #>   Model Resample AUROC Sensitivity Specificity AUPRC Precision `Log Loss`
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl> <dbl>     <dbl>      <dbl>
-#> 1 GLM 1 Fold1.R… 0.970       0.918       0.957 0.852     0.918      0.215
-#> 2 GLM 1 Fold1.R… 0.984       0.918       0.978 0.905     0.957      0.176
-#> 3 GLM 1 Fold1.R… 0.994       0.938       0.978 0.904     0.957      0.102
-#> 4 GLM 1 Fold1.R… 0.976       0.917       0.989 0.933     0.978      0.138
-#> 5 GLM 1 Fold2.R… 0.986       0.917       0.978 0.956     0.957      0.130
-#> 6 GLM 1 Fold2.R… 0.992       0.938       0.967 0.924     0.938      0.118
+#> 1 GLM 1 Fold01.… 0.996       0.958       0.978 0.949     0.958     0.0931
+#> 2 GLM 1 Fold01.… 1           1           1     0.96      1         0.0504
+#> 3 GLM 1 Fold01.… 0.967       0.875       1     0.931     1         0.137 
+#> 4 GLM 1 Fold01.… 0.982       0.958       0.978 0.879     0.958     0.135 
+#> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957     0.155 
+#> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92      0.128 
 #> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `F1
 #> #   Score` <dbl>, `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>,
 #> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -101,12 +101,12 @@ mod_results %>% head()
 #> # A tibble: 6 x 16
 #>   Model Resample AUROC Sensitivity Specificity AUPRC Precision `Log Loss`
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl> <dbl>     <dbl>      <dbl>
-#> 1 GLM 1 Fold1.R… 0.970       0.918       0.957 0.852     0.918      0.215
-#> 2 GLM 1 Fold1.R… 0.984       0.918       0.978 0.905     0.957      0.176
-#> 3 GLM 1 Fold1.R… 0.994       0.938       0.978 0.904     0.957      0.102
-#> 4 GLM 1 Fold1.R… 0.976       0.917       0.989 0.933     0.978      0.138
-#> 5 GLM 1 Fold2.R… 0.986       0.917       0.978 0.956     0.957      0.130
-#> 6 GLM 1 Fold2.R… 0.992       0.938       0.967 0.924     0.938      0.118
+#> 1 GLM 1 Fold01.… 0.996       0.958       0.978 0.949     0.958     0.0931
+#> 2 GLM 1 Fold01.… 1           1           1     0.96      1         0.0504
+#> 3 GLM 1 Fold01.… 0.967       0.875       1     0.931     1         0.137 
+#> 4 GLM 1 Fold01.… 0.982       0.958       0.978 0.879     0.958     0.135 
+#> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957     0.155 
+#> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92      0.128 
 #> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `F1
 #> #   Score` <dbl>, `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>,
 #> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>
@@ -133,9 +133,13 @@ This function can alternatively take a list of caret model objects and a list or
 The performance metrics computed for regression are: Root Mean Squared Error (RMSE), RSquared, Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE). Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
 
 ``` r
+set.seed(42)
+id <- createMultiFolds(iris$Sepal.Length, k = 10, times = 4)
+
 train_ctrl <- trainControl(method = "repeatedcv",
                            number = 10,
                            repeats = 4,
+                           index = id,
                            savePredictions = "final")
 
 lm_fit_1 <- train(Sepal.Length ~ Sepal.Width, data = iris,
@@ -156,14 +160,14 @@ The compute\_mod\_results() function works with a single caret model object and 
 ``` r
 compute_mod_results(lm_fit_1, "LM 1") %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE      R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>   <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.823 0.0157  0.639 10.8 
-#> 2 LM 1  Fold01.Rep2 0.673 0.114   0.548  9.42
-#> 3 LM 1  Fold01.Rep3 0.844 0.00246 0.690 11.8 
-#> 4 LM 1  Fold01.Rep4 0.754 0.0360  0.657 11.7 
-#> 5 LM 1  Fold02.Rep1 0.792 0.0241  0.673 11.7 
-#> 6 LM 1  Fold02.Rep2 0.893 0.00931 0.708 12.1
+#>   Model Resample     RMSE     R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>  <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.940 0.0267 0.789  14.2
+#> 2 LM 1  Fold01.Rep2 1.10  0.251  0.890  14.9
+#> 3 LM 1  Fold01.Rep3 0.761 0.0787 0.616  11.0
+#> 4 LM 1  Fold01.Rep4 0.771 0.181  0.644  10.6
+#> 5 LM 1  Fold02.Rep1 0.726 0.0460 0.633  11.3
+#> 6 LM 1  Fold02.Rep2 0.750 0.104  0.641  11.5
 ```
 
 The all\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
@@ -172,14 +176,14 @@ The all\_mod\_results() function works with multiple caret model objects and com
 mod_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
 mod_results %>% head()
 #> # A tibble: 6 x 6
-#>   Model Resample     RMSE      R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>   <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.823 0.0157  0.639 10.8 
-#> 2 LM 1  Fold01.Rep2 0.673 0.114   0.548  9.42
-#> 3 LM 1  Fold01.Rep3 0.844 0.00246 0.690 11.8 
-#> 4 LM 1  Fold01.Rep4 0.754 0.0360  0.657 11.7 
-#> 5 LM 1  Fold02.Rep1 0.792 0.0241  0.673 11.7 
-#> 6 LM 1  Fold02.Rep2 0.893 0.00931 0.708 12.1
+#>   Model Resample     RMSE     R2   MAE  MAPE
+#>   <chr> <chr>       <dbl>  <dbl> <dbl> <dbl>
+#> 1 LM 1  Fold01.Rep1 0.940 0.0267 0.789  14.2
+#> 2 LM 1  Fold01.Rep2 1.10  0.251  0.890  14.9
+#> 3 LM 1  Fold01.Rep3 0.761 0.0787 0.616  11.0
+#> 4 LM 1  Fold01.Rep4 0.771 0.181  0.644  10.6
+#> 5 LM 1  Fold02.Rep1 0.726 0.0460 0.633  11.3
+#> 6 LM 1  Fold02.Rep2 0.750 0.104  0.641  11.5
 ```
 
 The plot\_mod\_results() function produces a box plot of the models performance metrics. A 95% confidence interval for the mean can also be added:
@@ -204,13 +208,13 @@ This is a basic example which shows the trim\_df() function in the package.
 Below is a dataframe with numeric columns including univariate outliers:
 
 ``` r
-training <- data_frame(a=c(10,11,12,seq(70,90,2),50,60),
-                       b=c(3,11,12,seq(30,40,1),44,80))
+training <- data_frame(a = c(10, 11, 12, seq(70, 90, 2), 50, 60),
+                       b = c(3, 11, 12, seq(30, 40, 1), 44, 80))
 ```
 
 The trim\_df() function will trim univariate outliers as follows:
 
-If type="iqr", then for each numeric variable:
+If type = "iqr", then for each numeric variable:
 
 -   Values below the 25th percentile by more than 1.5 x IQR are trimmed to be exactly 1.5 x IQR below the 25th percentile.
 
@@ -218,7 +222,7 @@ If type="iqr", then for each numeric variable:
 
  
 
-If type="1\_99", then for each numeric variable:
+If type = "1\_99", then for each numeric variable:
 
 -   Values below the 1st percentile are trimmed to be exactly the value of the 1st percentile.
 
@@ -239,8 +243,8 @@ Note that test data can be trimmed using the training data percentile values.
 Let's make some test data:
 
 ``` r
-test <- data_frame(a=c(0,11,12, seq(70,90,2), 50, 100),
-                   b=c(25,11,12, seq(25,35,1), 100, 90))
+test <- data_frame(a = c(0, 11, 12, seq(70, 90, 2), 50, 100),
+                   b = c(25, 11, 12, seq(25, 35, 1), 100, 90))
 ```
 
 Let's get the percentiles of our original data:
@@ -262,7 +266,7 @@ training_percentiles
 Let's use the percentiles of our training data to trim the test data:
 
 ``` r
-test_trimmed <- trim_df(test, type="iqr", training_percentiles)
+test_trimmed <- trim_df(test, type = "iqr", training_percentiles)
 ```
 
 Let's plot the test data before and after trimming using the percentiles of the original data:

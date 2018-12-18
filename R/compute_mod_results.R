@@ -1,5 +1,6 @@
 library(mltools)
 library(InformationValue)
+library(MLmetrics)
 library(tidyverse)
 library(caret)
 
@@ -17,10 +18,12 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
     results <- results %>%
       group_by(Resample) %>%
       summarize(
-        ROC = InformationValue::AUROC(actual, Y),
+        AUROC = InformationValue::AUROC(actual, Y),
         Sensitivity = InformationValue::sensitivity(actuals = actual, predictedScores = Y),
         Specificity = InformationValue::specificity(actuals = actual, predictedScores = Y),
+        `AUPRC` = MLmetrics::PRAUC(y_pred = Y, y_true = actual),
         Precision = InformationValue::precision(actuals = actual, predictedScores = Y),
+        `Log Loss` = MLmetrics::LogLoss(y_pred = Y, y_true = actual),
         Accuracy = caret::postResample(pred = pred, obs = obs)[1],
         `Cohen's Kappa` = caret::postResample(pred = pred, obs = obs)[2],
         `F1 Score` = 2 * ((Precision * Sensitivity) / (Precision + Sensitivity)),

@@ -45,7 +45,7 @@ The two following sections demonstrate how to compute performance metrics for ca
 
 ### Binary Classification
 
-The performance metrics computed for binary classification are: ROC, Sensitivity, Specificity, Precision, Accuracy, Cohen's Kappa, F1 Score, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, and KS Statistic. 
+The performance metrics computed for binary classification are: Area under ROC (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, Log Loss, Accuracy, Cohen's Kappa, F1 Score, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, and KS Statistic.  
 
 ```{r, message=FALSE}
 library(MLtoolkit)
@@ -62,13 +62,17 @@ dat <- mutate(dat, Class = fct_rev(Class))
 
 rec1 <- recipe(Class ~ Cl.thickness + Cell.size + Cell.shape, data = dat)
 
-rec2 <- recipe(Class ~ Marg.adhesion + Epith.c.size + Bare.nuclei, data = dat)
+rec2 <- recipe(Class ~ Cl.thickness + Cell.size + Cell.shape + Marg.adhesion, data = dat)
 
 rec3 <- recipe(Class ~ Bl.cromatin + Normal.nucleoli + Mitoses, data = dat)
 
+set.seed(42)
+id <- createMultiFolds(dat$Class, k = 5, times = 4)
+
 train_ctrl <- trainControl(method = "repeatedcv",
-                           number = 10,
+                           number = 5,
                            repeats = 4,
+                           index = id,
                            classProbs = TRUE,
                            savePredictions = "final")
 
@@ -170,7 +174,7 @@ invisible(dev.off())
 
 ### References
 
-The "InformationValue", "caret", and "mltools" packages were used to compute many of the performance metrics.
+The "InformationValue", "caret", "MLmetrics", and "mltools" packages were used to compute many of the performance metrics.
 
 ## Example: Data Trimming
 

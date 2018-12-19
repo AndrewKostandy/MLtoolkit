@@ -269,7 +269,7 @@ Let's use the percentiles of our training data to trim the test data:
 test_trimmed <- trim_df(test, type = "iqr", training_percentiles)
 ```
 
-Let's plot the test data before and after trimming using the percentiles of the original data
+Let's plot the test data before and after trimming using the percentiles of the original data:
 
 <p align="center">
 <img src="man/figures/README-trimming_2.svg" width="1000px">

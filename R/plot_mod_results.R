@@ -18,14 +18,14 @@ plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows
   data$Model <- fct_inorder(data$Model)
 
   if (conf_int95 == FALSE) {
-    ggplot(data, aes(Model, Value)) + geom_boxplot() +
+    ggplot(data, aes(Model, Value)) + geom_boxplot(fill = "lightgray") +
       facet_wrap(~Metric, scales = "free_y", ncol = plot_cols, nrow = plot_rows) +
       stat_summary(fun.y = "mean", geom = "point", shape = 23, fill = "red") +
       labs(title = "Model Performance Comparison") +
       theme_light() +
       theme(axis.title.x = element_blank())
   } else if (conf_int95 == TRUE) {
-    ggplot(data, aes(Model, Value)) + geom_boxplot() +
+    ggplot(data, aes(Model, Value)) + geom_boxplot(fill = "lightgray") +
       facet_wrap(~Metric, scales = "free_y", ncol = plot_cols, nrow = plot_rows) +
       stat_summary(
         fun.data = mean_se, geom = "errorbar",

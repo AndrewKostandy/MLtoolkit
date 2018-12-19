@@ -80,16 +80,16 @@ The compute\_mod\_results() function works with a single caret model object and 
 ``` r
 compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> # A tibble: 6 x 16
-#>   Model Resample AUROC Sensitivity Specificity AUPRC Precision `Log Loss`
+#>   Model Resample AUROC Sensitivity Specificity AUPRC Precision `F1 Score`
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl> <dbl>     <dbl>      <dbl>
-#> 1 GLM 1 Fold01.… 0.996       0.958       0.978 0.949     0.958     0.0931
-#> 2 GLM 1 Fold01.… 1           1           1     0.96      1         0.0504
-#> 3 GLM 1 Fold01.… 0.967       0.875       1     0.931     1         0.137 
-#> 4 GLM 1 Fold01.… 0.982       0.958       0.978 0.879     0.958     0.135 
-#> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957     0.155 
-#> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92      0.128 
-#> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `F1
-#> #   Score` <dbl>, `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>,
+#> 1 GLM 1 Fold01.… 0.996       0.958       0.978 0.949     0.958      0.958
+#> 2 GLM 1 Fold01.… 1           1           1     0.96      1          1    
+#> 3 GLM 1 Fold01.… 0.967       0.875       1     0.931     1          0.933
+#> 4 GLM 1 Fold01.… 0.982       0.958       0.978 0.879     0.958      0.958
+#> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957      0.936
+#> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92       0.939
+#> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
+#> #   Loss` <dbl>, `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>,
 #> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>
 ```
 
@@ -99,16 +99,16 @@ The all\_mod\_results() function works with multiple caret model objects and com
 mod_results <- all_mod_results(list(glm_fit_1, glm_fit_2, glm_fit_3), c("GLM 1", "GLM 2", "GLM 3"))
 mod_results %>% head()
 #> # A tibble: 6 x 16
-#>   Model Resample AUROC Sensitivity Specificity AUPRC Precision `Log Loss`
+#>   Model Resample AUROC Sensitivity Specificity AUPRC Precision `F1 Score`
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl> <dbl>     <dbl>      <dbl>
-#> 1 GLM 1 Fold01.… 0.996       0.958       0.978 0.949     0.958     0.0931
-#> 2 GLM 1 Fold01.… 1           1           1     0.96      1         0.0504
-#> 3 GLM 1 Fold01.… 0.967       0.875       1     0.931     1         0.137 
-#> 4 GLM 1 Fold01.… 0.982       0.958       0.978 0.879     0.958     0.135 
-#> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957     0.155 
-#> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92      0.128 
-#> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `F1
-#> #   Score` <dbl>, `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>,
+#> 1 GLM 1 Fold01.… 0.996       0.958       0.978 0.949     0.958      0.958
+#> 2 GLM 1 Fold01.… 1           1           1     0.96      1          1    
+#> 3 GLM 1 Fold01.… 0.967       0.875       1     0.931     1          0.933
+#> 4 GLM 1 Fold01.… 0.982       0.958       0.978 0.879     0.958      0.958
+#> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957      0.936
+#> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92       0.939
+#> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
+#> #   Loss` <dbl>, `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>,
 #> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>
 ```
 
@@ -269,7 +269,7 @@ Let's use the percentiles of our training data to trim the test data:
 test_trimmed <- trim_df(test, type = "iqr", training_percentiles)
 ```
 
-Let's plot the test data before and after trimming using the percentiles of the original data:
+Let's plot the test data before and after trimming using the percentiles of the original data
 
 <p align="center">
 <img src="man/figures/README-trimming_2.svg" width="1000px">

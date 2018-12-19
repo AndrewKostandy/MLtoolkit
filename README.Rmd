@@ -246,7 +246,7 @@ training_percentiles <- get_perc(training)
 training_percentiles
 ```
 
-Let's use the percentiles of our training data to trim the test data
+Let's use the percentiles of our training data to trim the test data:
 
 ```{r}
 test_trimmed <- trim_df(test, type = "iqr", training_percentiles)

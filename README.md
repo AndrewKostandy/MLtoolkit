@@ -263,7 +263,7 @@ training_percentiles
 #> 6 IQR      25    7.5
 ```
 
-Let's use the percentiles of our training data to trim the test data:
+Let's use the percentiles of our training data to trim the test data
 
 ``` r
 test_trimmed <- trim_df(test, type = "iqr", training_percentiles)

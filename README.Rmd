@@ -45,7 +45,7 @@ The two following sections demonstrate how to compute performance metrics for ca
 
 ### Binary Classification
 
-The performance metrics computed for binary classification are: Area under ROC (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, Log Loss, Accuracy, Cohen's Kappa, F1 Score, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, and KS Statistic.  
+The metrics computed for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, and KS Statistic.  
 
 ```{r, message=FALSE}
 library(MLtoolkit)
@@ -124,7 +124,7 @@ This function can alternatively take a list of caret model objects and a list or
 
 ### Regression
 
-The performance metrics computed for regression are: Root Mean Squared Error (RMSE), RSquared, Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE). Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
+The performance metrics computed for regression are: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), Mean Absolute Percentage Error (MAPE), Spearman's Rho, Concordance Correlation Coefficient, and RSquared. Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
 
 ```{r}
 set.seed(42)

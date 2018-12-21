@@ -31,7 +31,7 @@ The two following sections demonstrate how to compute performance metrics for ca
 
 ### Binary Classification
 
-The performance metrics computed for binary classification are: Area under ROC (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, Log Loss, Accuracy, Cohen's Kappa, F1 Score, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, and KS Statistic.
+The metrics computed for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, and KS Statistic.
 
 ``` r
 library(MLtoolkit)
@@ -89,7 +89,7 @@ compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957      0.936
 #> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92       0.939
 #> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
-#> #   Loss` <dbl>, `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>,
+#> #   Loss` <dbl>, `Matthews Corr. Coef.` <dbl>, Concordance <dbl>,
 #> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>
 ```
 
@@ -108,7 +108,7 @@ mod_results %>% head()
 #> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957      0.936
 #> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92       0.939
 #> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
-#> #   Loss` <dbl>, `Matthews Corr. Coeff.` <dbl>, Concordance <dbl>,
+#> #   Loss` <dbl>, `Matthews Corr. Coef.` <dbl>, Concordance <dbl>,
 #> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>
 ```
 
@@ -130,7 +130,7 @@ This function can alternatively take a list of caret model objects and a list or
 
 ### Regression
 
-The performance metrics computed for regression are: Root Mean Squared Error (RMSE), RSquared, Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE). Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
+The performance metrics computed for regression are: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), Mean Absolute Percentage Error (MAPE), Spearman's Rho, Concordance Correlation Coefficient, and RSquared. Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
 
 ``` r
 set.seed(42)
@@ -159,15 +159,15 @@ The compute\_mod\_results() function works with a single caret model object and 
 
 ``` r
 compute_mod_results(lm_fit_1, "LM 1") %>% head()
-#> # A tibble: 6 x 6
-#>   Model Resample     RMSE     R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>  <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.940 0.0267 0.789  14.2
-#> 2 LM 1  Fold01.Rep2 1.10  0.251  0.890  14.9
-#> 3 LM 1  Fold01.Rep3 0.761 0.0787 0.616  11.0
-#> 4 LM 1  Fold01.Rep4 0.771 0.181  0.644  10.6
-#> 5 LM 1  Fold02.Rep1 0.726 0.0460 0.633  11.3
-#> 6 LM 1  Fold02.Rep2 0.750 0.104  0.641  11.5
+#> # A tibble: 6 x 8
+#>   Model Resample  RMSE   MAE  MAPE `Spearman's Rho` `Concordance Co…     R2
+#>   <chr> <chr>    <dbl> <dbl> <dbl>            <dbl>            <dbl>  <dbl>
+#> 1 LM 1  Fold01.… 0.940 0.789  14.2          -0.0892          -0.0335 0.0267
+#> 2 LM 1  Fold01.… 1.10  0.890  14.9          -0.216           -0.103  0.251 
+#> 3 LM 1  Fold01.… 0.761 0.616  11.0           0.146            0.0473 0.0787
+#> 4 LM 1  Fold01.… 0.771 0.644  10.6           0.389            0.0655 0.181 
+#> 5 LM 1  Fold02.… 0.726 0.633  11.3           0.216            0.0464 0.0460
+#> 6 LM 1  Fold02.… 0.750 0.641  11.5           0.440            0.0676 0.104
 ```
 
 The all\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
@@ -175,15 +175,15 @@ The all\_mod\_results() function works with multiple caret model objects and com
 ``` r
 mod_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
 mod_results %>% head()
-#> # A tibble: 6 x 6
-#>   Model Resample     RMSE     R2   MAE  MAPE
-#>   <chr> <chr>       <dbl>  <dbl> <dbl> <dbl>
-#> 1 LM 1  Fold01.Rep1 0.940 0.0267 0.789  14.2
-#> 2 LM 1  Fold01.Rep2 1.10  0.251  0.890  14.9
-#> 3 LM 1  Fold01.Rep3 0.761 0.0787 0.616  11.0
-#> 4 LM 1  Fold01.Rep4 0.771 0.181  0.644  10.6
-#> 5 LM 1  Fold02.Rep1 0.726 0.0460 0.633  11.3
-#> 6 LM 1  Fold02.Rep2 0.750 0.104  0.641  11.5
+#> # A tibble: 6 x 8
+#>   Model Resample  RMSE   MAE  MAPE `Spearman's Rho` `Concordance Co…     R2
+#>   <chr> <chr>    <dbl> <dbl> <dbl>            <dbl>            <dbl>  <dbl>
+#> 1 LM 1  Fold01.… 0.940 0.789  14.2          -0.0892          -0.0335 0.0267
+#> 2 LM 1  Fold01.… 1.10  0.890  14.9          -0.216           -0.103  0.251 
+#> 3 LM 1  Fold01.… 0.761 0.616  11.0           0.146            0.0473 0.0787
+#> 4 LM 1  Fold01.… 0.771 0.644  10.6           0.389            0.0655 0.181 
+#> 5 LM 1  Fold02.… 0.726 0.633  11.3           0.216            0.0464 0.0460
+#> 6 LM 1  Fold02.… 0.750 0.641  11.5           0.440            0.0676 0.104
 ```
 
 The plot\_mod\_results() function produces a box plot of the models performance metrics. A 95% confidence interval for the mean can also be added:

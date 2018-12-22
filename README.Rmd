@@ -89,6 +89,26 @@ glm_fit_3 <- train(rec3, data = dat,
                    trControl = train_ctrl)
 ```
 
+```{r}
+glm_fit_1$pred %>% head()
+```
+
+```{r}
+glm_fit_4 <- train(Class ~ Cl.thickness, data = dat,
+                   method = "glm",
+                   trControl = train_ctrl)
+
+glm_fit_4$pred %>% head()
+```
+
+```{r}
+glm_fit_5 <- train(select(dat,Cl.thickness), dat$Class,
+                   method = "glm",
+                   trControl = train_ctrl)
+
+glm_fit_5$pred %>% head()
+```
+
 The compute_mod_results() function works with a single caret model object and computes its performance metrics:
 
 ```{r}

@@ -9,10 +9,10 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
     stop("Please provide a name for the model.")
   }
 
-  results <- mod_object$pred
+  results <- mod_object$pred %>% select(-rowIndex)
 
   if (is.factor(results$obs)) {
-    colnames(results)[5] <- "Y"
+    colnames(results)[4] <- "Y"
     results <- mutate(results, actual = as.numeric(obs), actual = ifelse(actual == 2, 0, actual))
 
     results <- results %>%

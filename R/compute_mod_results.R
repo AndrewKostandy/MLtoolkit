@@ -27,7 +27,7 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
         Accuracy = MLmetrics::Accuracy(y_pred = pred, y_true = obs),
         `Cohen's Kappa` = caret::postResample(pred = pred, obs = obs)[2],
         `Log Loss` = MLmetrics::LogLoss(y_pred = Y, y_true = actual),
-        `Matthews Corr. Coef.` = mltools::mcc(preds = pred, actuals = obs),
+        `Matthews Cor. Coef.` = mltools::mcc(preds = pred, actuals = obs),
         Concordance = InformationValue::Concordance(actuals = actual, predictedScores = Y)[[1]],
         Discordance = InformationValue::Concordance(actuals = actual, predictedScores = Y)[[2]],
         `Somer's D` = InformationValue::somersD(actuals = actual, predictedScores = Y),
@@ -41,7 +41,7 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
           RMSE = caret::RMSE(pred = pred, obs = obs),
           MAE = caret::MAE(pred = pred, obs = obs),
           `Spearman's Rho` = cor(pred, obs, method = "spearman"),
-          `Concordance Corr. Coef.` = (2*(cov(pred, obs) * (length(pred)-1)/length(pred))) /
+          `Concordance Cor. Coef.` = (2*(cov(pred, obs) * (length(pred)-1)/length(pred))) /
             ((var(pred)*(length(pred)-1)/length(pred)) +
                (var(obs)* (length(obs)-1)/length(obs)) +
                (mean(pred) - mean(obs))^2),
@@ -55,7 +55,7 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
           MAE = caret::MAE(pred = pred, obs = obs),
           MAPE = mean(abs((obs - pred) / obs)) * 100,
           `Spearman's Rho` = cor(pred, obs, method = "spearman"),
-          `Concordance Corr. Coef.` = (2*(cov(pred, obs) * (length(pred)-1)/length(pred))) /
+          `Concordance Cor. Coef.` = (2*(cov(pred, obs) * (length(pred)-1)/length(pred))) /
             ((var(pred)*(length(pred)-1)/length(pred)) +
                (var(obs)* (length(obs)-1)/length(obs)) +
                (mean(pred) - mean(obs))^2),

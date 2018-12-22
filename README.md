@@ -89,7 +89,7 @@ compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957      0.936
 #> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92       0.939
 #> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
-#> #   Loss` <dbl>, `Matthews Corr. Coef.` <dbl>, Concordance <dbl>,
+#> #   Loss` <dbl>, `Matthews Cor. Coef.` <dbl>, Concordance <dbl>,
 #> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>
 ```
 
@@ -108,7 +108,7 @@ mod_results %>% head()
 #> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957      0.936
 #> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92       0.939
 #> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
-#> #   Loss` <dbl>, `Matthews Corr. Coef.` <dbl>, Concordance <dbl>,
+#> #   Loss` <dbl>, `Matthews Cor. Coef.` <dbl>, Concordance <dbl>,
 #> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>
 ```
 

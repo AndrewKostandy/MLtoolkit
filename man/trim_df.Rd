@@ -64,4 +64,3 @@ Andrew Kostandy (andrew.kostandy@gmail.com)
 \examples{
 trim_df(iris, type = "iqr")
 }
-_______________________________________________________________________

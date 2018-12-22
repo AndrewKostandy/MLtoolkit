@@ -27,4 +27,3 @@ Andrew Kostandy (andrew.kostandy@gmail.com)
 \examples{
 get_perc(iris)
 }
-_______________________________________________________________________

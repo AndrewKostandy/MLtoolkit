@@ -69,4 +69,3 @@ lm_fit_2 <- train(Sepal.Length ~ Sepal.Width + Petal.Length,
 
 plot_mod_results(list(lm_fit_1, lm_fit_2), c("LM 1", "LM 2"))
 }
-_______________________________________________________________________

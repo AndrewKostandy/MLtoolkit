@@ -75,54 +75,6 @@ glm_fit_3 <- train(rec3, data = dat,
                    trControl = train_ctrl)
 ```
 
-``` r
-glm_fit_1$pred %>% head()
-#>   parameter       obs rowIndex      pred   malignant       benign
-#> 1      none    benign        1    benign 0.037518395 0.9624816051
-#> 2      none    benign       10    benign 0.037968350 0.9620316500
-#> 3      none    benign       14    benign 0.004000839 0.9959991613
-#> 4      none malignant       19 malignant 0.999158185 0.0008418154
-#> 5      none malignant       43 malignant 0.999806123 0.0001938765
-#> 6      none malignant       44 malignant 0.910891879 0.0891081207
-#>      Resample
-#> 1 Fold01.Rep1
-#> 2 Fold01.Rep1
-#> 3 Fold01.Rep1
-#> 4 Fold01.Rep1
-#> 5 Fold01.Rep1
-#> 6 Fold01.Rep1
-```
-
-``` r
-glm_fit_4 <- train(Class ~ Cl.thickness, data = dat,
-                   method = "glm",
-                   trControl = train_ctrl)
-
-glm_fit_4$pred %>% head()
-#>   parameter      pred       obs malignant     benign rowIndex    Resample
-#> 1      none    benign    benign 0.3823103 0.61768973        1 Fold01.Rep1
-#> 2      none    benign    benign 0.1982267 0.80177327       10 Fold01.Rep1
-#> 3      none    benign    benign 0.0155137 0.98448630       14 Fold01.Rep1
-#> 4      none malignant malignant 0.9838340 0.01616596       19 Fold01.Rep1
-#> 5      none malignant malignant 0.6077602 0.39223985       43 Fold01.Rep1
-#> 6      none    benign malignant 0.3823103 0.61768973       44 Fold01.Rep1
-```
-
-``` r
-glm_fit_5 <- train(select(dat,Cl.thickness), dat$Class,
-                   method = "glm",
-                   trControl = train_ctrl)
-
-glm_fit_5$pred %>% head()
-#>   parameter      pred       obs malignant     benign rowIndex    Resample
-#> 1      none    benign    benign 0.3823103 0.61768973        1 Fold01.Rep1
-#> 2      none    benign    benign 0.1982267 0.80177327       10 Fold01.Rep1
-#> 3      none    benign    benign 0.0155137 0.98448630       14 Fold01.Rep1
-#> 4      none malignant malignant 0.9838340 0.01616596       19 Fold01.Rep1
-#> 5      none malignant malignant 0.6077602 0.39223985       43 Fold01.Rep1
-#> 6      none    benign malignant 0.3823103 0.61768973       44 Fold01.Rep1
-```
-
 The compute\_mod\_results() function works with a single caret model object and computes its performance metrics:
 
 ``` r

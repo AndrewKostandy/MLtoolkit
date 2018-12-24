@@ -6,7 +6,7 @@ Produce a Box Plot with the Performance Metrics of Multiple Caret Model Object A
 \description{
 This function allows you to produce a boxplot of performance metrics across resamples for multiple binary classification or regression models from the caret package.
 
-The metrics shown for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, and KS Statistic.
+The metrics shown for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, KS Statistic, and False Discovery Rate.
 
 The metrics shown for regression are: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), Mean Absolute Percentage Error (MAPE), Spearman's Rho, Concordance Correlation Coefficient, and RSquared. Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
 }
@@ -43,7 +43,7 @@ Returns a ggplot object with the box plot of performance metrics of the model ob
 \if{html}{\figure{plot_mod_results_1.svg}{options: width=100\%}}
 }
 \references{
-The "InformationValue", "caret", and "mltools" packages were used to compute many of the metrics.
+The "InformationValue", "caret", and "MLmetrics" packages were used to compute many of the metrics.
 }
 \author{
 Andrew Kostandy (andrew.kostandy@gmail.com)

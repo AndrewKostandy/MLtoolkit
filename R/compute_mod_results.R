@@ -12,15 +12,17 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
 
   if (is.factor(results$obs)) {
     colnames(results)[4] <- "Y"
-    results <- mutate(results, actual = as.numeric(obs), actual = ifelse(actual == 2, 0, actual))
+    results <- mutate(results,
+                      actual = as.numeric(obs), actual = ifelse(actual == 2, 0, actual),
+                      pred2 = as.numeric(pred), pred2 = ifelse(pred2 == 2, 0, pred2))
 
     results <- results %>%
       group_by(Resample) %>%
       summarize(
-        TN = table(obs, pred)[1],
-        FN = table(obs, pred)[2],
-        FP = table(obs, pred)[3],
-        TP = table(obs, pred)[4],
+        TN = table(actual, pred2)[1],
+        FN = table(actual, pred2)[2],
+        FP = table(actual, pred2)[3],
+        TP = table(actual, pred2)[4],
         AUROC = InformationValue::AUROC(actual, Y),
         Sensitivity = InformationValue::sensitivity(actuals = actual, predictedScores = Y),
         Specificity = InformationValue::specificity(actuals = actual, predictedScores = Y),
@@ -34,7 +36,8 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
         Concordance = InformationValue::Concordance(actuals = actual, predictedScores = Y)[[1]],
         Discordance = InformationValue::Concordance(actuals = actual, predictedScores = Y)[[2]],
         `Somer's D` = InformationValue::somersD(actuals = actual, predictedScores = Y),
-        `KS Statistic` = InformationValue::ks_stat(actuals = actual, predictedScores = Y)
+        `KS Statistic` = InformationValue::ks_stat(actuals = actual, predictedScores = Y),
+        `False Discovery Rate` = 1 - Precision
       ) %>%
       select(-TN, -FN, -FP, -TP)
   } else {

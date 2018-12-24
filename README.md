@@ -31,7 +31,7 @@ The two following sections demonstrate how to compute performance metrics for ca
 
 ### Binary Classification
 
-The metrics computed for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, and KS Statistic.
+The metrics computed for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, KS Statistic, and False Discovery Rate.
 
 ``` r
 library(MLtoolkit)
@@ -79,7 +79,7 @@ The compute\_mod\_results() function works with a single caret model object and 
 
 ``` r
 compute_mod_results(glm_fit_1, "GLM 1") %>% head()
-#> # A tibble: 6 x 16
+#> # A tibble: 6 x 17
 #>   Model Resample AUROC Sensitivity Specificity AUPRC Precision `F1 Score`
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl> <dbl>     <dbl>      <dbl>
 #> 1 GLM 1 Fold01.… 0.996       0.958       0.978 0.949     0.958      0.958
@@ -88,9 +88,10 @@ compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> 4 GLM 1 Fold01.… 0.982       0.958       0.978 0.879     0.958      0.958
 #> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957      0.936
 #> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92       0.939
-#> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
+#> # ... with 9 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
 #> #   Loss` <dbl>, `Matthews Cor. Coef.` <dbl>, Concordance <dbl>,
-#> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>
+#> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>, `False
+#> #   Discovery Rate` <dbl>
 ```
 
 The all\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
@@ -98,7 +99,7 @@ The all\_mod\_results() function works with multiple caret model objects and com
 ``` r
 mod_results <- all_mod_results(list(glm_fit_1, glm_fit_2, glm_fit_3), c("GLM 1", "GLM 2", "GLM 3"))
 mod_results %>% head()
-#> # A tibble: 6 x 16
+#> # A tibble: 6 x 17
 #>   Model Resample AUROC Sensitivity Specificity AUPRC Precision `F1 Score`
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl> <dbl>     <dbl>      <dbl>
 #> 1 GLM 1 Fold01.… 0.996       0.958       0.978 0.949     0.958      0.958
@@ -107,9 +108,10 @@ mod_results %>% head()
 #> 4 GLM 1 Fold01.… 0.982       0.958       0.978 0.879     0.958      0.958
 #> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957      0.936
 #> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92       0.939
-#> # ... with 8 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
+#> # ... with 9 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
 #> #   Loss` <dbl>, `Matthews Cor. Coef.` <dbl>, Concordance <dbl>,
-#> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>
+#> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>, `False
+#> #   Discovery Rate` <dbl>
 ```
 
 The plot\_mod\_results() function produces a box plot of the models performance metrics:

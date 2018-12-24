@@ -1,6 +1,5 @@
 exportPattern("^[[:alpha:]]+")
 
-#' @import mltools
 #' @import InformationValue
 #' @import MLmetrics
 #' @import tidyverse

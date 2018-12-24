@@ -198,7 +198,7 @@ plot_mod_results(mod_results, conf_int95 = TRUE)
 
 ### References
 
-The "InformationValue", "caret", "MLmetrics", and "mltools" packages were used to compute many of the performance metrics.
+The "InformationValue", "caret", and "MLmetrics", packages were used to compute many of the performance metrics.
 
 Example: Data Trimming
 ----------------------

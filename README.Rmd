@@ -178,7 +178,7 @@ invisible(dev.off())
 
 ### References
 
-The "InformationValue", "caret", "MLmetrics", and "mltools" packages were used to compute many of the performance metrics.
+The "InformationValue", "caret", and "MLmetrics", packages were used to compute many of the performance metrics.
 
 ## Example: Data Trimming
 

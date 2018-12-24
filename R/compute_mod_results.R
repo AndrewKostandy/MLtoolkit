@@ -1,4 +1,3 @@
-library(mltools)
 library(InformationValue)
 library(MLmetrics)
 library(tidyverse)
@@ -18,6 +17,10 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
     results <- results %>%
       group_by(Resample) %>%
       summarize(
+        TN = table(obs, pred)[1],
+        FN = table(obs, pred)[2],
+        FP = table(obs, pred)[3],
+        TP = table(obs, pred)[4],
         AUROC = InformationValue::AUROC(actual, Y),
         Sensitivity = InformationValue::sensitivity(actuals = actual, predictedScores = Y),
         Specificity = InformationValue::specificity(actuals = actual, predictedScores = Y),
@@ -27,12 +30,13 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
         Accuracy = MLmetrics::Accuracy(y_pred = pred, y_true = obs),
         `Cohen's Kappa` = caret::postResample(pred = pred, obs = obs)[2],
         `Log Loss` = MLmetrics::LogLoss(y_pred = Y, y_true = actual),
-        `Matthews Cor. Coef.` = mltools::mcc(preds = pred, actuals = obs),
+        `Matthews Cor. Coef.` = (TP*TN-FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN)),
         Concordance = InformationValue::Concordance(actuals = actual, predictedScores = Y)[[1]],
         Discordance = InformationValue::Concordance(actuals = actual, predictedScores = Y)[[2]],
         `Somer's D` = InformationValue::somersD(actuals = actual, predictedScores = Y),
         `KS Statistic` = InformationValue::ks_stat(actuals = actual, predictedScores = Y)
-      )
+      ) %>%
+      select(-TN, -FN, -FP, -TP)
   } else {
     if (any(results$obs == 0)) {
       results <- results %>%

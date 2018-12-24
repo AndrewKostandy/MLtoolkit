@@ -25,7 +25,7 @@ A name for the model.
 Returns a dataframe with the the performance metrics of the model object across resamples.
 }
 \references{
-The "InformationValue", "caret", and "mltools" packages were used to compute many of the metrics.
+The "InformationValue", "caret", and "MLmetrics" packages were used to compute many of the metrics.
 }
 \author{
 Andrew Kostandy (andrew.kostandy@gmail.com)

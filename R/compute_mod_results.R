@@ -10,33 +10,39 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
 
   results <- mod_object$pred %>% select(-rowIndex)
 
+
   if (is.factor(results$obs)) {
-    colnames(results)[4] <- "Y"
+
+    resample_loc <- which(colnames(results)=="Resample")
+    results <- select(results, obs, pred, resample_loc-2, resample_loc-1, Resample)
+    colnames(results)[3] <- "Y"
     results <- mutate(results,
-                      actual = as.numeric(obs), actual = ifelse(actual == 2, 0, actual),
-                      pred2 = as.numeric(pred), pred2 = ifelse(pred2 == 2, 0, pred2))
+                      obs_temp = as.numeric(obs),
+                      obs2 = if_else(obs_temp == 2, 0, obs_temp),
+                      pred_temp = as.numeric(pred),
+                      pred2 = if_else(pred_temp == 2, 0, pred_temp))
 
     results <- results %>%
       group_by(Resample) %>%
       summarize(
-        TN = table(actual, pred2)[1],
-        FN = table(actual, pred2)[2],
-        FP = table(actual, pred2)[3],
-        TP = table(actual, pred2)[4],
-        AUROC = InformationValue::AUROC(actual, Y),
-        Sensitivity = InformationValue::sensitivity(actuals = actual, predictedScores = Y),
-        Specificity = InformationValue::specificity(actuals = actual, predictedScores = Y),
-        `AUPRC` = MLmetrics::PRAUC(y_pred = Y, y_true = actual),
-        Precision = InformationValue::precision(actuals = actual, predictedScores = Y),
+        TN = as.numeric(table(obs2, pred2)[1]),
+        FN = as.numeric(table(obs2, pred2)[2]),
+        FP = as.numeric(table(obs2, pred2)[3]),
+        TP = as.numeric(table(obs2, pred2)[4]),
+        AUROC = InformationValue::AUROC(actuals = obs2, predictedScores = Y),
+        Sensitivity = InformationValue::sensitivity(actuals = obs2, predictedScores = Y),
+        Specificity = InformationValue::specificity(actuals = obs2, predictedScores = Y),
+        `AUPRC` = MLmetrics::PRAUC(y_pred = Y, y_true = obs2),
+        Precision = InformationValue::precision(actuals = obs2, predictedScores = Y),
         `F1 Score` = 2 * ((Precision * Sensitivity) / (Precision + Sensitivity)),
         Accuracy = MLmetrics::Accuracy(y_pred = pred, y_true = obs),
         `Cohen's Kappa` = caret::postResample(pred = pred, obs = obs)[2],
-        `Log Loss` = MLmetrics::LogLoss(y_pred = Y, y_true = actual),
+        `Log Loss` = MLmetrics::LogLoss(y_pred = Y, y_true = obs2),
         `Matthews Cor. Coef.` = (TP*TN-FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN)),
-        Concordance = InformationValue::Concordance(actuals = actual, predictedScores = Y)[[1]],
-        Discordance = InformationValue::Concordance(actuals = actual, predictedScores = Y)[[2]],
-        `Somer's D` = InformationValue::somersD(actuals = actual, predictedScores = Y),
-        `KS Statistic` = InformationValue::ks_stat(actuals = actual, predictedScores = Y),
+        Concordance = InformationValue::Concordance(actuals = obs2, predictedScores = Y)[[1]],
+        Discordance = InformationValue::Concordance(actuals = obs2, predictedScores = Y)[[2]],
+        `Somer's D` = InformationValue::somersD(actuals = obs2, predictedScores = Y),
+        `KS Statistic` = InformationValue::ks_stat(actuals = obs2, predictedScores = Y),
         `False Discovery Rate` = 1 - Precision
       ) %>%
       select(-TN, -FN, -FP, -TP)

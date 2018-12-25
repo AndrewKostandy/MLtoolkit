@@ -35,7 +35,7 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
         `AUPRC` = MLmetrics::PRAUC(y_pred = Y, y_true = obs2),
         Precision = InformationValue::precision(actuals = obs2, predictedScores = Y),
         `F1 Score` = 2 * ((Precision * Sensitivity) / (Precision + Sensitivity)),
-        Accuracy = MLmetrics::Accuracy(y_pred = pred, y_true = obs),
+        Accuracy = MLmetrics::Accuracy(y_pred = pred2, y_true = obs2),
         `Cohen's Kappa` = caret::postResample(pred = pred, obs = obs)[2],
         `Log Loss` = MLmetrics::LogLoss(y_pred = Y, y_true = obs2),
         `Matthews Cor. Coef.` = (TP*TN-FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN)),

@@ -1,5 +1,3 @@
-library(ggplot2)
-
 plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows = NULL, conf_int95 = FALSE) {
   if (class(data)[1] == "list") {
     if (is.null(mod_names)) {

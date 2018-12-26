@@ -1,4 +1,4 @@
-library(tidyverse)
+library(ggplot2)
 
 plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows = NULL, conf_int95 = FALSE) {
   if (class(data)[1] == "list") {
@@ -10,12 +10,12 @@ plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows
   }
 
   if ("Resample" %in% colnames(data)) {
-    data <- select(data, -Resample)
+    data <- dplyr::select(data, -Resample)
   }
 
-  data <- gather(data, Metric, Value, -Model)
-  data$Metric <- fct_inorder(data$Metric)
-  data$Model <- fct_inorder(data$Model)
+  data <- tidyr::gather(data, Metric, Value, -Model)
+  data$Metric <- forcats::fct_inorder(data$Metric)
+  data$Model <- forcats::fct_inorder(data$Model)
 
   if (conf_int95 == FALSE) {
     ggplot(data, aes(Model, Value)) + geom_boxplot(fill = "lightgray") +

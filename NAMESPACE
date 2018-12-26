@@ -1,6 +1,3 @@
 exportPattern("^[[:alpha:]]+")
 
-#' @import InformationValue
-#' @import MLmetrics
-#' @import tidyverse
-#' @import caret
+#' @import ggplot2

@@ -1,8 +1,3 @@
-library(InformationValue)
-library(MLmetrics)
-library(tidyverse)
-library(caret)
-
 compute_mod_results <- function(mod_object, mod_name = NULL) {
   if (is.null(mod_name)) {
     stop("Please provide a name for the model.")
@@ -14,17 +9,17 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
   if (is.factor(results$obs)) {
 
     resample_loc <- which(colnames(results)=="Resample")
-    results <- select(results, obs, pred, resample_loc-2, resample_loc-1, Resample)
+    results <- dplyr::select(results, obs, pred, resample_loc-2, resample_loc-1, Resample)
     colnames(results)[3] <- "Y"
-    results <- mutate(results,
-                      obs_temp = as.numeric(obs),
-                      obs2 = if_else(obs_temp == 2, 0, obs_temp),
-                      pred_temp = as.numeric(pred),
-                      pred2 = if_else(pred_temp == 2, 0, pred_temp))
+    results <- dplyr::mutate(results,
+                             obs_temp = as.numeric(obs),
+                             obs2 = if_else(obs_temp == 2, 0, obs_temp),
+                             pred_temp = as.numeric(pred),
+                             pred2 = if_else(pred_temp == 2, 0, pred_temp))
 
     results <- results %>%
-      group_by(Resample) %>%
-      summarize(
+      dplyr::group_by(Resample) %>%
+      dplyr::summarize(
         TN = as.numeric(table(obs2, pred2)[1]),
         FN = as.numeric(table(obs2, pred2)[2]),
         FP = as.numeric(table(obs2, pred2)[3]),
@@ -45,12 +40,12 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
         `KS Statistic` = InformationValue::ks_stat(actuals = obs2, predictedScores = Y),
         `False Discovery Rate` = 1 - Precision
       ) %>%
-      select(-TN, -FN, -FP, -TP)
+      dplyr::select(-TN, -FN, -FP, -TP)
   } else {
     if (any(results$obs == 0)) {
       results <- results %>%
-        group_by(Resample) %>%
-        summarize(
+        dplyr::group_by(Resample) %>%
+        dplyr::summarize(
           RMSE = caret::RMSE(pred = pred, obs = obs),
           MAE = caret::MAE(pred = pred, obs = obs),
           `Spearman's Rho` = cor(pred, obs, method = "spearman"),
@@ -62,8 +57,8 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
         )
     } else {
       results <- results %>%
-        group_by(Resample) %>%
-        summarize(
+        dplyr::group_by(Resample) %>%
+        dplyr::summarize(
           RMSE = caret::RMSE(pred = pred, obs = obs),
           MAE = caret::MAE(pred = pred, obs = obs),
           MAPE = mean(abs((obs - pred) / obs)) * 100,
@@ -77,6 +72,9 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
     }
   }
 
-  results <- results %>% mutate(Model = mod_name) %>% select(Model, Resample, everything())
+  results <- results %>%
+    dplyr::mutate(Model = mod_name) %>%
+    dplyr::select(Model, Resample, everything())
+
   return(results)
 }

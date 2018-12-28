@@ -8,7 +8,7 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
 
   if (is.factor(results$obs)) {
 
-    resample_loc <- which(colnames(results)=="Resample")
+    resample_loc <- which(colnames(results) == "Resample")
     results <- dplyr::select(results, obs, pred, resample_loc-2, resample_loc-1, Resample)
     colnames(results)[3] <- "Y"
     results <- dplyr::mutate(results,

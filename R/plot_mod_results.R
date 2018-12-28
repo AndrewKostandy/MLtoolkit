@@ -15,7 +15,7 @@ plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows
   data$Metric <- forcats::fct_inorder(data$Metric)
   data$Model <- forcats::fct_inorder(data$Model)
 
-  if (conf_int95 == FALSE) {
+  if (isFALSE(conf_int95)) {
     ggplot(data, aes(Model, Value)) + geom_boxplot(fill = "lightgray") +
       facet_wrap(~Metric, scales = "free_y", ncol = plot_cols, nrow = plot_rows) +
       stat_summary(fun.y = "mean", geom = "point", shape = 23, fill = "red") +
@@ -24,7 +24,7 @@ plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows
       theme(axis.title.x = element_blank(),
             strip.text.x = element_text(color = "black", size = rel(1.1)),
             strip.background = element_blank())
-  } else if (conf_int95 == TRUE) {
+  } else if (isTRUE(conf_int95)) {
     ggplot(data, aes(Model, Value)) + geom_boxplot(fill = "lightgray") +
       facet_wrap(~Metric, scales = "free_y", ncol = plot_cols, nrow = plot_rows) +
       stat_summary(fun.data = mean_se, geom = "errorbar",

@@ -16,7 +16,8 @@ plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows
   data$Model <- forcats::fct_inorder(data$Model)
 
   if (isFALSE(conf_int95)) {
-    ggplot(data, aes(Model, Value)) + geom_boxplot(fill = "lightgray") +
+    ggplot(data, aes(Model, Value)) +
+      geom_boxplot(fill = "lightgray") +
       facet_wrap(~Metric, scales = "free_y", ncol = plot_cols, nrow = plot_rows) +
       stat_summary(fun.y = "mean", geom = "point", shape = 23, fill = "red") +
       labs(title = "Model Performance Comparison") +
@@ -25,7 +26,8 @@ plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows
             strip.text.x = element_text(color = "black", size = rel(1.1)),
             strip.background = element_blank())
   } else if (isTRUE(conf_int95)) {
-    ggplot(data, aes(Model, Value)) + geom_boxplot(fill = "lightgray") +
+    ggplot(data, aes(Model, Value)) +
+      geom_boxplot(fill = "lightgray") +
       facet_wrap(~Metric, scales = "free_y", ncol = plot_cols, nrow = plot_rows) +
       stat_summary(fun.data = mean_se, geom = "errorbar",
                    color = "red", width = 0.33, fun.args = list(mult = 1.96)) +

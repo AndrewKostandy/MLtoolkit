@@ -4,7 +4,7 @@
 Produce a Box Plot with the Performance Metrics of Multiple Caret Model Object Across Resamples.
 }
 \description{
-This function allows you to produce a boxplot of performance metrics across resamples for multiple binary classification or regression models from the caret package.
+Produce a boxplot of performance metrics across resamples for multiple binary classification or regression models from the caret package.
 
 The metrics shown for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, KS Statistic, and False Discovery Rate.
 

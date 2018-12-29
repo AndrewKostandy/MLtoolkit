@@ -38,6 +38,8 @@ ggplot2::theme_set(ggplot2::theme_light())
 - plot_mod_results(): Creates a box plot with the performance metrics of multiple caret model objects across resamples.
 - get_perc(): Gets the percentiles & the interquartile range of a dataframe's numeric columns.
 - trim_df(): Trims a dataframe's numeric columns using different methods.
+- get_prop(): Get the proportion of each predictor level associated with each outcome level.
+- plot_prop(): Plot the proportion of each predictor level having a specific outcome level.
 
 ## Example: Comparing Model Performance
 
@@ -276,3 +278,41 @@ invisible(dev.off())
 ```
 
 <p align="center"><img src="man/figures/README-trimming_2.svg" width="1000px"></p>\newline
+
+## Example: Get Outcome Levels Proportions for Each Predictor Level.
+
+This is what the diamonds dataset looks like:
+
+```{r}
+head(diamonds)
+```
+
+Let's take the "cut" column to be our outcome and the "clarity" column to be our predictor. We can get the proportion of each predictor level associated with each outcome level.
+
+```{r}
+get_prop(diamonds, clarity, cut) %>% head()
+```
+
+To plot the proportions and their confidence intervals of each predictor level having a specific outcome level, we can use the plot_prop() function.
+
+```{r, eval=FALSE}
+diamonds2 <- diamonds %>%
+  mutate(cut = fct_collapse(cut,
+                            `>= Premium` = c("Premium", "Ideal"),
+                            `<= Very Good` = c("Very Good", "Good", "Fair")))
+
+plot_prop(diamonds2, clarity, cut, ref_level = ">= Premium", ref_value = 0.5)
+```
+
+```{r, echo=FALSE}
+diamonds2 <- diamonds %>%
+  mutate(cut = fct_collapse(cut,
+                            `>= Premium` = c("Premium", "Ideal"),
+                            `<= Very Good` = c("Very Good", "Good", "Fair")))
+
+svglite("man/figures/README-plot_prop_1.svg", height = 6)
+plot_prop(diamonds2, clarity, cut, ref_level = ">= Premium", ref_value = 0.5)
+invisible(dev.off())
+```
+
+<p align="center"><img src="man/figures/README-plot_prop_1.svg" width="1000px"></p>\newline

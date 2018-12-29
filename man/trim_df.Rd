@@ -4,7 +4,7 @@
 Trim a Dataframe's Numeric Columns
 }
 \description{
-This function allows you to trim numeric dataframe variables using different methods.
+Trim numeric dataframe variables using various methods.
 }
 \usage{
 trim_df(data, type, perc = NULL)

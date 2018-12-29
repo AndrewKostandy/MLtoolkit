@@ -4,7 +4,7 @@
 Compute Performance Metrics of Multiple Caret Model Objects Across Resamples
 }
 \description{
-This function allows you to compute various types of performance metrics across resamples for multiple binary classification or regression models from the caret package.
+Compute various types of performance metrics across resamples for multiple binary classification or regression models from the caret package.
 
 The metrics computed for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, KS Statistic, and False Discovery Rate.
 

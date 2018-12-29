@@ -23,6 +23,8 @@ Currently Implemented Functions:
 -   plot\_mod\_results(): Creates a box plot with the performance metrics of multiple caret model objects across resamples.
 -   get\_perc(): Gets the percentiles & the interquartile range of a dataframe's numeric columns.
 -   trim\_df(): Trims a dataframe's numeric columns using different methods.
+-   get\_prop(): Get the proportion of each predictor level associated with each outcome level.
+-   plot\_prop(): Plot the proportion of each predictor level having a specific outcome level.
 
 Example: Comparing Model Performance
 ------------------------------------
@@ -275,4 +277,52 @@ Let's plot the test data before and after trimming using the percentiles of the 
 
 <p align="center">
 <img src="man/figures/README-trimming_2.svg" width="1000px">
+</p>
+
+Example: Get Outcome Levels Proportions for Each Predictor Level.
+-----------------------------------------------------------------
+
+This is what the diamonds dataset looks like:
+
+``` r
+head(diamonds)
+#> # A tibble: 6 x 10
+#>   carat cut       color clarity depth table price     x     y     z
+#>   <dbl> <ord>     <ord> <ord>   <dbl> <dbl> <int> <dbl> <dbl> <dbl>
+#> 1 0.23  Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+#> 2 0.21  Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+#> 3 0.23  Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+#> 4 0.290 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+#> 5 0.31  Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+#> 6 0.24  Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
+```
+
+Let's take the "cut" column to be our outcome and the "clarity" column to be our predictor. We can get the proportion of each predictor level associated with each outcome level.
+
+``` r
+get_prop(diamonds, clarity, cut) %>% head()
+#> # A tibble: 6 x 7
+#>   clarity cut           n sum_n   prop low_95ci high_95ci
+#>   <ord>   <ord>     <int> <int>  <dbl>    <dbl>     <dbl>
+#> 1 I1      Fair        210   741 0.283    0.251     0.318 
+#> 2 I1      Good         96   741 0.130    0.107     0.156 
+#> 3 I1      Very Good    84   741 0.113    0.0919    0.139 
+#> 4 I1      Premium     205   741 0.277    0.245     0.311 
+#> 5 I1      Ideal       146   741 0.197    0.169     0.228 
+#> 6 SI2     Fair        466  9194 0.0507   0.0463    0.0554
+```
+
+To plot the proportions and their confidence intervals of each predictor level having a specific outcome level, we can use the plot\_prop() function.
+
+``` r
+diamonds2 <- diamonds %>%
+  mutate(cut = fct_collapse(cut,
+                            `>= Premium` = c("Premium", "Ideal"),
+                            `<= Very Good` = c("Very Good", "Good", "Fair")))
+
+plot_prop(diamonds2, clarity, cut, ref_level = ">= Premium", ref_value = 0.5)
+```
+
+<p align="center">
+<img src="man/figures/README-plot_prop_1.svg" width="1000px">
 </p>

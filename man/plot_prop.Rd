@@ -20,10 +20,10 @@ Plot the proportion of each predictor level having a specific outcome level and 
     The outcome variable name.
   }
   \item{ref_level}{
-    The specific outcome level to show the proportions for.
+    A string providing the specific outcome level to show the proportions for.
   }
   \item{ref_value}{
-    Defaults to 0.5. The proportion value of interest to compare to.
+    Defaults to 0.5. A numeric providing the proportion value of interest to compare to.
   }
 }
 \value{

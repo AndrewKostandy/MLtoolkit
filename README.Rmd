@@ -50,8 +50,9 @@ The two following sections demonstrate how to compute performance metrics for ca
 The metrics computed for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, KS Statistic, and False Discovery Rate.  
 
 ```{r, message=FALSE}
+library(tidyverse)
+library(caret)
 library(MLtoolkit)
-library(recipes)
 library(mlbench)
 
 data(BreastCancer)
@@ -61,12 +62,6 @@ dat <- BreastCancer %>%
 
 # Since caret requires the positive class (malignant) to be the first factor level in the outcome:
 dat <- mutate(dat, Class = fct_rev(Class))
-
-rec1 <- recipe(Class ~ Cl.thickness + Cell.size + Cell.shape, data = dat)
-
-rec2 <- recipe(Class ~ Cl.thickness + Cell.size + Cell.shape + Marg.adhesion, data = dat)
-
-rec3 <- recipe(Class ~ Bl.cromatin + Normal.nucleoli + Mitoses, data = dat)
 
 set.seed(42)
 id <- createMultiFolds(dat$Class, k = 10, times = 4)
@@ -78,15 +73,15 @@ train_ctrl <- trainControl(method = "repeatedcv",
                            classProbs = TRUE,
                            savePredictions = "final")
 
-glm_fit_1 <- train(rec1, data = dat,
+glm_fit_1 <- train(Class ~ Cl.thickness + Cell.size + Cell.shape, data = dat,
                    method = "glm",
                    trControl = train_ctrl)
 
-glm_fit_2 <- train(rec2, data = dat,
+glm_fit_2 <- train(Class ~ Cl.thickness + Cell.size + Cell.shape + Marg.adhesion, data = dat,
                    method = "glm",
                    trControl = train_ctrl)
 
-glm_fit_3 <- train(rec3, data = dat,
+glm_fit_3 <- train(Class ~ Bl.cromatin + Normal.nucleoli + Mitoses, data = dat,
                    method = "glm",
                    trControl = train_ctrl)
 ```

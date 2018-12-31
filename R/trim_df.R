@@ -14,7 +14,7 @@ trim_df <- function(data, type, perc = NULL) {
       x <- ifelse(x < perc25 - (1.5 * iqr), perc25 - (1.5 * iqr), x)
       x <- ifelse(x > perc75 + (1.5 * iqr), perc75 + (1.5 * iqr), x)
     }
-    data <- data %>% purrr::imap_dfr(trim_action_iqr, perc)
+    data <- data %>% furrr::future_imap_dfr(trim_action_iqr, perc)
   } else if (type == "1_99") {
     trim_action_199 <- function(x, y, perc) {
       perc1 <- perc %>% dplyr::select(y) %>% dplyr::slice(1) %>% dplyr::pull()
@@ -23,7 +23,7 @@ trim_df <- function(data, type, perc = NULL) {
       x <- ifelse(x < perc1, perc1, x)
       x <- ifelse(x > perc99, perc99, x)
     }
-    data <- data %>% purrr::imap_dfr(trim_action199, perc)
+    data <- data %>% furrr::future_imap_dfr(trim_action199, perc)
   } else {
     stop("The type argument must be either \"iqr\" or \"1_99\".")
   }

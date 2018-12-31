@@ -21,10 +21,33 @@ Currently Implemented Functions:
 -   compute\_mod\_results(): Computes performance metrics of a single caret model object across resamples.
 -   all\_mod\_results(): Computes performance metrics of multiple caret model objects across resamples.
 -   plot\_mod\_results(): Creates a box plot with the performance metrics of multiple caret model objects across resamples.
+-   pred\_improve(): Gets the model performance improvement of each predictor relative to the null model.
+-   plot\_pred\_improve(): Plots the model performance improvement of each predictor relative to the null model.
 -   get\_perc(): Gets the percentiles & the interquartile range of a dataframe's numeric columns.
 -   trim\_df(): Trims a dataframe's numeric columns using different methods.
--   get\_prop(): Get the proportion of each predictor level associated with each outcome level.
--   plot\_prop(): Plot the proportion of each predictor level having a specific outcome level.
+-   get\_prop(): Gets the proportion of each predictor level associated with each outcome level.
+-   plot\_prop(): Plots the proportion of each predictor level having a specific outcome level.
+
+Parallelization
+---------------
+
+The following functions can make use of parallelization to increase computation speed if desired:
+
+-   all\_mod\_results()
+-   plot\_mod\_results()
+-   pred\_improve()
+-   plot\_pred\_improve()
+-   get\_perc()
+-   trim\_df()
+
+The future package can be used as per the below example:
+
+``` r
+library(future)
+plan("multiprocess") # To enable parallel processing
+pred_improve(...) # This function will now make use of parallel processing
+plan("sequential") # To return to sequential processing if needed
+```
 
 Example: Comparing Model Performance
 ------------------------------------
@@ -32,6 +55,8 @@ Example: Comparing Model Performance
 The two following sections demonstrate how to compute performance metrics for caret model objects across resamples for binary classification and regression plotting those results in each case.
 
 ### Binary Classification
+
+We'll use the BreastCancer data set from the mlbench library and do some minor modifications on it.
 
 The metrics computed for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, KS Statistic, and False Discovery Rate.
 
@@ -129,6 +154,8 @@ This function can alternatively take a list of caret model objects and a list or
 
 ### Regression
 
+We'll use the iris data set.
+
 The performance metrics computed for regression are: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), Mean Absolute Percentage Error (MAPE), Spearman's Rho, Concordance Correlation Coefficient, and RSquared. Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
 
 ``` r
@@ -199,10 +226,62 @@ plot_mod_results(mod_results, conf_int95 = TRUE)
 
 The "InformationValue", "caret", and "MLmetrics" packages were used to compute many of the performance metrics.
 
+Example: Get the Model Performance Improvement of Each Predictor Relative to the Null Model
+-------------------------------------------------------------------------------------------
+
+We'll use the BreastCancer data set from the mlbench library that we have modified above and add 4 uninformative predictors to it. 2 of those uninformative predictors will be numeric and 2 will be categorical.
+
+``` r
+dat2 <- dat %>% mutate(Rand_Num_1 = rnorm(n = nrow(dat)),
+                       Rand_Num_2 = runif(n = nrow(dat)),
+                       Rand_Cat_1 = sample(x = c("Cat1A", "Cat1B", "Cat1C"),
+                                           size = nrow(dat), replace = TRUE,
+                                           prob = c(0.4, 0.4, 0.2)),
+                       Rand_Cat_2 = sample(x = c("Cat2A", "Cat2B", "Cat2C"),
+                                           size = nrow(dat), replace = TRUE, 
+                                           prob = c(0.1, 0.1, 0.8)))
+```
+
+The pred\_improve() function returns the performance improvement of each predictor relative to the null model. If the outcome is categorical, then a logistic regression model is used and the area under the ROC curve is used to assess performance. If the outcome is numeric, then an ordinary least squares model is used and the root mean squared error (RMSE) is used to assess performance.
+
+The results are estimated across resamples and the p-value is determined using a one-sided paired t-test of the predictor results and the null model results in each case. The p-values are adjusted using the Bonferroni method to control the family-wise error rate.
+
+``` r
+pred_improve(data = dat2, outcome = Class, seed = 42, folds = 10, repeats = 3)
+#> # A tibble: 13 x 3
+#>    predictor       auroc_improvement significance
+#>    <chr>                       <dbl>        <dbl>
+#>  1 Cell.shape                0.473       1.67e-43
+#>  2 Cell.size                 0.473       3.11e-39
+#>  3 Bl.cromatin               0.439       1.02e-33
+#>  4 Epith.c.size              0.421       1.89e-30
+#>  5 Bare.nuclei               0.420       1.95e-31
+#>  6 Cl.thickness              0.409       3.61e-31
+#>  7 Marg.adhesion             0.396       3.71e-28
+#>  8 Normal.nucleoli           0.388       1.70e-30
+#>  9 Mitoses                   0.210       3.79e-19
+#> 10 Rand_Cat_2                0.0249      8.75e- 2
+#> 11 Rand_Cat_1                0.0151      1.00e+ 0
+#> 12 Rand_Num_1               -0.00991     1.00e+ 0
+#> 13 Rand_Num_2               -0.0405      1.00e+ 0
+```
+
+The plot\_pred\_improve() function can be used to return a plot directly:
+
+``` r
+plot_pred_improve(data = dat2, outcome = Class, seed = 42, folds = 10, repeats = 3)
+```
+
+<p align="center">
+<img src="man/figures/README-plot_pred_improve_1.svg" width="1000px">
+</p>
+
+### References
+
+This technique was discussed in the book Feature Engineering and Selection: A Practical Approach for Predictive Models by Max Kuhn and Kjell Johnson.
+
 Example: Data Trimming
 ----------------------
-
-This is a basic example which shows the trim\_df() function in the package.
 
 Below is a dataframe with numeric columns including univariate outliers:
 
@@ -277,7 +356,7 @@ Let's plot the test data before and after trimming using the percentiles of the 
 Example: Get Outcome Levels Proportions for Each Predictor Level.
 -----------------------------------------------------------------
 
-This is what the diamonds dataset looks like:
+This is what the diamonds data set looks like:
 
 ``` r
 head(diamonds)
@@ -313,7 +392,7 @@ To plot the proportions and their confidence intervals of each predictor level h
 diamonds2 <- diamonds %>%
   mutate(cut = fct_collapse(cut,
                             `>= Premium` = c("Premium", "Ideal"),
-                            `<= Very Good` = c("Very Good", "Good", "Fair")))
+                            `<= Very Good` = c("Fair", "Good", "Very Good")))
 
 plot_prop(diamonds2, clarity, cut, ref_level = ">= Premium", ref_value = 0.5)
 ```
@@ -321,3 +400,7 @@ plot_prop(diamonds2, clarity, cut, ref_level = ">= Premium", ref_value = 0.5)
 <p align="center">
 <img src="man/figures/README-plot_prop_1.svg" width="1000px">
 </p>
+
+### References
+
+This technique was discussed in the book Feature Engineering and Selection: A Practical Approach for Predictive Models by Max Kuhn and Kjell Johnson.

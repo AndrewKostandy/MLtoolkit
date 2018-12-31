@@ -21,6 +21,9 @@ The dataframe you want to get the percentiles of.
 \value{
 Returns a dataframe with the key percentiles of each numeric column in the data and the interquartile range values.
 }
+\references{
+This technique was discussed in the book Feature Engineering and Selection: A Practical Approach for Predictive Models by Max Kuhn and Kjell Johnson.
+}
 \author{
 Andrew Kostandy (andrew.kostandy@gmail.com)
 }

@@ -27,7 +27,7 @@ Plot the proportion of each predictor level having a specific outcome level and 
   }
 }
 \value{
-Returns the plot a ggplot object.
+Returns a ggplot object with the predictor levels on the x-axis and the proportion of values in the ref_level of the outcome on the y-axis.
 }
 \section{Figures}{
 \if{html}{\figure{plot_prop_1.svg}{options: width=100\%}}

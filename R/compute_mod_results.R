@@ -40,6 +40,7 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
         `KS Statistic` = InformationValue::ks_stat(actuals = obs2, predictedScores = Y),
         `False Discovery Rate` = 1 - Precision
       ) %>%
+      dplyr::ungroup() %>%
       dplyr::select(-TN, -FN, -FP, -TP)
   } else {
     if (any(results$obs == 0)) {
@@ -54,7 +55,8 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
                (var(obs)* (length(obs)-1)/length(obs)) +
                (mean(pred) - mean(obs))^2),
           R2 = caret::R2(pred = pred, obs = obs)
-        )
+        ) %>%
+        dplyr::ungroup()
     } else {
       results <- results %>%
         dplyr::group_by(Resample) %>%
@@ -68,7 +70,8 @@ compute_mod_results <- function(mod_object, mod_name = NULL) {
                (var(obs)* (length(obs)-1)/length(obs)) +
                (mean(pred) - mean(obs))^2),
           R2 = caret::R2(pred = pred, obs = obs)
-        )
+        ) %>%
+        dplyr::ungroup()
     }
   }
 

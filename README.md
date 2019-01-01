@@ -244,7 +244,7 @@ dat2 <- dat %>% mutate(Rand_Num_1 = rnorm(n = nrow(dat)),
 
 The pred\_improve() function returns the performance improvement of each predictor relative to the null model. If the outcome is categorical, then a logistic regression model is used and the area under the ROC curve is used to assess performance. If the outcome is numeric, then an ordinary least squares model is used and the root mean squared error (RMSE) is used to assess performance.
 
-The results are estimated across resamples and the p-value is determined using a one-sided paired t-test of the predictor results and the null model results in each case. The p-values are adjusted using the Bonferroni method to control the family-wise error rate.
+The results are estimated across resamples and the p-value is determined using a one-sided paired t-test of the predictor results and the null model results in each case. The p-values are adjusted using the Benjamini-Hochberg method to control the false discovery rate.
 
 ``` r
 pred_improve(data = dat2, outcome = Class, seed = 42, folds = 10, repeats = 3)
@@ -252,18 +252,18 @@ pred_improve(data = dat2, outcome = Class, seed = 42, folds = 10, repeats = 3)
 #>    predictor       auroc_improvement significance
 #>    <chr>                       <dbl>        <dbl>
 #>  1 Cell.shape                0.473       1.67e-43
-#>  2 Cell.size                 0.473       3.11e-39
-#>  3 Bl.cromatin               0.439       1.02e-33
-#>  4 Epith.c.size              0.421       1.89e-30
-#>  5 Bare.nuclei               0.420       1.95e-31
-#>  6 Cl.thickness              0.409       3.61e-31
-#>  7 Marg.adhesion             0.396       3.71e-28
-#>  8 Normal.nucleoli           0.388       1.70e-30
-#>  9 Mitoses                   0.210       3.79e-19
-#> 10 Rand_Cat_2                0.0249      8.75e- 2
-#> 11 Rand_Cat_1                0.0151      1.00e+ 0
-#> 12 Rand_Num_1               -0.00991     1.00e+ 0
-#> 13 Rand_Num_2               -0.0405      1.00e+ 0
+#>  2 Cell.size                 0.473       1.55e-39
+#>  3 Bl.cromatin               0.439       3.39e-34
+#>  4 Epith.c.size              0.421       2.70e-31
+#>  5 Bare.nuclei               0.420       4.87e-32
+#>  6 Cl.thickness              0.409       7.23e-32
+#>  7 Marg.adhesion             0.396       4.64e-29
+#>  8 Normal.nucleoli           0.388       2.70e-31
+#>  9 Mitoses                   0.210       4.21e-20
+#> 10 Rand_Cat_2                0.0249      8.75e- 3
+#> 11 Rand_Cat_1                0.0151      1.04e- 1
+#> 12 Rand_Num_1               -0.00991     9.50e- 1
+#> 13 Rand_Num_2               -0.0405      9.99e- 1
 ```
 
 The plot\_pred\_improve() function can be used to return a plot directly:

@@ -120,7 +120,7 @@ pred_improve <- function(data, outcome, seed, folds = 10, repeats = 3){
   }
 
   all_improve_results <- furrr::future_imap_dfr(select(data, -!!outcome_var), single_pred_improve) %>%
-    dplyr::mutate(significance = p.adjust(significance, method = "bonferroni")) %>%
+    dplyr::mutate(significance = p.adjust(significance, method = "BH")) %>%
     dplyr::arrange(dplyr::desc(improvement), significance)
 
   if (isTRUE(categorical))

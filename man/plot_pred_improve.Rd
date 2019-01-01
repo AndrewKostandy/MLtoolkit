@@ -6,7 +6,7 @@ Plot the Model Performance Improvement of Each Predictor Relative to the Null Mo
 \description{
 Plot the model performance improvement of each predictor relative to the null model. If the outcome is categorical, then a logisitic regression model is used and the area under the ROC curve is used to assess performance. If the outcome is numeric, then an ordinary least squares model is used and the root mean squared error (RMSE) is used to assess performance.
 
-The results are estimated across resamples and the p-value is determined using a one-sided paired t-test of the predictor results and the null model results in each case. The p-values are adjusted using the Bonferroni method to control the family-wise error rate.
+The results are estimated across resamples and the p-value is determined using a one-sided paired t-test of the predictor results and the null model results in each case. The p-values are adjusted using the Benjamini-Hochberg method to control the false discovery rate.
 }
 \usage{
 plot_pred_improve(data, outcome, seed, folds = 10, repeats = 3)

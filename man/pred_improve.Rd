@@ -6,7 +6,7 @@ Get the Model Performance Improvement of Each Predictor Relative to the Null Mod
 \description{
 Get the model performance improvement of each predictor relative to the null model. If the outcome is categorical, then a logisitic regression model is used and the area under the ROC curve is used to assess performance. If the outcome is numeric, then an ordinary least squares model is used and the root mean squared error (RMSE) is used to assess performance.
 
-The results are estimated across resamples and the p-value is determined using a one-sided paired t-test of the predictor results and the null model results in each case. The p-values are adjusted using the Bonferroni method to control the family-wise error rate.
+The results are estimated across resamples and the p-value is determined using a one-sided paired t-test of the predictor results and the null model results in each case. The p-values are adjusted using the Benjamini-Hochberg method to control the false discovery rate.
 }
 \usage{
 pred_improve(data, outcome, seed, folds = 10, repeats = 3)
@@ -37,7 +37,7 @@ Returns a dataframe in descending order of improvement that includes the followi
     The AUROC or RMSE improvement between using the predictor and a null model.
   }
   \item{significance}{
-    The p-value of the one-sided paired t-test of the predictor results and the null model results calculated across resamples. The p-values are adjusted using the Bonferroni method to control the family-wise error rate.
+    The p-value of the one-sided paired t-test of the predictor results and the null model results calculated across resamples. The p-values are adjusted using the Benjamini-Hochberg method to control the false discovery rate.
   }
 }
 \references{

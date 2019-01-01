@@ -38,8 +38,8 @@ ggplot2::theme_set(ggplot2::theme_light())
 
 ## Currently Implemented Functions:
 
-- compute_mod_results(): Computes performance metrics of a single caret model object across resamples.
-- all_mod_results(): Computes performance metrics of multiple caret model objects across resamples.
+- single_mod_results(): Computes performance metrics of a single caret model object across resamples.
+- mult_mod_results(): Computes performance metrics of multiple caret model objects across resamples.
 - plot_mod_results(): Creates a box plot with the performance metrics of multiple caret model objects across resamples.
 - pred_improve(): Gets the model performance improvement of each predictor relative to the null model.
 - plot_pred_improve(): Plots the model performance improvement of each predictor relative to the null model.
@@ -52,7 +52,7 @@ ggplot2::theme_set(ggplot2::theme_light())
 
 The following functions can make use of parallelization to increase computation speed if desired:
 
-- all_mod_results()
+- mult_mod_results()
 - plot_mod_results()
 - pred_improve()
 - plot_pred_improve()
@@ -115,16 +115,16 @@ glm_fit_3 <- train(Class ~ Bl.cromatin + Normal.nucleoli + Mitoses, data = dat,
                    trControl = train_ctrl)
 ```
 
-The compute_mod_results() function works with a single caret model object and computes its performance metrics:
+The single_mod_results() function works with a single caret model object and computes its performance metrics:
 
 ```{r}
-compute_mod_results(glm_fit_1, "GLM 1") %>% head()
+single_mod_results(glm_fit_1, "GLM 1") %>% head()
 ```
 
-The all_mod_results() function works with multiple caret model objects and computes their model performance metrics:
+The mult_mod_results() function works with multiple caret model objects and computes their model performance metrics:
 
 ```{r}
-mod_results <- all_mod_results(list(glm_fit_1, glm_fit_2, glm_fit_3), c("GLM 1", "GLM 2", "GLM 3"))
+mod_results <- mult_mod_results(list(glm_fit_1, glm_fit_2, glm_fit_3), c("GLM 1", "GLM 2", "GLM 3"))
 mod_results %>% head()
 ```
 
@@ -177,16 +177,16 @@ lm_fit_3 <- train(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data 
                   trControl = train_ctrl)
 ```
 
-The compute_mod_results() function works with a single caret model object and computes its performance metrics:
+The single_mod_results() function works with a single caret model object and computes its performance metrics:
 
 ```{r}
-compute_mod_results(lm_fit_1, "LM 1") %>% head()
+single_mod_results(lm_fit_1, "LM 1") %>% head()
 ```
 
-The all_mod_results() function works with multiple caret model objects and computes their model performance metrics:
+The mult_mod_results() function works with multiple caret model objects and computes their model performance metrics:
 
 ```{r}
-mod_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
+mod_results <- mult_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
 mod_results %>% head()
 ```
 

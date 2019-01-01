@@ -4,7 +4,7 @@ plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows
       stop("Please provide the model names.")
     }
 
-    data <- all_mod_results(data, mod_names)
+    data <- mult_mod_results(data, mod_names)
   }
 
   if ("Resample" %in% colnames(data)) {

@@ -1,5 +1,5 @@
-\name{all_mod_results}
-\alias{all_mod_results}
+\name{mult_mod_results}
+\alias{mult_mod_results}
 \title{
 Compute Performance Metrics of Multiple Caret Model Objects Across Resamples
 }
@@ -11,7 +11,7 @@ The metrics computed for binary classification are: Area under ROC Curve (AUROC)
 The metrics computed for regression are: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), Mean Absolute Percentage Error (MAPE), Spearman's Rho, Concordance Correlation Coefficient, and RSquared. Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
 }
 \usage{
-all_mod_results(mod_list, mod_names)
+mult_mod_results(mod_list, mod_names)
 }
 \arguments{
   \item{mod_list}{
@@ -52,5 +52,5 @@ lm_fit_3 <- train(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data 
                   metric = "RMSE",
                   trControl = train_ctrl)
 
-all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
+mult_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
 }

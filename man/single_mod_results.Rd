@@ -1,5 +1,5 @@
-\name{compute_mod_results}
-\alias{compute_mod_results}
+\name{single_mod_results}
+\alias{single_mod_results}
 \title{
 Compute Performance Metrics of a Single Caret Model Object Across Resamples
 }
@@ -11,7 +11,7 @@ The metrics computed for binary classification are: Area under ROC Curve (AUROC)
 The metrics computed for regression are: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), Mean Absolute Percentage Error (MAPE), Spearman's Rho, Concordance Correlation Coefficient, and RSquared. Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
 }
 \usage{
-compute_mod_results(mod_object, mod_name)
+single_mod_results(mod_object, mod_name)
 }
 \arguments{
   \item{mod_object}{
@@ -42,5 +42,5 @@ lm_fit_1 <- train(Sepal.Length ~ Sepal.Width, data = iris,
                   metric = "RMSE",
                   trControl = train_ctrl)
 
-compute_mod_results(lm_fit_1, "LM 1")
+single_mod_results(lm_fit_1, "LM 1")
 }

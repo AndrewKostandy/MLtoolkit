@@ -1,4 +1,4 @@
-compute_mod_results <- function(mod_object, mod_name = NULL) {
+single_mod_results <- function(mod_object, mod_name = NULL) {
   if (is.null(mod_name)) {
     stop("Please provide a name for the model.")
   }

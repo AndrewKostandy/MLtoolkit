@@ -18,8 +18,8 @@ devtools::install_github("AndrewKostandy/MLtoolkit")
 Currently Implemented Functions:
 --------------------------------
 
--   compute\_mod\_results(): Computes performance metrics of a single caret model object across resamples.
--   all\_mod\_results(): Computes performance metrics of multiple caret model objects across resamples.
+-   single\_mod\_results(): Computes performance metrics of a single caret model object across resamples.
+-   mult\_mod\_results(): Computes performance metrics of multiple caret model objects across resamples.
 -   plot\_mod\_results(): Creates a box plot with the performance metrics of multiple caret model objects across resamples.
 -   pred\_improve(): Gets the model performance improvement of each predictor relative to the null model.
 -   plot\_pred\_improve(): Plots the model performance improvement of each predictor relative to the null model.
@@ -33,7 +33,7 @@ Parallelization
 
 The following functions can make use of parallelization to increase computation speed if desired:
 
--   all\_mod\_results()
+-   mult\_mod\_results()
 -   plot\_mod\_results()
 -   pred\_improve()
 -   plot\_pred\_improve()
@@ -97,10 +97,10 @@ glm_fit_3 <- train(Class ~ Bl.cromatin + Normal.nucleoli + Mitoses, data = dat,
                    trControl = train_ctrl)
 ```
 
-The compute\_mod\_results() function works with a single caret model object and computes its performance metrics:
+The single\_mod\_results() function works with a single caret model object and computes its performance metrics:
 
 ``` r
-compute_mod_results(glm_fit_1, "GLM 1") %>% head()
+single_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> # A tibble: 6 x 17
 #>   Model Resample AUROC Sensitivity Specificity AUPRC Precision `F1 Score`
 #>   <chr> <chr>    <dbl>       <dbl>       <dbl> <dbl>     <dbl>      <dbl>
@@ -116,10 +116,10 @@ compute_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> #   Discovery Rate` <dbl>
 ```
 
-The all\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
+The mult\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
 
 ``` r
-mod_results <- all_mod_results(list(glm_fit_1, glm_fit_2, glm_fit_3), c("GLM 1", "GLM 2", "GLM 3"))
+mod_results <- mult_mod_results(list(glm_fit_1, glm_fit_2, glm_fit_3), c("GLM 1", "GLM 2", "GLM 3"))
 mod_results %>% head()
 #> # A tibble: 6 x 17
 #>   Model Resample AUROC Sensitivity Specificity AUPRC Precision `F1 Score`
@@ -181,10 +181,10 @@ lm_fit_3 <- train(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data 
                   trControl = train_ctrl)
 ```
 
-The compute\_mod\_results() function works with a single caret model object and computes its performance metrics:
+The single\_mod\_results() function works with a single caret model object and computes its performance metrics:
 
 ``` r
-compute_mod_results(lm_fit_1, "LM 1") %>% head()
+single_mod_results(lm_fit_1, "LM 1") %>% head()
 #> # A tibble: 6 x 8
 #>   Model Resample  RMSE   MAE  MAPE `Spearman's Rho` `Concordance Co…     R2
 #>   <chr> <chr>    <dbl> <dbl> <dbl>            <dbl>            <dbl>  <dbl>
@@ -196,10 +196,10 @@ compute_mod_results(lm_fit_1, "LM 1") %>% head()
 #> 6 LM 1  Fold02.… 0.750 0.641  11.5           0.440            0.0676 0.104
 ```
 
-The all\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
+The mult\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
 
 ``` r
-mod_results <- all_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
+mod_results <- mult_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
 mod_results %>% head()
 #> # A tibble: 6 x 8
 #>   Model Resample  RMSE   MAE  MAPE `Spearman's Rho` `Concordance Co…     R2

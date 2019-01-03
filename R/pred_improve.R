@@ -124,9 +124,9 @@ pred_improve <- function(data, outcome, seed, folds = 10, repeats = 3){
     dplyr::arrange(dplyr::desc(improvement), significance)
 
   if (isTRUE(categorical))
-    all_improve_results <- rename(all_improve_results, "auroc_improvement" = "improvement")
+    all_improve_results <- dplyr::rename(all_improve_results, "auroc_improvement" = "improvement")
   else
-    all_improve_results <- rename(all_improve_results, "rmse_improvement" = "improvement")
+    all_improve_results <- dplyr::rename(all_improve_results, "rmse_improvement" = "improvement")
 
   return(all_improve_results)
 }

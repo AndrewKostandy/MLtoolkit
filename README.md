@@ -52,7 +52,7 @@ plan("sequential") # To return to sequential processing if needed
 Example: Comparing Model Performance
 ------------------------------------
 
-The two following sections demonstrate how to compute performance metrics for caret model objects across resamples for binary classification and regression plotting those results in each case.
+The two following sections demonstrate how to compute performance metrics for caret model objects across resamples for binary classification and regression and plotting the results in each case.
 
 ### Binary Classification
 

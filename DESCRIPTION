@@ -1,10 +1,10 @@
 Package: MLtoolkit
 Type: Package
-Title: Functions to Help with Machine Learning Tasks
+Title: Functions to Help with Machine Learning & Feature Engineering Tasks
 Version: 0.1.0
 Author: Andrew Kostandy (andrew.kostandy@gmail.com)
 Maintainer: Andrew Kostandy <andrew.kostandy@gmail.com>
-Description: Contains functions to help with machine learning tasks.
+Description: Contains functions to help with machine learning & feature engineering tasks.
 Depends:
     R (>= 3.5.0)
 Imports:

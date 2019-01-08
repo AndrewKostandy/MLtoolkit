@@ -3,7 +3,7 @@
 MLtoolkit
 =========
 
-MLtoolkit is an R package providing functions to help with machine learning tasks.
+MLtoolkit is an R package providing functions to help with machine learning & feature engineering tasks.
 
 Installation
 ------------

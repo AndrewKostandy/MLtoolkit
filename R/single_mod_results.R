@@ -3,7 +3,7 @@ single_mod_results <- function(mod_object, mod_name = NULL) {
     stop("Please provide a name for the model.")
   }
 
-  results <- mod_object$pred %>% select(-rowIndex)
+  results <- mod_object$pred %>% dplyr::select(-rowIndex)
 
 
   if (is.factor(results$obs)) {

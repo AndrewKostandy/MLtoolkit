@@ -62,6 +62,7 @@ The metrics computed for binary classification are: Area under ROC Curve (AUROC)
 
 ``` r
 library(tidyverse)
+#> Warning: package 'tibble' was built under R version 3.5.2
 library(caret)
 library(MLtoolkit)
 library(mlbench)
@@ -110,7 +111,7 @@ single_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> 4 GLM 1 Fold01.… 0.982       0.958       0.978 0.879     0.958      0.958
 #> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957      0.936
 #> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92       0.939
-#> # ... with 9 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
+#> # … with 9 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
 #> #   Loss` <dbl>, `Matthews Cor. Coef.` <dbl>, Concordance <dbl>,
 #> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>, `False
 #> #   Discovery Rate` <dbl>
@@ -130,7 +131,7 @@ mod_results %>% head()
 #> 4 GLM 1 Fold01.… 0.982       0.958       0.978 0.879     0.958      0.958
 #> 5 GLM 1 Fold02.… 0.984       0.917       0.978 0.882     0.957      0.936
 #> 6 GLM 1 Fold02.… 0.983       0.958       0.956 0.925     0.92       0.939
-#> # ... with 9 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
+#> # … with 9 more variables: Accuracy <dbl>, `Cohen's Kappa` <dbl>, `Log
 #> #   Loss` <dbl>, `Matthews Cor. Coef.` <dbl>, Concordance <dbl>,
 #> #   Discordance <dbl>, `Somer's D` <dbl>, `KS Statistic` <dbl>, `False
 #> #   Discovery Rate` <dbl>
@@ -288,6 +289,8 @@ Below is a dataframe with numeric columns including univariate outliers:
 ``` r
 training <- data_frame(a = c(10, 11, 12, seq(70, 90, 2), 50, 60),
                        b = c(3, 11, 12, seq(30, 40, 1), 44, 80))
+#> Warning: `data_frame()` is deprecated, use `tibble()`.
+#> This warning is displayed once per session.
 ```
 
 The trim\_df() function will trim univariate outliers as follows:

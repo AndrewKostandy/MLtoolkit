@@ -9,6 +9,8 @@ Compute various types of performance metrics across resamples for multiple binar
 The metrics computed for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, KS Statistic, and False Discovery Rate.
 
 The metrics computed for regression are: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), Mean Absolute Percentage Error (MAPE), Spearman's Rho, Concordance Correlation Coefficient, and RSquared. Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
+
+Note that the savePredictions argument in caret's trainControl function should be set to "final" so that the resampling results of the model with the optimal tuning parameters are available: trainControl(..., savePredictions = "final")
 }
 \usage{
 mult_mod_results(mod_list, mod_names)

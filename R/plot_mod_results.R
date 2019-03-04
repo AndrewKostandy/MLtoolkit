@@ -1,4 +1,4 @@
-plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows = NULL, conf_int95 = FALSE) {
+plot_mod_results <- function(data, mod_names = NULL, ncol = NULL, nrow = NULL, scales = "free_y", conf_int95 = FALSE) {
   if (class(data)[1] == "list") {
     if (is.null(mod_names)) {
       stop("Please provide the model names.")
@@ -18,7 +18,7 @@ plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows
   if (isFALSE(conf_int95)) {
     ggplot2::ggplot(data, aes(Model, Value)) +
       ggplot2::geom_boxplot(fill = "lightgray") +
-      ggplot2::facet_wrap(~Metric, scales = "free_y", ncol = plot_cols, nrow = plot_rows) +
+      ggplot2::facet_wrap(~Metric, scales = scales, ncol = ncol, nrow = nrow) +
       ggplot2::stat_summary(fun.y = "mean", geom = "point", shape = 23, fill = "red") +
       ggplot2::labs(title = "Model Performance Comparison") +
       ggplot2::theme_light() +
@@ -28,7 +28,7 @@ plot_mod_results <- function(data, mod_names = NULL, plot_cols = NULL, plot_rows
   } else if (isTRUE(conf_int95)) {
     ggplot2::ggplot(data, aes(Model, Value)) +
       ggplot2::geom_boxplot(fill = "lightgray") +
-      ggplot2::facet_wrap(~Metric, scales = "free_y", ncol = plot_cols, nrow = plot_rows) +
+      ggplot2::facet_wrap(~Metric, scales = scales, ncol = ncol, nrow = nrow) +
       ggplot2::stat_summary(fun.data = mean_se, geom = "errorbar",
                             color = "red", width = 0.33, fun.args = list(mult = 1.96)) +
       ggplot2::stat_summary(fun.y = "mean", geom = "point", shape = 23, fill = "red") +

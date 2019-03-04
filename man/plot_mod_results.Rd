@@ -28,11 +28,14 @@ This argument can be either of the below options:
 \item{mod_names}{
 Defaults to NULL. A vector or list of names for the models. This argument is required only if option 2 is used for the data argument. Otherwise, it is not used.
 }
-\item{plot_cols}{
+\item{ncol}{
 Defaults to NULL. An integer providing the number of facet columns to have in the plot. NULL value would use the default settings of ggplot2's facet_wrap() function.
 }
-\item{plot_rows}{
+\item{nrow}{
 Defaults to NULL. An integer providing the number of facet rows to have in the plot. NULL value would use the default settings of ggplot2's facet_wrap() function.
+}
+\item{scales}{
+Defaults to "free_y". A string that is passed to the scales argument of ggplot's facet_wrap() function.
 }
 \item{conf_int95}{
 Defaults to FALSE. A logical indicating whether the plot should add errorbars representing the 95\% confidence interval of the mean.

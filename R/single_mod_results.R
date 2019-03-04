@@ -77,7 +77,7 @@ single_mod_results <- function(mod_object, mod_name = NULL) {
 
   results <- results %>%
     dplyr::mutate(Model = mod_name) %>%
-    dplyr::select(Model, Resample, everything())
+    dplyr::select(Model, Resample, dplyr::everything())
 
   return(results)
 }

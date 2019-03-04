@@ -131,12 +131,12 @@ mod_results %>% head()
 The plot_mod_results() function produces a box plot of the models performance metrics:
 
 ```{r, eval=FALSE}
-plot_mod_results(mod_results, plot_cols = 3)
+plot_mod_results(mod_results, ncol = 3)
 ```
 
 ```{r, echo=FALSE, fig.height=8}
 svglite("man/figures/README-binary_classification_1.svg", height = 10)
-plot_mod_results(mod_results, plot_cols = 3)
+plot_mod_results(mod_results, ncol = 3)
 invisible(dev.off())
 ```
 

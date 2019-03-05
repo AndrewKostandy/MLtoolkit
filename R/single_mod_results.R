@@ -27,7 +27,7 @@ single_mod_results <- function(mod_object, mod_name = NULL) {
         AUROC = InformationValue::AUROC(actuals = obs2, predictedScores = Y),
         Sensitivity = InformationValue::sensitivity(actuals = obs2, predictedScores = Y),
         Specificity = InformationValue::specificity(actuals = obs2, predictedScores = Y),
-        `AUPRC` = MLmetrics::PRAUC(y_pred = Y, y_true = obs2),
+        AUPRC = MLmetrics::PRAUC(y_pred = Y, y_true = obs2),
         Precision = InformationValue::precision(actuals = obs2, predictedScores = Y),
         `F1 Score` = 2 * ((Precision * Sensitivity) / (Precision + Sensitivity)),
         Accuracy = MLmetrics::Accuracy(y_pred = pred2, y_true = obs2),

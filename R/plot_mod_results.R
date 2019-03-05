@@ -34,9 +34,9 @@ plot_mod_results <- function(data, mod_names = NULL, ncol = NULL, nrow = NULL, s
       ggplot2::stat_summary(fun.y = "mean", geom = "point", shape = 23, fill = "red") +
       ggplot2::labs(title = "Model Performance Comparison") +
       ggplot2::theme_light() +
-      ggplot2::theme(axis.title.x = element_blank(),
-                     strip.text.x = element_text(color = "black", size = rel(1.1)),
-                     strip.background = element_blank())
+      ggplot2::theme(axis.title.x = ggplot2::element_blank(),
+                     strip.text.x = ggplot2::element_text(color = "black", size = rel(1.1)),
+                     strip.background = ggplot2::element_blank())
   } else {
     stop("The argument conf_int95 can take the values TRUE or FALSE only.")
   }

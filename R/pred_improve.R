@@ -1,5 +1,8 @@
 pred_improve <- function(data, outcome, seed, folds = 10, repeats = 3){
 
+  if(class(data)[1] == "tbl_df")
+    data <- as.data.frame(data)
+
   outcome_var <- dplyr::enquo(outcome)
 
   outcome_values <- dplyr::pull(data, !!outcome_var)

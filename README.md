@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+MLtoolkit
+=========
 
-# MLtoolkit
+MLtoolkit is an R package providing functions to help with machine learning & feature engineering tasks.
 
-MLtoolkit is an R package providing functions to help with machine
-learning & feature engineering tasks.
-
-## Installation
+Installation
+------------
 
 You can install MLtoolkit from GitHub using:
 
@@ -15,38 +15,32 @@ You can install MLtoolkit from GitHub using:
 devtools::install_github("AndrewKostandy/MLtoolkit")
 ```
 
-## Currently Implemented Functions:
+Currently Implemented Functions:
+--------------------------------
 
-  - single\_mod\_results(): Computes performance metrics of a single
-    caret model object across resamples.
-  - mult\_mod\_results(): Computes performance metrics of multiple caret
-    model objects across resamples.
-  - plot\_mod\_results(): Creates a box plot with the performance
-    metrics of multiple caret model objects across resamples.
-  - pred\_improve(): Gets the model performance improvement of each
-    predictor relative to the null model.
-  - plot\_pred\_improve(): Plots the model performance improvement of
-    each predictor relative to the null model.
-  - get\_perc(): Gets the percentiles & the interquartile range of a
-    dataframe’s numeric columns.
-  - trim\_df(): Trims a dataframe’s numeric columns using different
-    methods.
-  - get\_prop(): Gets the proportion of each predictor level associated
-    with each outcome level.
-  - plot\_prop(): Plots the proportion of each predictor level having a
-    specific outcome level.
+-   single\_mod\_results(): Computes performance metrics of a single caret model object across resamples.
+-   mult\_mod\_results(): Computes performance metrics of multiple caret model objects across resamples.
+-   plot\_mod\_results(): Creates a box plot with the performance metrics of multiple caret model objects across resamples.
+-   pred\_improve(): Gets the model performance improvement of each predictor relative to the null model.
+-   plot\_pred\_improve(): Plots the model performance improvement of each predictor relative to the null model.
+-   get\_perc(): Gets the percentiles & the interquartile range of a dataframe's numeric columns.
+-   trim\_df(): Trims a dataframe's numeric columns using different methods.
+-   get\_prop(): Gets the proportion of each predictor level associated with each outcome level.
+-   plot\_prop(): Plots the proportion of each predictor level having a specific outcome level.
+-   get\_prop2(): Gets the proportion of each combination of two predictors' levels having each outcome level.
+-   plot\_prop2(): Plots the proportion of each combination of two predictors' levels having a specific outcome level.
 
-## Parallelization
+Parallelization
+---------------
 
-The following functions can make use of parallelization to increase
-computation speed if desired:
+The following functions can make use of parallelization to increase computation speed if desired:
 
-  - mult\_mod\_results()
-  - plot\_mod\_results()
-  - pred\_improve()
-  - plot\_pred\_improve()
-  - get\_perc()
-  - trim\_df()
+-   mult\_mod\_results()
+-   plot\_mod\_results()
+-   pred\_improve()
+-   plot\_pred\_improve()
+-   get\_perc()
+-   trim\_df()
 
 The future package can be used as per the below example:
 
@@ -57,22 +51,16 @@ pred_improve(...) # This function will now make use of parallel processing
 plan("sequential") # To return to sequential processing if needed
 ```
 
-## Example: Comparing Model Performance
+Example: Comparing Model Performance
+------------------------------------
 
-The two following sections demonstrate how to compute performance
-metrics for caret model objects across resamples for binary
-classification and regression and plotting the results in each case.
+The two following sections demonstrate how to compute performance metrics for caret model objects across resamples for binary classification and regression and plotting the results in each case.
 
 ### Binary Classification
 
-We’ll use the BreastCancer data set from the mlbench library and do some
-minor modifications on it.
+We'll use the BreastCancer data set from the mlbench library and do some minor modifications on it.
 
-The metrics computed for binary classification are: Area under ROC Curve
-(AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve
-(AUPRC), Precision, F1 Score, Accuracy, Cohen’s Kappa, Log Loss,
-Matthews Correlation Coefficient, Concordance, Discordance, Somer’s D,
-KS Statistic, and False Discovery Rate.
+The metrics computed for binary classification are: Area under ROC Curve (AUROC), Sensitivity, Specificity, Area under Precision-Recall Curve (AUPRC), Precision, F1 Score, Accuracy, Cohen's Kappa, Log Loss, Matthews Correlation Coefficient, Concordance, Discordance, Somer's D, KS Statistic, and False Discovery Rate.
 
 ``` r
 library(tidyverse)
@@ -113,8 +101,7 @@ glm_fit_3 <- train(Class ~ Bl.cromatin + Normal.nucleoli + Mitoses, data = dat,
                    trControl = train_ctrl)
 ```
 
-The single\_mod\_results() function works with a single caret model
-object and computes its performance metrics:
+The single\_mod\_results() function works with a single caret model object and computes its performance metrics:
 
 ``` r
 single_mod_results(glm_fit_1, "GLM 1") %>% head()
@@ -133,9 +120,7 @@ single_mod_results(glm_fit_1, "GLM 1") %>% head()
 #> #   Discovery Rate` <dbl>
 ```
 
-The mult\_mod\_results() function works with multiple caret model
-objects and computes their model performance
-metrics:
+The mult\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
 
 ``` r
 mod_results <- mult_mod_results(list(glm_fit_1, glm_fit_2, glm_fit_3), c("GLM 1", "GLM 2", "GLM 3"))
@@ -155,23 +140,17 @@ mod_results %>% head()
 #> #   Discovery Rate` <dbl>
 ```
 
-The plot\_mod\_results() function produces a box plot of the models
-performance
-metrics:
+The plot\_mod\_results() function produces a box plot of the models performance metrics:
 
 ``` r
 plot_mod_results(mod_results, ncol = 3)
 ```
 
 <p align="center">
-
 <img src="man/figures/README-binary_classification_1.svg" width="1000px">
-
 </p>
 
-This function can alternatively take a list of caret model objects and a
-list or vector of model
-names:
+This function can alternatively take a list of caret model objects and a list or vector of model names:
 
 ``` r
 # plot_mod_results(list(glm_fit_1, glm_fit_2, glm_fit_3), c("GLM 1", "GLM 2", "GLM 3"))
@@ -179,13 +158,9 @@ names:
 
 ### Regression
 
-We’ll use the iris data set.
+We'll use the iris data set.
 
-The performance metrics computed for regression are: Root Mean Squared
-Error (RMSE), Mean Absolute Error (MAE), Mean Absolute Percentage Error
-(MAPE), Spearman’s Rho, Concordance Correlation Coefficient, and
-RSquared. Note that MAPE will not be provided if any observations equal
-zero to avoid division by zero.
+The performance metrics computed for regression are: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), Mean Absolute Percentage Error (MAPE), Spearman's Rho, Concordance Correlation Coefficient, and RSquared. Note that MAPE will not be provided if any observations equal zero to avoid division by zero.
 
 ``` r
 set.seed(42)
@@ -210,8 +185,7 @@ lm_fit_3 <- train(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data 
                   trControl = train_ctrl)
 ```
 
-The single\_mod\_results() function works with a single caret model
-object and computes its performance metrics:
+The single\_mod\_results() function works with a single caret model object and computes its performance metrics:
 
 ``` r
 single_mod_results(lm_fit_1, "LM 1") %>% head()
@@ -226,9 +200,7 @@ single_mod_results(lm_fit_1, "LM 1") %>% head()
 #> 6 LM 1  Fold02.… 0.750 0.641  11.5           0.440            0.0676 0.104
 ```
 
-The mult\_mod\_results() function works with multiple caret model
-objects and computes their model performance
-metrics:
+The mult\_mod\_results() function works with multiple caret model objects and computes their model performance metrics:
 
 ``` r
 mod_results <- mult_mod_results(list(lm_fit_1, lm_fit_2, lm_fit_3), c("LM 1", "LM 2", "LM 3"))
@@ -244,31 +216,24 @@ mod_results %>% head()
 #> 6 LM 1  Fold02.… 0.750 0.641  11.5           0.440            0.0676 0.104
 ```
 
-The plot\_mod\_results() function produces a box plot of the models
-performance metrics. A 95% confidence interval for the mean can also be
-added:
+The plot\_mod\_results() function produces a box plot of the models performance metrics. A 95% confidence interval for the mean can also be added:
 
 ``` r
 plot_mod_results(mod_results, conf_int95 = TRUE)
 ```
 
 <p align="center">
-
 <img src="man/figures/README-regression_1.svg" width="1000px">
-
 </p>
 
 ### References
 
-The “InformationValue”, “caret”, and “MLmetrics” packages were used to
-compute many of the performance
-metrics.
+The "InformationValue", "caret", and "MLmetrics" packages were used to compute many of the performance metrics.
 
-## Example: Get the Model Performance Improvement of Each Predictor Relative to the Null Model
+Example: Get the Model Performance Improvement of Each Predictor Relative to the Null Model
+-------------------------------------------------------------------------------------------
 
-We’ll use the BreastCancer data set from the mlbench library that we
-have modified above and add 4 uninformative predictors to it. 2 of those
-uninformative predictors will be numeric and 2 will be categorical.
+We'll use the BreastCancer data set from the mlbench library that we have modified above and add 4 uninformative predictors to it. 2 of those uninformative predictors will be numeric and 2 will be categorical.
 
 ``` r
 dat2 <- dat %>% mutate(Rand_Num_1 = rnorm(n = nrow(dat)),
@@ -281,18 +246,9 @@ dat2 <- dat %>% mutate(Rand_Num_1 = rnorm(n = nrow(dat)),
                                            prob = c(0.1, 0.1, 0.8)))
 ```
 
-The pred\_improve() function returns the performance improvement of each
-predictor relative to the null model. If the outcome is categorical,
-then a logistic regression model is used and the area under the ROC
-curve is used to assess performance. If the outcome is numeric, then an
-ordinary least squares model is used and the root mean squared error
-(RMSE) is used to assess performance.
+The pred\_improve() function returns the performance improvement of each predictor relative to the null model. If the outcome is categorical, then a logistic regression model is used and the area under the ROC curve is used to assess performance. If the outcome is numeric, then an ordinary least squares model is used and the root mean squared error (RMSE) is used to assess performance.
 
-The results are estimated across resamples and the p-value is determined
-using a one-sided paired t-test of the predictor results and the null
-model results in each case. The p-values are adjusted using the
-Benjamini-Hochberg method to control the false discovery
-rate.
+The results are estimated across resamples and the p-value is determined using a one-sided paired t-test of the predictor results and the null model results in each case. The p-values are adjusted using the Benjamini-Hochberg method to control the false discovery rate.
 
 ``` r
 pred_improve(data = dat2, outcome = Class, seed = 42, folds = 10, repeats = 3)
@@ -314,26 +270,22 @@ pred_improve(data = dat2, outcome = Class, seed = 42, folds = 10, repeats = 3)
 #> 13 Rand_Num_2               -0.0405      9.99e- 1
 ```
 
-The plot\_pred\_improve() function can be used to return a plot
-directly:
+The plot\_pred\_improve() function can be used to return a plot directly:
 
 ``` r
 plot_pred_improve(data = dat2, outcome = Class, seed = 42, folds = 10, repeats = 3)
 ```
 
 <p align="center">
-
 <img src="man/figures/README-plot_pred_improve_1.svg" width="1000px">
-
 </p>
 
 ### References
 
-This technique was discussed in the book Feature Engineering and
-Selection: A Practical Approach for Predictive Models by Max Kuhn and
-Kjell Johnson.
+This technique was discussed in the book Feature Engineering and Selection: A Practical Approach for Predictive Models by Max Kuhn and Kjell Johnson.
 
-## Example: Data Trimming
+Example: Data Trimming
+----------------------
 
 Below is a dataframe with numeric columns including univariate outliers:
 
@@ -346,25 +298,19 @@ training <- data_frame(a = c(10, 11, 12, seq(70, 90, 2), 50, 60),
 
 The trim\_df() function will trim univariate outliers as follows:
 
-If type = “iqr”, then for each numeric variable:
+If type = "iqr", then for each numeric variable:
 
-  - Values below the 25th percentile by more than 1.5 x IQR are trimmed
-    to be exactly 1.5 x IQR below the 25th percentile.
+-   Values below the 25th percentile by more than 1.5 x IQR are trimmed to be exactly 1.5 x IQR below the 25th percentile.
 
-  - Values above the 75th percentile by more than 1.5 x IQR are trimmed
-    to be exactly 1.5 x IQR above the 75th percentile.
+-   Values above the 75th percentile by more than 1.5 x IQR are trimmed to be exactly 1.5 x IQR above the 75th percentile.
 
  
 
-If type = “1\_99”, then for each numeric variable:
+If type = "1\_99", then for each numeric variable:
 
-  - Values below the 1st percentile are trimmed to be exactly the value
-    of the 1st percentile.
+-   Values below the 1st percentile are trimmed to be exactly the value of the 1st percentile.
 
-  - Values above the 99th percentile are trimmed to be exactly the value
-    of the 99th percentile.
-
-<!-- end list -->
+-   Values above the 99th percentile are trimmed to be exactly the value of the 99th percentile.
 
 ``` r
 training_trimmed <- trim_df(training, type = "iqr")
@@ -373,22 +319,19 @@ training_trimmed <- trim_df(training, type = "iqr")
 This is our training data before and after trimming:
 
 <p align="center">
-
 <img src="man/figures/README-trimming_1.svg" width="1000px">
-
 </p>
 
-Note that test data can be trimmed using the training data percentile
-values.
+Note that test data can be trimmed using the training data percentile values.
 
-Let’s make some test data:
+Let's make some test data:
 
 ``` r
 test <- data_frame(a = c(0, 11, 12, seq(70, 90, 2), 50, 100),
                    b = c(25, 11, 12, seq(25, 35, 1), 100, 90))
 ```
 
-Let’s get the percentiles of our original data:
+Let's get the percentiles of our original data:
 
 ``` r
 training_percentiles <- get_perc(training)
@@ -404,22 +347,20 @@ training_percentiles
 #> 6 IQR      25    7.5
 ```
 
-Let’s use the percentiles of our training data to trim the test data:
+Let's use the percentiles of our training data to trim the test data:
 
 ``` r
 test_trimmed <- trim_df(test, type = "iqr", training_percentiles)
 ```
 
-Let’s plot the test data before and after trimming using the percentiles
-of the original data:
+Let's plot the test data before and after trimming using the percentiles of the original data:
 
 <p align="center">
-
 <img src="man/figures/README-trimming_2.svg" width="1000px">
-
 </p>
 
-## Example: Get Outcome Levels Proportions for Each Predictor Level.
+Example: Get Outcome Levels Proportions for Each Predictor Level.
+-----------------------------------------------------------------
 
 This is what the diamonds data set looks like:
 
@@ -436,9 +377,7 @@ head(diamonds)
 #> 6 0.24  Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
 ```
 
-Let’s take the “cut” column to be our outcome and the “clarity” column
-to be our predictor. We can get the proportion of each predictor level
-associated with each outcome level.
+Let's take the "cut" column to be our outcome and the "clarity" column to be our predictor. We can get the proportion of each predictor level associated with each outcome level.
 
 ``` r
 get_prop(diamonds, clarity, cut) %>% head()
@@ -453,9 +392,7 @@ get_prop(diamonds, clarity, cut) %>% head()
 #> 6 SI2     Fair        466  9194 0.0507   0.0463    0.0554
 ```
 
-To plot the proportions and their confidence intervals of each predictor
-level having a specific outcome level, we can use the plot\_prop()
-function.
+To plot the proportions and their confidence intervals of each predictor level having a specific outcome level, we can use the plot\_prop() function.
 
 ``` r
 diamonds2 <- diamonds %>%
@@ -467,13 +404,53 @@ plot_prop(diamonds2, clarity, cut, ref_level = ">= Premium", ref_value = 0.5)
 ```
 
 <p align="center">
-
 <img src="man/figures/README-plot_prop_1.svg" width="1000px">
-
 </p>
 
 ### References
 
-This technique was discussed in the book Feature Engineering and
-Selection: A Practical Approach for Predictive Models by Max Kuhn and
-Kjell Johnson.
+This technique was discussed in the book Feature Engineering and Selection: A Practical Approach for Predictive Models by Max Kuhn and Kjell Johnson.
+
+Example: Get Outcome Levels Proportions for Each Combination of Two Predictors' Levels.
+---------------------------------------------------------------------------------------
+
+Let's view a modified version of the Titanic dataset:
+
+``` r
+Titanic2 <- as.data.frame(Titanic)
+Titanic2 <- Titanic2[rep(seq(1:nrow(Titanic2)), Titanic2$Freq), -5]
+
+head(Titanic2)
+#>     Class  Sex   Age Survived
+#> 3     3rd Male Child       No
+#> 3.1   3rd Male Child       No
+#> 3.2   3rd Male Child       No
+#> 3.3   3rd Male Child       No
+#> 3.4   3rd Male Child       No
+#> 3.5   3rd Male Child       No
+```
+
+We can get the proportion of each combination of two predictors' levels having each outcome level.
+
+``` r
+get_prop2(Titanic2, Class, Sex, Survived) %>% head()
+#> # A tibble: 6 x 8
+#>   Class Sex    Survived     n sum_n   prop low_95ci high_95ci
+#>   <fct> <fct>  <fct>    <int> <int>  <dbl>    <dbl>     <dbl>
+#> 1 1st   Male   No         118   180 0.656   0.581      0.724 
+#> 2 1st   Male   Yes         62   180 0.344   0.276      0.419 
+#> 3 1st   Female No           4   145 0.0276  0.00887    0.0735
+#> 4 1st   Female Yes        141   145 0.972   0.926      0.991 
+#> 5 2nd   Male   No         154   179 0.860   0.799      0.906 
+#> 6 2nd   Male   Yes         25   179 0.140   0.0941     0.201
+```
+
+To plot the proportions and their confidence intervals of each combination of two predictors' levels having a specific outcome level, we can use the plot\_prop2() function.
+
+``` r
+plot_prop2(Titanic2, Class, Sex, Survived, ref_level = "Yes", ref_value = 0.323)
+```
+
+<p align="center">
+<img src="man/figures/README-plot_prop2_1.svg" width="1000px">
+</p>

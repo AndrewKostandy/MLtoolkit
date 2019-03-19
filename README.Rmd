@@ -47,6 +47,8 @@ ggplot2::theme_set(ggplot2::theme_light())
 - trim_df(): Trims a dataframe's numeric columns using different methods.
 - get_prop(): Gets the proportion of each predictor level associated with each outcome level.
 - plot_prop(): Plots the proportion of each predictor level having a specific outcome level.
+- get_prop2(): Gets the proportion of each combination of two predictors' levels having each outcome level.
+- plot_prop2(): Plots the proportion of each combination of two predictors' levels having a specific outcome level.
 
 ## Parallelization
 
@@ -386,6 +388,37 @@ invisible(dev.off())
 ### References
 
 This technique was discussed in the book Feature Engineering and Selection: A Practical Approach for Predictive Models by Max Kuhn and Kjell Johnson.
+
+## Example: Get Outcome Levels Proportions for Each Combination of Two Predictors' Levels.
+
+Let's view a modified version of the Titanic dataset:
+
+```{r}
+Titanic2 <- as.data.frame(Titanic)
+Titanic2 <- Titanic2[rep(seq(1:nrow(Titanic2)), Titanic2$Freq), -5]
+
+head(Titanic2)
+```
+
+We can get the proportion of each combination of two predictors' levels having each outcome level.
+
+```{r}
+get_prop2(Titanic2, Class, Sex, Survived) %>% head()
+```
+
+To plot the proportions and their confidence intervals of each combination of two predictors' levels having a specific outcome level, we can use the plot_prop2() function.
+
+```{r, eval=FALSE}
+plot_prop2(Titanic2, Class, Sex, Survived, ref_level = "Yes", ref_value = 0.323)
+```
+
+```{r, echo=FALSE}
+svglite("man/figures/README-plot_prop2_1.svg", height = 6)
+plot_prop2(Titanic2, Class, Sex, Survived, ref_level = "Yes", ref_value = 0.323)
+invisible(dev.off())
+```
+
+<p align="center"><img src="man/figures/README-plot_prop2_1.svg" width="1000px"></p>\newline
 
 ```{r, echo=FALSE}
 future::plan("sequential")

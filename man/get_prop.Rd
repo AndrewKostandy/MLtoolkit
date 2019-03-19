@@ -1,10 +1,10 @@
 \name{get_prop}
 \alias{get_prop}
 \title{
-Get the Proportion of Each Predictor Level Associated with Each Outcome Level
+Get the Proportion of Each Predictor Level Having Each Outcome Level
 }
 \description{
-Get the proportion of each predictor level associated with each outcome level as well as the lower and higher ends of the 95\% confidence interval of the proportion.
+Get the proportion of each predictor level having each outcome level as well as the lower and higher ends of the 95\% confidence interval of the proportion.
 }
 \usage{
 get_prop(data, predictor, outcome)

@@ -53,7 +53,7 @@ Percentiles provided need to be in a dataframe where for each numeric variable i
 6. The sixth row contains the interquartile range values.\cr
 }
 \value{
-Returns a dataframe containing the numeric columns of the passed data with trimmed values.
+Returns a dataframe where the numeric columns have trimmed values. Non-numeric data remains unchanged.
 }
 \section{Figures}{
 \if{html}{\figure{trim_df_1.svg}{options: width=100\%}}

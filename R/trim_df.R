@@ -1,5 +1,8 @@
 trim_df <- function(data, type, perc = NULL) {
+  unused <- dplyr::select_if(data, negate(is.numeric))
+  order <- colnames(data)
   data <- dplyr::select_if(data, is.numeric)
+
 
   if (is.null(perc)) {
     perc <- get_perc(data = data)
@@ -27,5 +30,8 @@ trim_df <- function(data, type, perc = NULL) {
   } else {
     stop("The type argument must be either \"iqr\" or \"1_99\".")
   }
+
+  data <- bind_cols(data, unused) %>% select(order)
+
   return(data)
 }

@@ -20,7 +20,7 @@ Currently Implemented Functions:
 
 -   single\_mod\_results(): Computes performance metrics of a single caret model object across resamples.
 -   mult\_mod\_results(): Computes performance metrics of multiple caret model objects across resamples.
--   plot\_mod\_results(): Creates a box plot with the performance metrics of multiple caret model objects across resamples.
+-   plot\_mod\_results(): Plots a box plot with the performance metrics of multiple caret model objects across resamples.
 -   pred\_improve(): Gets the model performance improvement of each predictor relative to the null model.
 -   plot\_pred\_improve(): Plots the model performance improvement of each predictor relative to the null model.
 -   get\_perc(): Gets the percentiles & the interquartile range of a dataframe's numeric columns.

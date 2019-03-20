@@ -40,7 +40,7 @@ ggplot2::theme_set(ggplot2::theme_light())
 
 - single_mod_results(): Computes performance metrics of a single caret model object across resamples.
 - mult_mod_results(): Computes performance metrics of multiple caret model objects across resamples.
-- plot_mod_results(): Creates a box plot with the performance metrics of multiple caret model objects across resamples.
+- plot_mod_results(): Plots a box plot with the performance metrics of multiple caret model objects across resamples.
 - pred_improve(): Gets the model performance improvement of each predictor relative to the null model.
 - plot_pred_improve(): Plots the model performance improvement of each predictor relative to the null model.
 - get_perc(): Gets the percentiles & the interquartile range of a dataframe's numeric columns.

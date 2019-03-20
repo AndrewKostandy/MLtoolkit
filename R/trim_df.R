@@ -31,7 +31,7 @@ trim_df <- function(data, type, perc = NULL) {
     stop("The type argument must be either \"iqr\" or \"1_99\".")
   }
 
-  data <- bind_cols(data, unused) %>% select(order)
+  data <- dplyr::bind_cols(data, unused) %>% dplyr::select(order)
 
   return(data)
 }

@@ -1,5 +1,5 @@
 trim_df <- function(data, type, perc = NULL) {
-  unused <- dplyr::select_if(data, negate(is.numeric))
+  unused <- dplyr::select_if(data, purrr:negate(is.numeric))
   order <- colnames(data)
   data <- dplyr::select_if(data, is.numeric)
 

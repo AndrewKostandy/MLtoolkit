@@ -18,8 +18,8 @@ plot_prop2 <- function(data, predictor1, predictor2, outcome, ref_level, ref_val
 
   if (isTRUE(add_n)){
     results <- results %>%
-      mutate(sum_n = str_c("(n=",sum_n),
-             sum_n = str_c(sum_n, ")"))
+      dplyr::mutate(sum_n = stringr::str_c("(n=",sum_n),
+                    sum_n = stringr::str_c(sum_n, ")"))
   }
 
   g <- ggplot2::ggplot(results, aes(!!predictor1, prop, ymin = low_95ci, ymax = high_95ci,

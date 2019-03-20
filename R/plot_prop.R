@@ -17,9 +17,9 @@ plot_prop <- function(data, predictor, outcome, ref_level, ref_value = 0.5,
 
   if (isTRUE(add_n)){
   results <- results %>%
-    mutate(sum_n = str_c("(n=",sum_n),
-           sum_n = str_c(sum_n, ")")) %>%
-    unite(!!predictor, !!predictor, sum_n, sep = "\n", remove = FALSE)
+    dplyr::mutate(sum_n = stringr::str_c("(n=",sum_n),
+                  sum_n = stringr::str_c(sum_n, ")")) %>%
+    tidyr::unite(!!predictor, !!predictor, sum_n, sep = "\n", remove = FALSE)
   }
 
   ggplot2::ggplot(results, aes(!!predictor, prop, ymin = low_95ci, ymax = high_95ci)) +

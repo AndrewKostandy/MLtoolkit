@@ -13,7 +13,7 @@ get_prop2 <- function(data, predictor1, predictor2, outcome){
   if (!is.factor(dplyr::pull(data, !!predictor2)))
     data <- dplyr::mutate(data, !!predictor2 := factor(!!predictor2))
 
-  if (anyNA(dplyr::pull(data, !!predictor1)))
+  if (anyNA(dplyr::pull(data, !!predictor2)))
     data <- dplyr::mutate(data, !!predictor2 := forcats::fct_explicit_na(!!predictor2, na_level = "NA"))
 
   if (!is.factor(dplyr::pull(data, !!outcome)))
